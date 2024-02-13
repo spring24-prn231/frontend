@@ -1,0 +1,32 @@
+.navbar-container {
+    height: 60px;
+    background-color: #0865fe;
+    display: flex;
+    position: fixed;
+    font-size: 14px;
+    color: white;
+    width: 100%;
+    z-index: 999;
+}
+
+.navbar-logo {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 200px;
+    flex: 3;
+    cursor: pointer;
+}
+
+.navbar-logo-title {
+}
+
+.navbar-center {
+    flex: 11;
+}
+
+.navbar-helper {
+    flex: 3;
+    display: flex;
+    align-items: center;
+}

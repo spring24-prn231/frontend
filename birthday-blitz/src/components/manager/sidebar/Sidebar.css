@@ -1,0 +1,112 @@
+.sidebar-container {
+    box-shadow: 2px 0 5px -2px black;
+    background-color: white;
+    position: fixed;
+    overflow-y: scroll;
+    transition: width 1s ;
+    height: 92vh;
+    width: 250px;
+    z-index: 99;
+}
+
+.sidebar-container::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar-container .sidebar-top {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-container .sidebar-top .sidebar-logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+}
+
+.sidebar-container hr {
+    height: 0;
+    border: 0.5px solid #2e2828;
+}
+
+.sidebar-container .sidebar-center {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    height: 80vh;
+}
+
+.sidebar-container .sidebar-center ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-container .sidebar-center ul .sidebar-title {
+    font-size: 10px;
+    font-weight: bold;
+    color: white;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.sidebar-container .sidebar-center ul li {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    border-radius: 5px;
+    width: 230px;
+    border: solid 0.2px white;
+}
+
+.sidebar-container .sidebar-center ul li:hover {
+    background-color: #f4f7fc;
+}
+
+.sidebar-container .sidebar-center ul li .sidebar-icon {
+    font-size: 30px;
+    color: rgb(105, 104, 104);
+}
+
+.sidebar-container .sidebar-center ul li span {
+    font-size: 17px;
+    font-weight: 600;
+    color: rgb(105, 104, 104);
+    margin-left: 10px;
+}
+
+.sidebar-container .sidebar-bottom {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.sidebar-container .sidebar-bottom .sidebar-colorOption {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 1px solid #7451f8;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.sidebar-container .sidebar-bottom .sidebar-colorOption:nth-child(1) {
+    background-color: whitesmoke;
+}
+
+.sidebar-container .sidebar-bottom .sidebar-colorOption:nth-child(2) {
+    background-color: #333;
+}
+
+.sidebar-container .sidebar-bottom .sidebar-colorOption:nth-child(3) {
+    background-color: darkblue;
+}
+
+.sidebar-item-active {
+    background-color: #dce9ff !important;
+}
