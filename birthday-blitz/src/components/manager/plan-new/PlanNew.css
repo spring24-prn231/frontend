@@ -1,0 +1,63 @@
+.plan-add-new-top-container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    border-bottom: 0.2px solid rgb(226, 213, 213);
+}
+
+.plan-add-new-back {
+    flex: 1;
+}
+
+.plan-add-new-next-button {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: #0865fe;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.plan-add-new-next-button:hover {
+    background-color: #075ae0;
+}
+
+.plan-add-new-bottom {
+    padding: 30px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.plan-add-new-label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 50px;
+}
+
+.plan-add-new-select-container {
+    padding: 10px;
+    border: 2px solid #a7c2ee;
+    border-radius: 15px;
+}
+
+.plan-add-new-select-container:focus-within {
+    border: 2px solid #0865fe;
+}
+
+.plan-add-new-select {
+    width: 300px;
+    border: none;
+    font-size: 16px;
+}
+
+.plan-add-new-select:focus {
+    outline: none;
+}

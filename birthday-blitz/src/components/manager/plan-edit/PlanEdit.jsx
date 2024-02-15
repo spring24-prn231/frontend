@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DoneIcon from '@mui/icons-material/Done';
 import EditIcon from '@mui/icons-material/Edit';
-import ReplyIcon from '@mui/icons-material/Reply';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import './PlanEdit.css';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
@@ -30,9 +29,22 @@ const PlanEdit = () => {
                 res = {
                     "Id": planId,
                     "EventName": "",
-                    "PlanName": "",
+                    "PlanName": `#Kế hoạch ${planId} cho sự kiện`,
                     "Host": "",
-                    "Plan": []
+                    "Plan": [
+                        {
+                            "Time": '',
+                            "Content": '',
+                        },
+                        {
+                            "Time": '',
+                            "Content": '',
+                        },
+                        {
+                            "Time": '',
+                            "Content": '',
+                        }
+                    ]
                 };
             }
             setData(JSON.parse(JSON.stringify(res)));
@@ -82,8 +94,8 @@ const PlanEdit = () => {
                                 <div className="plan-event-name-container">
                                     <div className="plan-event-name">
                                         <input spellCheck={false} className='plan-event-name-input'
-                                            value={data.EventName}
-                                            onChange={(e) => setData({ ...data, EventName: e.target.value })}
+                                            value={data.PlanName}
+                                            onChange={(e) => setData({ ...data, PlanName: e.target.value })}
                                         />
                                         <EditIcon />
                                     </div>

@@ -4,13 +4,13 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import './Plan.css';
+import './User.css';
 import { Link } from 'react-router-dom';
-import { deletePlan, getAllPlan } from '../../../apis/planService';
 import Loading from '../../common/loading/Loading';
 import PopupConfirm from '../../common/popup-confirm/PopupConfirm';
+import { deleteUser, getAllUser } from '../../../apis/userService';
 
-const Plan = () => {
+const User = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isDisplayConfirm, setIsDisplayConfirm] = useState(false);
@@ -21,7 +21,7 @@ const Plan = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllPlan(true);
+            const res = await getAllUser(true);
             return res;
         };
 
@@ -31,7 +31,7 @@ const Plan = () => {
         })
 
         window.addEventListener('click', function (e) {
-            var element = this.document.getElementsByClassName('plan-popup')[0];
+            var element = this.document.getElementsByClassName('user-popup')[0];
             if (element !== undefined) {
                 if (!element.contains(e.target)) {
                     element.style.display = 'none';
@@ -63,10 +63,10 @@ const Plan = () => {
         event.stopPropagation();
         var element = event.target;
         var rect = element.getBoundingClientRect();
-        let planPopup = document.getElementsByClassName('plan-popup');
-        planPopup[0].style.display = "block";
-        planPopup[0].style.top = `${rect.top - 45}px`;
-        planPopup[0].style.left = `${rect.left - 140}px`;
+        let userPopup = document.getElementsByClassName('user-popup');
+        userPopup[0].style.display = "block";
+        userPopup[0].style.top = `${rect.top - 45}px`;
+        userPopup[0].style.left = `${rect.left - 140}px`;
         setSelectedEditRow(id);
     }
 
@@ -77,37 +77,37 @@ const Plan = () => {
     const deleteSelectedRows = async () => {
         setData(data.filter(x => !selectedRows.includes(x.Id)));
         setSelectedRows([]);
-        await deletePlan('123', true);
+        await deleteUser('123', true);
         setIsDisplayConfirm(false);
     }
 
     return (
-        <div className='plan-center-container'>
+        <div className='user-center-container'>
             <PopupConfirm isDisplay={isDisplayConfirm}
                 confirmContent="Do you want to delete selected items?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
-            <div className='plan-popup'>
+            <div className='user-popup'>
                 <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className="plan-popup-option">
+                    <div className="user-popup-option">
                         <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
                         <span>Edit</span>
                     </div>
                 </Link>
             </div>
 
-            <div className='plan-center-top'>
-                <div className="plan-search-bar-container">
-                    <Link to="new" style={{ textDecoration: 'none', color: 'black' }}>
-                        <div className='plan-add-new'>
+            <div className='user-center-top'>
+                <div className="user-search-bar-container">
+                    <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
+                        <div className='user-add-new'>
                             <AddIcon />
                             <span>Add new</span>
                         </div>
                     </Link>
-                    <div className="plan-search-bar">
+                    <div className="user-search-bar">
                         <SearchIcon htmlColor='grey' />
-                        <input className='plan-search-bar-input'
+                        <input className='user-search-bar-input'
                             placeholder='Search by name'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
@@ -116,7 +116,7 @@ const Plan = () => {
                 </div>
                 {
                     selectedRows.length > 0 ?
-                        <div className='plan-delete'
+                        <div className='user-delete'
                             onClick={confirmDelete}
                         >
                             <DeleteIcon htmlColor='white' />
@@ -124,22 +124,20 @@ const Plan = () => {
                         </div> : ""
                 }
             </div>
-            <div className="plan-center-bottom">
-                <table className='plan-center-table'>
+            <div className="user-center-bottom">
+                <table className='user-center-table'>
                     <thead>
-                        <tr className='plan-table-header'>
+                        <tr className='user-table-header'>
                             <th style={{ width: "60px" }}>
-                                <input className='plan-table-checkbox' type='checkbox'
+                                <input className='user-table-checkbox' type='checkbox'
                                     checked={selectedRows.length !== 0 && selectedRows.length >= data.length}
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th>Id</th>
-                            <th>Event name</th>
-                            <th>Plan name</th>
-                            <th>Created at</th>
-                            <th>Modified at</th>
-                            <th>Host</th>
+                            <th>Full name</th>
+                            <th>Phone</th>
+                            <th>Birthday</th>
+                            <th>Email</th>
                             <th style={{ width: "20px" }}></th>
                         </tr>
                     </thead>
@@ -147,20 +145,18 @@ const Plan = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.EventName.includes(searchValue) ? '' :
-                                        <tr key={index} className={`plan-table-row ${selectedRows.includes(item.Id) ? 'plan-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !item.FullName.includes(searchValue) ? '' :
+                                        <tr key={index} className={`user-table-row ${selectedRows.includes(item.Id) ? 'user-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
                                             <td>
-                                                <input type='checkbox' className='plan-table-checkbox'
+                                                <input type='checkbox' className='user-table-checkbox'
                                                     onChange={() => { }}
                                                     checked={selectedRows.find(x => x === item.Id) !== undefined}
                                                 />
                                             </td>
-                                            <td>{item.Id}</td>
-                                            <td>{item.EventName}</td>
-                                            <td>{item.PlanName}</td>
-                                            <td>{item.CreatedAt}</td>
-                                            <td>{item.ModifiedAt}</td>
-                                            <td>{item.Host}</td>
+                                            <td>{item.FullName}</td>
+                                            <td>{item.PhoneNumber}</td>
+                                            <td>{item.Birthday}</td>
+                                            <td>{item.Email}</td>
                                             <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
                                         </tr>
                                 )
@@ -175,4 +171,4 @@ const Plan = () => {
     )
 }
 
-export default Plan
+export default User;
