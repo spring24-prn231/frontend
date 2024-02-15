@@ -31,14 +31,16 @@
     height: 200px;
     width: 300px;
     box-shadow: 2px 5px 3px 1px rgb(77, 73, 73);
+    border-radius: 10px;
 }
 
 .popup-confirm-content-wrapper {
-    height: 80%;
+    height: 70%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 15px 25px;
 }
 
 .popup-confirm-buttons {

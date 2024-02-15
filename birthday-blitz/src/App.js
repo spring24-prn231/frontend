@@ -6,6 +6,9 @@ import Manager from './pages/manager/Manager';
 import Dashboard from "./components/manager/dashboard/Dashboard";
 import Plan from "./components/manager/plan/Plan";
 import PlanEdit from "./components/manager/plan-edit/PlanEdit";
+import User from "./components/manager/user/User";
+import UserEdit from "./components/manager/user-edit/UserEdit";
+import PlanNew from "./components/manager/plan-new/PlanNew";
 
 function App() {
     return (
@@ -19,7 +22,10 @@ function App() {
                     <Route path='' element={<Dashboard />} />
                     <Route path='dashboard' element={<Dashboard />} />
                     <Route path='plan' element={<Plan />} />
+                    <Route path='plan/new' element={<PlanNew/>} />
                     <Route path="plan/:planId" element={<PlanEdit />} />
+                    <Route path="user" element={<User />} />
+                    <Route path="user/:userId" element={<UserEdit />} />
                 </Route>
             </Routes>
         </Router>

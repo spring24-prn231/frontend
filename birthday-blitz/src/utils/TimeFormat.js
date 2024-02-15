@@ -24,4 +24,26 @@ const formatDatetimeLocal = (dateString) => {
     return `${day}/${month}/${year} ${hours}:${minutes}`;
 }
 
-export {formatDateTimeString, formatDatetimeLocal};
+const converDateTime = (dateString) => {
+    function pad(num, size) {
+        num = num.toString();
+        while (num.length < size) num = "0" + num;
+        return num;
+    }
+
+    function parseDateTimeString(dateTimeString) {
+        const parts = dateTimeString.split(/[\/ :]/); // Split by '/', ':', or space
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10);
+        const year = parseInt(parts[2], 10);
+        return `${pad(year, 4)}-${pad(month, 2)}-${pad(day, 2)}`;
+    }
+    return parseDateTimeString(dateString);
+}
+
+const converFormat = (dateString) => {
+    let [year, month, day] = dateString.split('-');
+    return `${day}/${month}/${year}`;
+}
+
+export {formatDateTimeString, formatDatetimeLocal, converDateTime, converFormat};
