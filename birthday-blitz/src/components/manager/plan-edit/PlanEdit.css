@@ -50,10 +50,28 @@
     color: white;
     box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
     cursor: pointer;
+    margin-right: 5px;
 }
 
 .plan-save-button:hover {
     background-color: #075ae0;
+}
+
+.plan-discard-button {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: red;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+}
+
+.plan-discard-button:hover {
+    background-color: rgb(206, 2, 2);
 }
 
 

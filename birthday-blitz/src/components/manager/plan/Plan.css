@@ -1,15 +1,14 @@
-.plan-center-container {
-
-}
+.plan-center-container {}
 
 .plan-center-top {
-    height: 60px;
+    height: 80px;
+    padding-bottom: 30px;
     display: flex;
     align-items: center;
+    border-bottom: 0.1px solid rgb(231, 224, 224);
 }
 
 .plan-center-bottom {
-    margin-top: 10px;
     height: 500px;
     overflow-y: scroll;
 }
@@ -38,7 +37,7 @@
 
 .plan-search-bar {
     border: solid 0.1px rgb(179, 174, 174);
-    width: 250px;
+    width: 300px;
     display: flex;
     padding: 0px 17px;
     border-radius: 25px;
@@ -83,7 +82,7 @@
     border-collapse: collapse;
     border-radius: 20px;
     text-align: left;
-    font-size: 18px;
+    font-size: 17px;
 }
 
 .plan-table-header {
@@ -101,7 +100,7 @@
 }
 
 .plan-table-row td {
-    padding: 13px 10px;
+    padding: 12px 10px;
 }
 
 .plan-table-row:hover {
@@ -157,4 +156,8 @@
 
 .plan-popup-option:hover {
     border-bottom: 0.1px solid rgb(224, 209, 209);
+}
+
+.plan-table-row-active {
+    background-color: #dce4f5 !important;
 }

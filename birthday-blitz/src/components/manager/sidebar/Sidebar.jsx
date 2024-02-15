@@ -10,14 +10,14 @@ const Sidebar = () => {
     // const { dispatch } = useContext(DarkModeContext);
 
     const { hash, pathname, search } = useLocation();
-
-    
     return (
         <div className="sidebar-container">
             <div className="sidebar-center">
                 <ul>
                     <Link to={'dashboard'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('dashboard')?'sidebar-item-active': ''}`}>
+                        <li className={`sidebar-item ${pathname.includes('dashboard')
+                            || pathname.split('/').length === 2
+                            ?'sidebar-item-active': ''}`}>
                             <DashboardIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Dashboard</span>
                         </li>
