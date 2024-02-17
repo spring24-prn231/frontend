@@ -7,6 +7,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import DiscountIcon from '@mui/icons-material/Discount';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import FeedbackIcon from '@mui/icons-material/Feedback';
 import ListIcon from '@mui/icons-material/List';
 const Sidebar = () => {
     // const { dispatch } = useContext(DarkModeContext);
@@ -40,6 +41,12 @@ const Sidebar = () => {
                         <li className={`sidebar-item ${pathname.includes('voucher')?'sidebar-item-active': ''}`}>
                             <DiscountIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Voucher</span>
+                        </li>
+                    </Link>
+                    <Link to={'feedback'} style={{ textDecoration: 'none', color: 'black' }}>
+                        <li className={`sidebar-item ${pathname.includes('feedback')?'sidebar-item-active': ''}`}>
+                            <FeedbackIcon className="sidebar-icon" />
+                            <span className="sidebar-item-name">Feedback</span>
                         </li>
                     </Link>
                     <Link to={'service'} style={{ textDecoration: 'none', color: 'black' }}>
