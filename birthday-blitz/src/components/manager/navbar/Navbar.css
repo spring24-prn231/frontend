@@ -32,3 +32,24 @@
     display: flex;
     align-items: center;
 }
+
+.navbar-popup {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 1px 1px 1px 1px grey;
+    width: 130px;
+    padding: 10px;
+}
+
+.navbar-popup-option {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.navbar-popup-option:hover {
+    border-bottom: 0.1px solid rgb(224, 209, 209);
+}

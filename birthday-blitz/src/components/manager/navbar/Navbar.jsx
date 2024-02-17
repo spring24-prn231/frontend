@@ -1,12 +1,24 @@
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import React, { useState } from 'react';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import React, { useEffect, useState } from 'react';
 import './Navbar.css';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-
     const [isCollapse, setIsCollapse] = useState(false);
+
+    useEffect(() => {
+        window.addEventListener('click', function (e) {
+            var element = this.document.getElementsByClassName('navbar-popup')[0];
+            if (element !== undefined) {
+                if (!element.contains(e.target)) {
+                    element.style.display = 'none';
+                }
+            }
+        });
+    }, []);
 
     const sidebarCollapse = () => {
         if (isCollapse == false) {
@@ -48,8 +60,28 @@ const Navbar = () => {
         setIsCollapse(!isCollapse);
     }
 
+    const onPressUserIcon = (e) => {
+        e.stopPropagation();
+        var element = e.target;
+        var rect = element.getBoundingClientRect();
+        let navbarPopup = document.getElementsByClassName('navbar-popup')[0];
+        navbarPopup.style.display = "block";
+        navbarPopup.style.top = `${rect.top + 30}px`;
+        navbarPopup.style.left = `${rect.left - 130}px`;
+    }
+
     return (
         <div className='navbar-container'>
+
+            <div className='navbar-popup'>
+                <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
+                    <div className="navbar-popup-option">
+                        <ExitToAppIcon fontSize='small' style={{ marginRight: "10px" }} />
+                        <span>Logout</span>
+                    </div>
+                </Link>
+            </div>
+
             <div className='navbar-logo'>
                 <TableRowsIcon style={{ marginRight: "20px", cursor: "pointer" }} fontSize='large' onClick={sidebarCollapse} />
                 <h1 className='navbar-logo-title'>
@@ -60,8 +92,8 @@ const Navbar = () => {
 
             </div>
             <div className='navbar-helper'>
-                <NotificationsIcon style={{ flex: 3 }} fontSize='medium' />
-                <AccountCircleIcon style={{ flex: 1 }} fontSize='large' />
+                <NotificationsIcon style={{ flex: 3, cursor: 'pointer' }} fontSize='medium' />
+                <AccountCircleIcon style={{ flex: 1, cursor: 'pointer' }} fontSize='large' onClick={onPressUserIcon} />
             </div>
         </div>
     )

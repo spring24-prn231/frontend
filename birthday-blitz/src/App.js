@@ -9,6 +9,9 @@ import PlanEdit from "./components/manager/plan-edit/PlanEdit";
 import User from "./components/manager/user/User";
 import UserEdit from "./components/manager/user-edit/UserEdit";
 import PlanNew from "./components/manager/plan-new/PlanNew";
+import Serivce from "./components/manager/service/Serivce";
+import Voucher from "./components/manager/voucher/Voucher";
+import VoucherEdit from "./components/manager/voucher-edit/VoucherEdit";
 
 function App() {
     return (
@@ -26,6 +29,9 @@ function App() {
                     <Route path="plan/:planId" element={<PlanEdit />} />
                     <Route path="user" element={<User />} />
                     <Route path="user/:userId" element={<UserEdit />} />
+                    <Route path="service" element={<Serivce/>} />
+                    <Route path="voucher" element={<Voucher/>} />
+                    <Route path="voucher/:voucherId" element={<VoucherEdit/>} />
                 </Route>
             </Routes>
         </Router>
