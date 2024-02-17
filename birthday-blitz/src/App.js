@@ -12,6 +12,8 @@ import PlanNew from "./components/manager/plan-new/PlanNew";
 import Serivce from "./components/manager/service/Serivce";
 import Voucher from "./components/manager/voucher/Voucher";
 import VoucherEdit from "./components/manager/voucher-edit/VoucherEdit";
+import Feedback from "./components/manager/feedback/Feedback";
+import FeedbackEdit from "./components/manager/feedback-edit/FeedbackEdit";
 
 function App() {
     return (
@@ -32,6 +34,8 @@ function App() {
                     <Route path="service" element={<Serivce/>} />
                     <Route path="voucher" element={<Voucher/>} />
                     <Route path="voucher/:voucherId" element={<VoucherEdit/>} />
+                    <Route path="feedback" element={<Feedback/>} />
+                    <Route path="feedback/:feedbackId" element={<FeedbackEdit/>} />
                 </Route>
             </Routes>
         </Router>
