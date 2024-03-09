@@ -55,13 +55,13 @@ const VoucherEdit = () => {
 
                                 <div className='voucher-save-button'>
                                     <DoneIcon style={{ marginRight: '4px' }} fontSize='small' />
-                                    <span>Save</span>
+                                    <span>Lưu</span>
                                 </div>
                                 {
                                     JSON.stringify(data) === JSON.stringify(oldData) ? '' :
                                         <div className='voucher-discard-button' onClick={() => setData(JSON.parse(JSON.stringify(oldData)))}>
                                             <CloseIcon style={{ marginRight: '4px' }} fontSize='small' />
-                                            <span>Discard</span>
+                                            <span>Loại bỏ</span>
                                         </div>
                                 }
                             </div>
@@ -75,7 +75,7 @@ const VoucherEdit = () => {
                                             <span><KeyboardArrowDownIcon fontSize='small' /></span>
                                         </div>
                                         <span className='voucher-edit-row-label'>
-                                            Code: 
+                                            Mã: 
                                         </span>
                                         <div className="voucher-edit-row-content">
                                             <input type="text" spellCheck={false}
@@ -94,7 +94,7 @@ const VoucherEdit = () => {
                                             <span><KeyboardArrowDownIcon fontSize='small' /></span>
                                         </div>
                                         <span className='voucher-edit-row-label'>
-                                            Discount:
+                                            Giảm giá:
                                         </span>
                                         <div className="voucher-edit-row-content">
                                             <input type="text" spellCheck={false}
@@ -113,7 +113,7 @@ const VoucherEdit = () => {
                                             <span><KeyboardArrowDownIcon fontSize='small' /></span>
                                         </div>
                                         <span className='voucher-edit-row-label'>
-                                            Expiration date:
+                                            Ngày hết hạn:
                                         </span>
                                         <div className="voucher-edit-row-content">
                                             <input type="date" spellCheck={false}
@@ -132,7 +132,7 @@ const VoucherEdit = () => {
                                             <span><KeyboardArrowDownIcon fontSize='small' /></span>
                                         </div>
                                         <span className='voucher-edit-row-label'>
-                                            Maximum value:
+                                            Giá trị lớn nhất:
                                         </span>
                                         <div className="voucher-edit-row-content">
                                             <input type="number" spellCheck={false}

@@ -84,7 +84,7 @@ const User = () => {
     return (
         <div className='user-center-container'>
             <PopupConfirm isDisplay={isDisplayConfirm}
-                confirmContent="Do you want to delete selected items?"
+                confirmContent="Bạn có muốn xoá các khách hàng đã chọn?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
@@ -92,7 +92,7 @@ const User = () => {
                 <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
                     <div className="user-popup-option">
                         <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
-                        <span>Edit</span>
+                        <span>Chỉnh sửa</span>
                     </div>
                 </Link>
             </div>
@@ -102,13 +102,13 @@ const User = () => {
                     <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
                         <div className='user-add-new'>
                             <AddIcon />
-                            <span>Add new</span>
+                            <span>Thêm mới</span>
                         </div>
                     </Link>
                     <div className="user-search-bar">
                         <SearchIcon htmlColor='grey' />
                         <input className='user-search-bar-input'
-                            placeholder='Search by name'
+                            placeholder='Tìm kiếm theo họ và tên'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -134,9 +134,9 @@ const User = () => {
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th>Full name</th>
-                            <th>Phone</th>
-                            <th>Birthday</th>
+                            <th>Họ và tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Ngày sinh</th>
                             <th>Email</th>
                             <th style={{ width: "20px" }}></th>
                         </tr>

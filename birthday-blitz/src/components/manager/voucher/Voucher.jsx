@@ -84,7 +84,7 @@ const Voucher = () => {
     return (
         <div className='voucher-center-container'>
             <PopupConfirm isDisplay={isDisplayConfirm}
-                confirmContent="Do you want to delete selected items?"
+                confirmContent="Bạn có muốn xoá những mã đã chọn?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
@@ -92,7 +92,7 @@ const Voucher = () => {
                 <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
                     <div className="voucher-popup-option">
                         <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
-                        <span>Edit</span>
+                        <span>Chỉnh sửa</span>
                     </div>
                 </Link>
             </div>
@@ -102,13 +102,13 @@ const Voucher = () => {
                     <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
                         <div className='voucher-add-new'>
                             <AddIcon />
-                            <span>Add new</span>
+                            <span>Thêm mới</span>
                         </div>
                     </Link>
                     <div className="voucher-search-bar">
                         <SearchIcon htmlColor='grey' />
                         <input className='voucher-search-bar-input'
-                            placeholder='Search by name'
+                            placeholder='Tìm kiếm theo mã'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -134,10 +134,10 @@ const Voucher = () => {
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th>Code</th>
-                            <th>Discount</th>
-                            <th>Maximum value</th>
-                            <th>Expiration date</th>
+                            <th>Mã</th>
+                            <th>Giảm giá</th>
+                            <th>Giá trị lớn nhất</th>
+                            <th>Ngày hết hạn</th>
                             <th style={{ width: "20px" }}></th>
                         </tr>
                     </thead>
