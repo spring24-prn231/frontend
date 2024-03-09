@@ -39,7 +39,7 @@ const NavbarCustomer = () => {
                         <Link id="main" to="index.html" className="nav-item nav-link">Trang chủ</Link>
                         <Link id="aboutus" to="/manager/feedback" className="nav-item nav-link">Về chúng tôi</Link>
                         <Link id="service" to="service.html" className="nav-item nav-link">Dịch vụ</Link>
-                        <Link id="cook-table" to="product.html" className="nav-item nav-link">Thực hiện</Link>
+                        <Link id="cook-table" to="product.html" className="nav-item nav-link">Thực đơn</Link>
                         {/* <div className="nav-item dropdown">
                         <Link to="https://mail.google.com/mail/u/0/" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</Link>
                         <div className="dropdown-menu m-0">
