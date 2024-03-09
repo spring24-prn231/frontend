@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages/home/Home';
 // import Navbar from './pages/navbar-customer/NavbarCustomer';
-
+import AboutUs from "./pages/about-us-customer/AboutUsCustomer";
 import LandingPage from './pages/landing-page/LandingPage';
 import Customer from './pages/customer-page/CustomerPage';
 import Login from './pages/login/Login';
@@ -33,6 +33,7 @@ function App() {
                 <Route path='/landing-page' element={<LandingPage />}/> */}
                 <Route path='/customer' element={<Customer />}>
                     <Route path='' element={<LandingPage />} />
+                    <Route path='aboutus' element={<AboutUs />} />
                 </Route> 
                 <Route path='/manager' element={<Manager />}>
                     <Route path='' element={<Dashboard />} />
