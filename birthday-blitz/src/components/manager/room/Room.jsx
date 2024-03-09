@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import './Feedback.css';
+import './Room.css';
 import { Link } from 'react-router-dom';
+import SettingsIcon from '@mui/icons-material/Settings';
 import Loading from '../../common/loading/Loading';
 import PopupConfirm from '../../common/popup-confirm/PopupConfirm';
-import { deleteFeedback, getAllFeedback } from '../../../apis/feedbackService';
+import { deleteRoom, getAllRoom } from '../../../apis/roomService';
 
-const Feedback = () => {
+const Room = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isDisplayConfirm, setIsDisplayConfirm] = useState(false);
@@ -22,7 +22,7 @@ const Feedback = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllFeedback(true);
+            const res = await getAllRoom(true);
             return res;
         };
 
@@ -32,11 +32,17 @@ const Feedback = () => {
         })
 
         window.addEventListener('click', function (e) {
-            var element = this.document.getElementsByClassName('feedback-popup')[0];
+            var element = this.document.getElementsByClassName('room-popup')[0];
             if (element !== undefined) {
                 if (!element.contains(e.target)) {
                     element.style.display = 'none';
                     setSelectedEditRow('');
+                }
+            }
+            var element1 = this.document.getElementsByClassName('room-setting-popup')[0];
+            if (element1 !== undefined) {
+                if (!element1.contains(e.target)) {
+                    element1.style.display = 'none';
                 }
             }
         });
@@ -64,11 +70,21 @@ const Feedback = () => {
         event.stopPropagation();
         var element = event.target;
         var rect = element.getBoundingClientRect();
-        let FeedbackPopup = document.getElementsByClassName('feedback-popup');
-        FeedbackPopup[0].style.display = "block";
-        FeedbackPopup[0].style.top = `${rect.top - 45}px`;
-        FeedbackPopup[0].style.left = `${rect.left - 140}px`;
+        let RoomPopup = document.getElementsByClassName('room-popup');
+        RoomPopup[0].style.display = "block";
+        RoomPopup[0].style.top = `${rect.top - 45}px`;
+        RoomPopup[0].style.left = `${rect.left - 140}px`;
         setSelectedEditRow(id);
+    }
+
+    const chooseSetting = (event, id) => {
+        event.stopPropagation();
+        var element = event.target;
+        var rect = element.getBoundingClientRect();
+        let SettingPopup = document.getElementsByClassName('room-setting-popup');
+        SettingPopup[0].style.display = "block";
+        SettingPopup[0].style.top = `${rect.top - 30}px`;
+        SettingPopup[0].style.left = `${rect.left - 160}px`;
     }
 
     const confirmDelete = () => {
@@ -78,38 +94,47 @@ const Feedback = () => {
     const deleteSelectedRows = async () => {
         setData(data.filter(x => !selectedRows.includes(x.Id)));
         setSelectedRows([]);
-        await deleteFeedback('123', true);
+        await deleteRoom('123', true);
         setIsDisplayConfirm(false);
     }
 
     return (
-        <div className='feedback-center-container'>
+        <div className='room-center-container'>
             <PopupConfirm isDisplay={isDisplayConfirm}
-                confirmContent="Bạn có muốn xoá các phản hồi đã chọn?"
+                confirmContent="Bạn có muốn xoá các phòng đã chọn không?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
-            <div className='feedback-popup'>
+            <div className='room-setting-popup'>
+                <Link to="/manager/room-type" style={{ textDecoration: 'none', color: 'black' }}>
+                    <div className="room-setting-popup-option">
+                        <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
+                        <span>Loại phòng</span>
+                    </div>
+                </Link>
+            </div>
+
+            <div className='room-popup'>
                 <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className="feedback-popup-option">
+                    <div className="room-popup-option">
                         <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
                         <span>Chỉnh sửa</span>
                     </div>
                 </Link>
             </div>
 
-            <div className='feedback-center-top'>
-                <div className="feedback-search-bar-container">
+            <div className='room-center-top'>
+                <div className="room-search-bar-container">
                     <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
-                        <div className='feedback-add-new'>
+                        <div className='room-add-new'>
                             <AddIcon />
                             <span>Thêm mới</span>
                         </div>
                     </Link>
-                    <div className="feedback-search-bar">
+                    <div className="room-search-bar">
                         <SearchIcon htmlColor='grey' />
-                        <input className='feedback-search-bar-input'
-                            placeholder='Tìm kiếm theo bình luận'
+                        <input className='room-search-bar-input'
+                            placeholder='Tìm kiếm số phòng'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -117,28 +142,31 @@ const Feedback = () => {
                 </div>
                 {
                     selectedRows.length > 0 ?
-                        <div className='feedback-delete'
+                        <div className='room-delete'
                             onClick={confirmDelete}
                         >
                             <DeleteIcon htmlColor='white' />
-                            <span style={{ color: "white", marginLeft: "5px" }}>Xoá {selectedRows.length} hàng</span>
+                            <span style={{ color: "white", marginLeft: "5px" }}>Delete {selectedRows.length} item(s)</span>
                         </div> : ""
                 }
+                <div className='room-top-setting' onClick={chooseSetting}
+                >
+                    <SettingsIcon fontSize='large' htmlColor='grey' />
+                </div>
             </div>
-            <div className="feedback-center-bottom">
-                <table className='feedback-center-table'>
+            <div className="room-center-bottom">
+                <table className='room-center-table'>
                     <thead>
-                        <tr className='feedback-table-header'>
+                        <tr className='room-table-header'>
                             <th style={{ width: "60px" }}>
-                                <input className='feedback-table-checkbox' type='checkbox'
+                                <input className='room-table-checkbox' type='checkbox'
                                     checked={selectedRows.length !== 0 && selectedRows.length >= data.length}
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th>Số sao</th>
-                            <th>Bình luận</th>
-                            <th>Ngày bình luận</th>
-                            <th>Khách hàng</th>
+                            <th>Số phòng</th>
+                            <th>Sức chứa</th>
+                            <th>Loại phòng</th>
                             <th style={{ width: "20px" }}></th>
                         </tr>
                     </thead>
@@ -146,24 +174,18 @@ const Feedback = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.Comment.includes(searchValue) ? '' :
-                                        <tr key={index} className={`feedback-table-row ${selectedRows.includes(item.Id) ? 'feedback-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !item.RoomNo.includes(searchValue) ? '' :
+                                        <tr key={index} className={`room-table-row ${selectedRows.includes(item.Id) ? 'room-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
                                             <td>
-                                                <input type='checkbox' className='feedback-table-checkbox'
+                                                <input type='checkbox' className='room-table-checkbox'
                                                     onChange={() => { }}
                                                     checked={selectedRows.find(x => x === item.Id) !== undefined}
                                                 />
                                             </td>
-                                            <td>
-                                            {
-                                                [1, 2, 3, 4, 5].map(index => 
-                                                    index > parseInt(item.RatingStar) ? <StarBorderIcon htmlColor='#dbdb07'/> : <StarIcon htmlColor='#dbdb07'/>
-                                                )
-                                            }
-                                            </td>
-                                            <td>{item.Comment}</td>
-                                            <td>{item.ModifiedDate}</td>
-                                            <td>{item.User}</td>
+                                            <td>{item.RoomNo}</td>
+                                            <td>{item.Capacity}</td>
+                                            <td>{item.RoomType}</td>
+                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
                                         </tr>
                                 )
                         }
@@ -177,4 +199,4 @@ const Feedback = () => {
     )
 }
 
-export default Feedback;
+export default Room;

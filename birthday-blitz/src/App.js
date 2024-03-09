@@ -18,6 +18,9 @@ import Voucher from "./components/manager/voucher/Voucher";
 import VoucherEdit from "./components/manager/voucher-edit/VoucherEdit";
 import Feedback from "./components/manager/feedback/Feedback";
 import FeedbackEdit from "./components/manager/feedback-edit/FeedbackEdit";
+import Room from "./components/manager/room/Room";
+import RoomType from "./components/manager/room-type/RoomType";
+import RoomEdit from "./components/manager/room-edit/RoomEdit";
 
 function App() {
     return (
@@ -48,6 +51,9 @@ function App() {
                     <Route path="voucher/:voucherId" element={<VoucherEdit/>} />
                     <Route path="feedback" element={<Feedback/>} />
                     <Route path="feedback/:feedbackId" element={<FeedbackEdit/>} />
+                    <Route path="room" element={<Room/>} />
+                    <Route path="room-type" element={<RoomType/>} />
+                    <Route path="room/:roomId" element={<RoomEdit/>} />
                 </Route>
             </Routes>
         </Router>
