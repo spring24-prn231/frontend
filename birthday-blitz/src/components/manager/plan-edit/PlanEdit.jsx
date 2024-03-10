@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import DoneIcon from '@mui/icons-material/Done';
-import EditIcon from '@mui/icons-material/Edit';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import BeenhereIcon from '@mui/icons-material/Beenhere';
 import './PlanEdit.css';
+import Select from 'react-select';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Loading from '../../common/loading/Loading';
 import { Link } from 'react-router-dom';
@@ -12,7 +12,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from 'react-router-dom';
 import { formatDateTimeString, formatDatetimeLocal } from '../../../utils/TimeFormat';
 import InfoIcon from '@mui/icons-material/Info';
-import Multiselect from 'multiselect-react-dropdown';
+import makeAnimated from 'react-select/animated';
+
+const animatedComponents = makeAnimated();
 
 const PlanEdit = () => {
     const [oldData, setOldData] = useState(null);
@@ -168,9 +170,9 @@ const PlanEdit = () => {
                                 isExpandCell === null ? "" :
                                     <div className="plan-edit-bottom-right">
                                         <div className='plan-edit-bottom-right-close'>
-                                            <div style={{display: 'flex', alignItems: 'center'}}>
-                                                <InfoIcon style={{marginRight: '10px'}} />
-                                                <p style={{marginBottom: '0px'}}> Chi tiết kế hoạch </p>
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                <InfoIcon style={{ marginRight: '10px' }} />
+                                                <p style={{ marginBottom: '0px' }}> Chi tiết kế hoạch </p>
                                             </div>
                                             <CloseIcon style={{ cursor: 'pointer' }} onClick={() => onClickExpand(null)} />
                                         </div>
@@ -192,33 +194,27 @@ const PlanEdit = () => {
                                                 </div>
                                             </div>
                                             <div className='plan-edit-bottom-right-content-item'>
+                                                <span className='plan-edit-bottom-right-content-label'>Phân công:</span>
+                                                <div style={{ width: '250px', zIndex: '9999' }}>
+                                                    <Select
+                                                        closeMenuOnSelect={false}
+                                                        components={animatedComponents}
+                                                        isMulti
+                                                        options={[
+                                                            { value: '1', label: 'Đạt' },
+                                                            { value: '2', label: 'Duy' },
+                                                            { value: '3', label: 'Khanh' },
+                                                            { value: '4', label: 'Tân' },
+                                                        ]}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className='plan-edit-bottom-right-content-item'>
                                                 <span className='plan-edit-bottom-right-content-label'>Nhận xét:</span>
                                                 <div style={{ height: '120px', padding: '10px', border: '0.5px solid grey', backgroundColor: 'white' }}>
                                                     <textarea className='plan-edit-text-area' style={{ resize: 'none', width: '230px', height: '100px', border: 'none', backgroundColor: '#ffffff00' }}>
                                                         {data.Plan.find(x => x.Id === isExpandCell).Feedback}
                                                     </textarea>
-                                                </div>
-                                            </div>
-
-                                            <div className='plan-edit-bottom-right-content-item'>
-                                                <span className='plan-edit-bottom-right-content-label'>Phân công:</span>
-                                                <div style={{ width: '250px' }}>
-                                                    <Multiselect
-                                                        isObject={false}
-                                                        onKeyPressFn={function noRefCheck() { }}
-                                                        onRemove={function noRefCheck() { }}
-                                                        onSearch={function noRefCheck() { }}
-                                                        onSelect={function noRefCheck() { }}
-                                                        placeholder="Chọn nhân viên"
-                                                        showArrow
-                                                        options={[
-                                                            'Lộc',
-                                                            'Tân',
-                                                            'Khanh',
-                                                            'Khoa',
-                                                            'Duy'
-                                                        ]}
-                                                    />
                                                 </div>
                                             </div>
                                         </div>

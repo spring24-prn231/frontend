@@ -21,6 +21,7 @@
 .navbar-logo-title {
     font-size: 26px;
     font-family: cursive;
+    color: white !important;
 }
 
 .navbar-center {
@@ -38,8 +39,9 @@
     position: absolute;
     background-color: white;
     box-shadow: 1px 1px 1px 1px grey;
-    width: 130px;
-    padding: 10px;
+    width: 110px;
+    justify-content: center;
+    padding: 5px;
 }
 
 .navbar-popup-option {

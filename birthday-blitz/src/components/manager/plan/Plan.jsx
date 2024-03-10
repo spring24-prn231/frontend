@@ -53,7 +53,6 @@ const Plan = () => {
                             <th>Ngày tạo</th>
                             <th>Ngày sửa</th>
                             <th>Người tổ chức</th>
-                            <th style={{ width: "20px" }}></th>
                         </tr>
                     </thead>
                     <tbody>

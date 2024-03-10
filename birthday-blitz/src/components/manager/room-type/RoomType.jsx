@@ -6,6 +6,7 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Loading from '../../common/loading/Loading';
 import { Link } from 'react-router-dom';
 import CategoryIcon from '@mui/icons-material/Category';
+import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { getAllRoomType } from '../../../apis/roomTypeService';
 
@@ -29,7 +30,7 @@ const RoomType = () => {
     }, []);
 
     const onAddRow = () => {
-        setData([...data, {Id: Math.floor(Math.random * 1000).toString(), Name: '', Description: '' }]);
+        setData([...data, { Id: Math.floor(Math.random * 1000).toString(), Name: '', Description: '' }]);
     };
 
     const onDeleteRow = (id) => {
@@ -66,16 +67,24 @@ const RoomType = () => {
                                         <KeyboardBackspaceIcon />
                                     </Link>
                                 </div>
-                                <div className="plan-event-name-container">
+                                <div className="room-type-search-bar-container">
+                                    <div className="room-type-search-bar">
+                                        <SearchIcon htmlColor='grey' />
+                                        <input className='room-type-search-bar-input'
+                                            placeholder='Tìm kiếm theo loại phòng'
+                                            value={""}
+                                            // onChange={(e) => ()}
+                                        />
+                                    </div>
                                 </div>
 
-                                <div className='plan-save-button'>
+                                <div className='room-type-save-button'>
                                     <DoneIcon style={{ marginRight: '4px' }} fontSize='small' />
                                     <span>Lưu</span>
                                 </div>
                                 {
                                     JSON.stringify(data) === JSON.stringify(oldData) ? '' :
-                                        <div className='plan-discard-button' onClick={() => setData(JSON.parse(JSON.stringify(oldData)))}>
+                                        <div className='room-type-discard-button' onClick={() => setData(JSON.parse(JSON.stringify(oldData)))}>
                                             <CloseIcon style={{ marginRight: '4px' }} fontSize='small' />
                                             <span>Loại bỏ</span>
                                         </div>
@@ -90,7 +99,7 @@ const RoomType = () => {
                                         <div style={{ width: '100%' }}>
                                             <div className="room-type-row">
                                                 <div className="room-type-row-index">
-                                                    <span><CategoryIcon/></span>
+                                                    <span><CategoryIcon /></span>
                                                 </div>
                                                 <div className="room-type-row-content">
                                                     <input type="text" spellCheck={false}
@@ -104,7 +113,7 @@ const RoomType = () => {
                                                         onChange={(e) => onDescriptionChange(e, item.Id)}
                                                         value={item.Description} />
                                                 </div>
-                                                <div className="plan-row-delete" onClick={() => onDeleteRow(item.Id)}>
+                                                <div className="room-type-row-delete" onClick={() => onDeleteRow(item.Id)}>
                                                     <RemoveCircleOutlineIcon htmlColor='red' />
                                                 </div>
                                             </div>

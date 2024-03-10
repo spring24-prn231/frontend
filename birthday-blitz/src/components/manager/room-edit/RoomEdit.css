@@ -10,71 +10,6 @@
     border-bottom: 0.2px solid rgb(226, 213, 213);
 }
 
-.feedback-event-name-container {
-    flex: 1;
-}
-
-.feedback-event-name {
-    display: flex;
-    align-items: center;
-    border: 1px solid white;
-    width: fit-content;
-    padding: 5px 10px;
-}
-
-.feedback-event-name:focus-within {
-    border-bottom: 0.2px solid rgb(221, 217, 217);
-    border-right: 0.2px solid rgb(221, 217, 217);
-}
-
-.feedback-event-name-input {
-    margin-right: 10px;
-    border: none;
-    font-size: 20px;
-    width: 400px;
-    font-weight: bold;
-}
-
-.feedback-event-name-input:focus {
-    outline: none;
-}
-
-.feedback-save-button {
-    display: flex;
-    justify-content: center;
-    padding: 5px 15px;
-    align-items: center;
-    font-size: 15px;
-    border-radius: 20px;
-    background-color: #0865fe;
-    color: white;
-    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.feedback-save-button:hover {
-    background-color: #075ae0;
-}
-
-.feedback-discard-button {
-    display: flex;
-    justify-content: center;
-    padding: 5px 15px;
-    align-items: center;
-    font-size: 15px;
-    border-radius: 20px;
-    background-color: red;
-    color: white;
-    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
-    cursor: pointer;
-}
-
-.feedback-discard-button:hover {
-    background-color: rgb(206, 2, 2);
-}
-
-
 .room-edit-bottom {
     margin-top: 40px;
     display: block;
@@ -133,8 +68,8 @@
 
 .room-edit-row-content-input {
     border: none;
-    width: 45vw;
-    font-size: 16px;
+    width: 30vw;
+    font-size: 15px;
 }
 
 .room-edit-row-content-input:focus-within {
@@ -142,7 +77,7 @@
 }
 
 .room-edit-row-space {
-    height: 40px;
+    height: 30px;
     border-left: 5px dashed rgb(138, 136, 136);
     margin: 6px 0px;
     margin-left: 45px;
@@ -152,14 +87,13 @@
     background-color: #6598eb;
 }
 
-.feedback-row-delete {
+.room-row-delete {
     margin-left: 10px;
     cursor: pointer;
 }
 
 .room-edit-row-label {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: bold;
-    margin-right: 50px;
-    width: 200px;
+    width: 120px;
 }

@@ -1,6 +1,6 @@
-.feedback-center-container {}
+.order-center-container {}
 
-.feedback-center-top {
+.order-center-top {
     height: 50px;
     padding-bottom: 15px;
     display: flex;
@@ -8,34 +8,35 @@
     border-bottom: 0.1px solid rgb(231, 224, 224);
 }
 
-.feedback-center-bottom {
+.order-center-bottom {
     height: 500px;
     overflow-y: scroll;
 }
 
-.feedback-center-bottom::-webkit-scrollbar {
+.order-center-bottom::-webkit-scrollbar {
     width: 5px;
+    height: 10px;
 }
 
-.feedback-center-bottom::-webkit-scrollbar-track {
+.order-center-bottom::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-.feedback-center-bottom::-webkit-scrollbar-thumb {
+.order-center-bottom::-webkit-scrollbar-thumb {
     background: #888;
 }
 
-.feedback-center-bottom::-webkit-scrollbar-thumb:hover {
+.order-center-bottom::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
-.feedback-search-bar-container {
+.order-search-bar-container {
     flex: 1;
     display: flex;
     align-items: center;
 }
 
-.feedback-search-bar {
+.order-search-bar {
     border: solid 0.1px rgb(179, 174, 174);
     width: 300px;
     display: flex;
@@ -46,7 +47,7 @@
     transition: width 0.3s;
 }
 
-.feedback-delete {
+.order-delete {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -54,18 +55,19 @@
     border-radius: 15px;
     background-color: red;
     font-size: 13px;
+    margin-right: 10px;
 }
 
-.feedback-delete:hover {
+.order-delete:hover {
     background-color: rgb(212, 4, 4);
 }
 
-.feedback-search-bar:focus-within {
+.order-search-bar:focus-within {
     box-shadow: 1px 0.5px 0.5px 0.5px grey;
     width: 350px;
 }
 
-.feedback-search-bar-input {
+.order-search-bar-input {
     font-size: 15px;
     width: 100%;
     border: none;
@@ -73,46 +75,46 @@
     height: 40px;
 }
 
-.feedback-search-bar-input:focus {
+.order-search-bar-input:focus {
     outline: none;
 }
 
-.feedback-center-table {
-    width: 100%;
+.order-center-table {
+    width: 93vw;
     border-collapse: collapse;
     border-radius: 20px;
     text-align: left;
     font-size: 17px;
 }
 
-.feedback-table-header {
+.order-table-header {
     background-color: #0865fe;
 }
 
-.feedback-table-header th {
+.order-table-header th {
     color: white;
     border: 0.2px solid #0865fe;
     padding: 10px;
 }
 
-.feedback-table-row {
+.order-table-row {
     cursor: pointer;
 }
 
-.feedback-table-row td {
+.order-table-row td {
     padding: 12px 10px;
 }
 
-.feedback-table-row:hover {
+.order-table-row:hover {
     background-color: #edf0f5;
 }
 
-.feedback-table-checkbox {
+.order-table-checkbox {
     width: 18px;
     height: 18px;
 }
 
-.feedback-add-new {
+.order-add-new {
     border: 1px solid rgb(219, 201, 201);
     padding: 10px 15px;
     border-radius: 20px;
@@ -127,26 +129,26 @@
     font-size: 15px;
 }
 
-.feedback-add-new:hover {
+.order-add-new:hover {
     background-color: #0749b3;
 }
 
-.feedback-option:hover {
+.order-option:hover {
     border-radius: 10px;
     border-bottom: 1px solid rgb(175, 155, 155);
     border-right: 1px solid rgb(226, 217, 217);
 }
 
-.feedback-popup {
+.order-popup {
     display: none;
     position: absolute;
     background-color: white;
     box-shadow: 1px 1px 1px 1px grey;
-    width: 130px;
-    padding: 10px;
+    width: 110px;
+    padding: 5px;
 }
 
-.feedback-popup-option {
+.order-popup-option {
     display: flex;
     align-items: center;
     font-size: 15px;
@@ -154,10 +156,18 @@
     cursor: pointer;
 }
 
-.feedback-popup-option:hover {
+.order-popup-option:hover {
     border-bottom: 0.1px solid rgb(224, 209, 209);
 }
 
-.feedback-table-row-active {
+.order-table-row-active {
     background-color: #dce4f5 !important;
+}
+
+.order-status {
+    padding: 0px 0px;
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+    border-radius: 8px;
 }
