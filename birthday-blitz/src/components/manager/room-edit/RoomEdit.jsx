@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from 'react-router-dom';
 import { getRoomById } from '../../../apis/roomService';
-import Multiselect from 'multiselect-react-dropdown';
 import { getAllRoomType } from '../../../apis/roomTypeService';
+import Select from 'react-select';
 
 
 const RoomEdit = () => {
@@ -23,11 +23,11 @@ const RoomEdit = () => {
         const getData = async () => {
             setIsLoading(true);
             const res = await getRoomById(roomId, true);
-            const roomTypes = await getAllRoomType(true);
-            return {res, roomTypes};
+            const roomTypes = await getAllRoomType(true, 3);
+            return { res, roomTypes };
         };
 
-        getData().then(({res, roomTypes}) => {
+        getData().then(({ res, roomTypes }) => {
             if (res === undefined) {
                 res = {
                     "Code": "",
@@ -119,20 +119,18 @@ const RoomEdit = () => {
                                         <span className='room-edit-row-label'>
                                             Loại phòng
                                         </span>
-                                        <Multiselect
-                                            isObject={false}
-                                            onKeyPressFn={function noRefCheck() { }}
-                                            onRemove={function noRefCheck() { }}
-                                            onSearch={function noRefCheck() { }}
-                                            onSelect={function noRefCheck() { }}
-                                            placeholder="Chọn loại phòng"
-                                            showArrow
-                                            singleSelect
-                                            selectedValues = {[data.RoomType]}
-                                            options={
-                                                roomType.map(item => item.Name)
-                                            }
-                                        />
+                                        <div className="room-edit-row-content">
+                                            <div className='room-edit-row-content-input'>
+                                                <Select
+                                                    options={
+                                                        roomType.map(item => {
+                                                            return { value: item.Id, label: item.Name }
+                                                        }
+                                                        ).concat([{value: null, label: '...', isDisabled: true}])
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

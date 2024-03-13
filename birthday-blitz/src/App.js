@@ -21,6 +21,8 @@ import FeedbackEdit from "./components/manager/feedback-edit/FeedbackEdit";
 import Room from "./components/manager/room/Room";
 import RoomType from "./components/manager/room-type/RoomType";
 import RoomEdit from "./components/manager/room-edit/RoomEdit";
+import Order from "./components/manager/order/Order";
+import OrderDetail from "./components/manager/order-detail/OrderDetail";
 
 function App() {
     return (
@@ -45,8 +47,6 @@ function App() {
                     <Route path='plan/new' element={<PlanNew/>} />
                     <Route path="plan/:planId" element={<PlanEdit />} />
                     <Route path="user" element={<User />} />
-                    <Route path="user/:userId" element={<UserEdit />} />
-                    <Route path="service" element={<Serivce/>} />
                     <Route path="voucher" element={<Voucher/>} />
                     <Route path="voucher/:voucherId" element={<VoucherEdit/>} />
                     <Route path="feedback" element={<Feedback/>} />
@@ -54,6 +54,8 @@ function App() {
                     <Route path="room" element={<Room/>} />
                     <Route path="room-type" element={<RoomType/>} />
                     <Route path="room/:roomId" element={<RoomEdit/>} />
+                    <Route path="order" element={<Order/>}/>
+                    <Route path="order/:orderId" element={<OrderDetail/>} />
                 </Route>
             </Routes>
         </Router>

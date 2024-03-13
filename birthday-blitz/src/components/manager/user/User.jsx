@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+import BlockIcon from '@mui/icons-material/Block';
 import './User.css';
 import { Link } from 'react-router-dom';
 import Loading from '../../common/loading/Loading';
@@ -66,7 +66,7 @@ const User = () => {
         let userPopup = document.getElementsByClassName('user-popup');
         userPopup[0].style.display = "block";
         userPopup[0].style.top = `${rect.top - 45}px`;
-        userPopup[0].style.left = `${rect.left - 140}px`;
+        userPopup[0].style.left = `${rect.left - 100}px`;
         setSelectedEditRow(id);
     }
 
@@ -89,12 +89,10 @@ const User = () => {
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
             <div className='user-popup'>
-                <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className="user-popup-option">
-                        <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
-                        <span>Chỉnh sửa</span>
-                    </div>
-                </Link>
+                <div className="user-popup-option">
+                    <BlockIcon fontSize='small' style={{ marginRight: "10px" }} />
+                    <span>Chặn</span>
+                </div>
             </div>
 
             <div className='user-center-top'>

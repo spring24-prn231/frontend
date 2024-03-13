@@ -1,13 +1,13 @@
 import { getAxiosInstance } from './axiosInstance';
-import RoomTypes from '../data/roomType';
+import Orders from '../data/order';
 
-const getAllRoomType = async (isMock = false, size = null) => {
+const getAllOrder = async (isMock = false) => {
     const url = '';
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
             setTimeout(() => {
-                resolve(size === null? RoomTypes : RoomTypes.slice(0, size));
+                resolve(Orders);
             }, 1000);
         });
     }
@@ -17,13 +17,13 @@ const getAllRoomType = async (isMock = false, size = null) => {
     }
 }
 
-const getRoomTypeById = async (id, isMock = false) => {
+const getOrderById = async (id, isMock = false) => {
     const url = '';
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
             setTimeout(() => {
-                resolve(RoomTypes.find(x => x.Id.toString() === id));
+                resolve(Orders.find(x => x.Id.toString() === id));
             }, 1000);
         });
     }
@@ -33,7 +33,7 @@ const getRoomTypeById = async (id, isMock = false) => {
     }
 }
 
-const deleteRoomType = async (id, isMock = false) => {
+const deleteOrder = async (id, isMock = false) => {
     const url = '';
     const instance = await getAxiosInstance();
     if (isMock) {
@@ -44,4 +44,4 @@ const deleteRoomType = async (id, isMock = false) => {
     }
 }
 
-export { getAllRoomType, deleteRoomType, getRoomTypeById };
+export { getAllOrder, deleteOrder, getOrderById };

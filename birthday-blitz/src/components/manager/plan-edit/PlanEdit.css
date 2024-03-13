@@ -154,17 +154,18 @@
 .plan-edit-row-index {
     background-color: #0865fe;
     color: white;
-    padding: 10px 15px;
+    padding: 7px 15px;
     border-radius: 50px;
-    border: 2px solid black;
     font-weight: bolder;
     margin-right: 20px;
-    margin-left: 30px;
+    margin-left: 32px;
 }
 
 .plan-edit-row-time-input {
     font-size: 14px;
     padding: 2px;
+    background-color: #ffffff00;
+    border: none;
 }
 
 .plan-edit-row-content {
@@ -215,6 +216,7 @@
     transition: visibility 0s, opacity 0.5s linear;
     padding-left: 20px;
     overflow-y: scroll;
+    max-height: 500px;
 }
 
 .plan-edit-bottom-right-close {
@@ -224,6 +226,7 @@
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
+    padding-right: 4px;
 }
 
 .plan-edit-bottom-right-content-label {

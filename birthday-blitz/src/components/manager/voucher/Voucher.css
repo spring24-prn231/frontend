@@ -1,8 +1,8 @@
 .voucher-center-container {}
 
 .voucher-center-top {
-    height: 80px;
-    padding-bottom: 30px;
+    height: 50px;
+    padding-bottom: 15px;
     display: flex;
     align-items: center;
     border-bottom: 0.1px solid rgb(231, 224, 224);

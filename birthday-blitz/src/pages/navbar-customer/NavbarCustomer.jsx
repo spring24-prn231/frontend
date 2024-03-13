@@ -81,12 +81,7 @@ const NavbarCustomer = () => {
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
-
     )
 }
 

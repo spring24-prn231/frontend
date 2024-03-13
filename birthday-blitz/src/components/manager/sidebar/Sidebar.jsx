@@ -55,16 +55,10 @@ const Sidebar = () => {
                             <span className="sidebar-item-name">Phòng</span>
                         </li>
                     </Link>
-                    <Link to={'service'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('service')?'sidebar-item-active': ''}`}>
-                            <RoomServiceIcon className="sidebar-icon" />
-                            <span className="sidebar-item-name">Dịch vụ</span>
-                        </li>
-                    </Link>
-                    <Link to={'money'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('money')?'sidebar-item-active': ''}`}>
+                    <Link to={'order'} style={{ textDecoration: 'none', color: 'black' }}>
+                        <li className={`sidebar-item ${pathname.includes('order')?'sidebar-item-active': ''}`}>
                             <AttachMoneyIcon className="sidebar-icon" />
-                            <span className="sidebar-item-name">Hoá đơn</span>
+                            <span className="sidebar-item-name">Đơn hàng</span>
                         </li>
                     </Link>
                     <Link to={'menu'} style={{ textDecoration: 'none', color: 'black' }}>

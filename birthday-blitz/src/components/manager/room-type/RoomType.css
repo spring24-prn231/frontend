@@ -1,6 +1,44 @@
 .room-type-container {
 }
 
+
+.room-type-search-bar-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    margin-left: 20px;
+}
+
+.room-type-search-bar {
+    border: solid 0.1px rgb(179, 174, 174);
+    width: 300px;
+    display: flex;
+    padding: 0px 17px;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.3s;
+}
+
+.room-type-search-bar:focus-within {
+    box-shadow: 1px 0.5px 0.5px 0.5px grey;
+    width: 350px;
+}
+
+.room-type-search-bar-input {
+    font-size: 15px;
+    width: 100%;
+    border: none;
+    margin-left: 5px;
+    height: 40px;
+}
+
+.room-type-search-bar-input:focus {
+    outline: none;
+}
+
+
 .room-type-top {
     height: 50px;
     display: flex;
@@ -10,11 +48,11 @@
     border-bottom: 0.2px solid rgb(226, 213, 213);
 }
 
-.plan-event-name-container {
+.room-type-event-name-container {
     flex: 1;
 }
 
-.plan-event-name {
+.room-type-event-name {
     display: flex;
     align-items: center;
     border: 1px solid white;
@@ -22,12 +60,12 @@
     padding: 5px 10px;
 }
 
-.plan-event-name:focus-within {
+.room-type-event-name:focus-within {
     border-bottom: 0.2px solid rgb(221, 217, 217);
     border-right: 0.2px solid rgb(221, 217, 217);
 }
 
-.plan-event-name-input {
+.room-type-event-name-input {
     margin-right: 10px;
     border: none;
     font-size: 20px;
@@ -35,11 +73,11 @@
     font-weight: bold;
 }
 
-.plan-event-name-input:focus {
+.room-type-event-name-input:focus {
     outline: none;
 }
 
-.plan-save-button {
+.room-type-save-button {
     display: flex;
     justify-content: center;
     padding: 5px 15px;
@@ -53,11 +91,11 @@
     margin-right: 5px;
 }
 
-.plan-save-button:hover {
+.room-type-save-button:hover {
     background-color: #075ae0;
 }
 
-.plan-discard-button {
+.room-type-discard-button {
     display: flex;
     justify-content: center;
     padding: 5px 15px;
@@ -70,13 +108,13 @@
     cursor: pointer;
 }
 
-.plan-discard-button:hover {
+.room-type-discard-button:hover {
     background-color: rgb(206, 2, 2);
 }
 
 
 .room-type-bottom {
-    margin-top: 40px;
+    margin-top: 20px;
     display: block;
     overflow-y: scroll;
     height: 70vh;
@@ -161,7 +199,7 @@
     background-color: #6598eb;
 }
 
-.plan-row-delete {
+.room-type-row-delete {
     margin-left: 10px;
     cursor: pointer;
 }
