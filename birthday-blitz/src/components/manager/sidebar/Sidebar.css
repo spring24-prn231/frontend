@@ -2,9 +2,7 @@
     box-shadow: 2px 0 5px -2px black;
     background-color: white;
     position: fixed;
-    overflow-y: scroll;
     transition: width 1s ;
-    height: 92vh;
     width: 250px;
     z-index: 99;
 }
@@ -32,12 +30,30 @@
 }
 
 .sidebar-container .sidebar-center {
-    margin-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
     background-color: white;
-    height: 80vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: calc(100vh - 110px);
 }
+
+.sidebar-center::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar-center::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.sidebar-center::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.sidebar-center::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 
 .sidebar-container .sidebar-center ul {
     list-style: none;
@@ -58,14 +74,14 @@
     align-items: center;
     padding: 5px;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 10px;
     border-radius: 5px;
     width: 230px;
     border: solid 0.2px white;
 }
 
 .sidebar-container .sidebar-center ul li:hover {
-    background-color: #f4f7fc;
+    background-color: #f5e6ce69;
 }
 
 .sidebar-container .sidebar-center ul li .sidebar-icon {
@@ -108,5 +124,5 @@
 }
 
 .sidebar-item-active {
-    background-color: #dce9ff !important;
+    background-color: #f7cb86 !important;
 }

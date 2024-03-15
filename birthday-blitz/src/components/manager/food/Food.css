@@ -1,6 +1,6 @@
-.room-center-container {}
+.food-center-container {}
 
-.room-center-top {
+.food-center-top {
     height: 50px;
     padding-bottom: 15px;
     display: flex;
@@ -8,34 +8,34 @@
     border-bottom: 0.1px solid rgb(231, 224, 224);
 }
 
-.room-center-bottom {
+.food-center-bottom {
     height: 500px;
     overflow-y: scroll;
 }
 
-.room-center-bottom::-webkit-scrollbar {
+.food-center-bottom::-webkit-scrollbar {
     width: 5px;
 }
 
-.room-center-bottom::-webkit-scrollbar-track {
+.food-center-bottom::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-.room-center-bottom::-webkit-scrollbar-thumb {
+.food-center-bottom::-webkit-scrollbar-thumb {
     background: #888;
 }
 
-.room-center-bottom::-webkit-scrollbar-thumb:hover {
+.food-center-bottom::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
-.room-search-bar-container {
+.food-search-bar-container {
     flex: 1;
     display: flex;
     align-items: center;
 }
 
-.room-search-bar {
+.food-search-bar {
     border: solid 0.1px rgb(179, 174, 174);
     width: 300px;
     display: flex;
@@ -46,7 +46,7 @@
     transition: width 0.3s;
 }
 
-.room-delete {
+.food-delete {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -56,16 +56,16 @@
     font-size: 13px;
 }
 
-.room-delete:hover {
+.food-delete:hover {
     background-color: rgb(212, 4, 4);
 }
 
-.room-search-bar:focus-within {
+.food-search-bar:focus-within {
     box-shadow: 1px 0.5px 0.5px 0.5px grey;
     width: 350px;
 }
 
-.room-search-bar-input {
+.food-search-bar-input {
     font-size: 15px;
     width: 100%;
     border: none;
@@ -73,11 +73,11 @@
     height: 40px;
 }
 
-.room-search-bar-input:focus {
+.food-search-bar-input:focus {
     outline: none;
 }
 
-.room-center-table {
+.food-center-table {
     width: 100%;
     border-collapse: collapse;
     border-radius: 20px;
@@ -85,34 +85,34 @@
     font-size: 17px;
 }
 
-.room-table-header {
+.food-table-header {
     background-color: #EAA636;
 }
 
-.room-table-header th {
+.food-table-header th {
     color: white;
     border: 0.2px solid #EAA636;
     padding: 10px;
 }
 
-.room-table-row {
+.food-table-row {
     cursor: pointer;
 }
 
-.room-table-row td {
+.food-table-row td {
     padding: 12px 10px;
 }
 
-.room-table-row:hover {
+.food-table-row:hover {
     background-color: #edf0f5;
 }
 
-.room-table-checkbox {
+.food-table-checkbox {
     width: 18px;
     height: 18px;
 }
 
-.room-add-new {
+.food-add-new {
     border: 1px solid rgb(219, 201, 201);
     padding: 10px 15px;
     border-radius: 20px;
@@ -127,17 +127,17 @@
     font-size: 15px;
 }
 
-.room-add-new:hover {
-    background-color: #976617;
+.food-add-new:hover {
+    background-color: #0749b3;
 }
 
-.room-option:hover {
+.food-option:hover {
     border-radius: 10px;
     border-bottom: 1px solid rgb(175, 155, 155);
     border-right: 1px solid rgb(226, 217, 217);
 }
 
-.room-popup, .room-setting-popup {
+.food-popup {
     display: none;
     position: absolute;
     background-color: white;
@@ -146,11 +146,7 @@
     padding: 10px;
 }
 
-.room-setting-popup {
-    width: 150px;
-}
-
-.room-popup-option, .room-setting-popup-option {
+.food-popup-option {
     display: flex;
     align-items: center;
     font-size: 15px;
@@ -158,18 +154,10 @@
     cursor: pointer;
 }
 
-.room-popup-option:hover {
+.food-popup-option:hover {
     border-bottom: 0.1px solid rgb(224, 209, 209);
 }
 
-.room-table-row-active {
+.food-table-row-active {
     background-color: #dce4f5 !important;
-}
-
-.room-top-setting {
-    box-shadow: 1px 1px 1px 1px rgb(160, 148, 148);
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
 }

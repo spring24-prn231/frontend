@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import './Feedback.css';
+import './Menu.css';
 import { Link } from 'react-router-dom';
 import Loading from '../../common/loading/Loading';
 import PopupConfirm from '../../common/popup-confirm/PopupConfirm';
-import { deleteFeedback, getAllFeedback } from '../../../apis/feedbackService';
+import { deleteMenu, getAllMenu } from '../../../apis/menuService';
 
-const Feedback = () => {
+const Menu = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isDisplayConfirm, setIsDisplayConfirm] = useState(false);
@@ -22,7 +21,7 @@ const Feedback = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllFeedback(true);
+            const res = await getAllMenu(true);
             return res;
         };
 
@@ -32,7 +31,7 @@ const Feedback = () => {
         })
 
         window.addEventListener('click', function (e) {
-            var element = this.document.getElementsByClassName('feedback-popup')[0];
+            var element = this.document.getElementsByClassName('menu-popup')[0];
             if (element !== undefined) {
                 if (!element.contains(e.target)) {
                     element.style.display = 'none';
@@ -64,10 +63,10 @@ const Feedback = () => {
         event.stopPropagation();
         var element = event.target;
         var rect = element.getBoundingClientRect();
-        let FeedbackPopup = document.getElementsByClassName('feedback-popup');
-        FeedbackPopup[0].style.display = "block";
-        FeedbackPopup[0].style.top = `${rect.top - 45}px`;
-        FeedbackPopup[0].style.left = `${rect.left - 140}px`;
+        let menuPopup = document.getElementsByClassName('menu-popup');
+        menuPopup[0].style.display = "block";
+        menuPopup[0].style.top = `${rect.top - 45}px`;
+        menuPopup[0].style.left = `${rect.left - 140}px`;
         setSelectedEditRow(id);
     }
 
@@ -78,38 +77,38 @@ const Feedback = () => {
     const deleteSelectedRows = async () => {
         setData(data.filter(x => !selectedRows.includes(x.Id)));
         setSelectedRows([]);
-        await deleteFeedback('123', true);
+        await deleteMenu('123', true);
         setIsDisplayConfirm(false);
     }
 
     return (
-        <div className='feedback-center-container'>
+        <div className='menu-center-container'>
             <PopupConfirm isDisplay={isDisplayConfirm}
-                confirmContent="Bạn có muốn xoá các phản hồi đã chọn?"
+                confirmContent="Bạn có muốn xoá những menu đã chọn?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
-            <div className='feedback-popup'>
+            <div className='menu-popup'>
                 <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className="feedback-popup-option">
+                    <div className="menu-popup-option">
                         <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
                         <span>Chỉnh sửa</span>
                     </div>
                 </Link>
             </div>
 
-            <div className='feedback-center-top'>
-                <div className="feedback-search-bar-container">
+            <div className='menu-center-top'>
+                <div className="menu-search-bar-container">
                     <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
-                        <div className='feedback-add-new'>
+                        <div className='menu-add-new'>
                             <AddIcon />
                             <span>Thêm mới</span>
                         </div>
                     </Link>
-                    <div className="feedback-search-bar">
+                    <div className="menu-search-bar">
                         <SearchIcon htmlColor='grey' />
-                        <input className='feedback-search-bar-input'
-                            placeholder='Tìm kiếm theo bình luận'
+                        <input className='menu-search-bar-input'
+                            placeholder='Tìm kiếm theo tên dịch vụ'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -117,52 +116,48 @@ const Feedback = () => {
                 </div>
                 {
                     selectedRows.length > 0 ?
-                        <div className='feedback-delete'
+                        <div className='menu-delete'
                             onClick={confirmDelete}
                         >
                             <DeleteIcon htmlColor='white' />
-                            <span style={{ color: "white", marginLeft: "5px" }}>Xoá {selectedRows.length} hàng</span>
+                            <span style={{ color: "white", marginLeft: "5px" }}>Delete {selectedRows.length} item(s)</span>
                         </div> : ""
                 }
             </div>
-            <div className="feedback-center-bottom">
-                <table className='feedback-center-table'>
+            <div className="menu-center-bottom">
+                <table className='menu-center-table'>
                     <thead>
-                        <tr className='feedback-table-header'>
+                        <tr className='menu-table-header'>
                             <th style={{ width: "60px" }}>
-                                <input className='feedback-table-checkbox' type='checkbox'
+                                <input className='menu-table-checkbox' type='checkbox'
                                     checked={selectedRows.length !== 0 && selectedRows.length >= data.length}
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th>Số sao</th>
-                            <th>Bình luận</th>
-                            <th>Ngày bình luận</th>
-                            <th>Khách hàng</th>
+                            <th>Gói Dịch vụ</th>
+                            <th>Loại phòng</th>
+                            <th>Mô tả</th>
+                            <th>Trạng thái</th>
+                            <th style={{ width: "20px" }}></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.Comment.includes(searchValue) ? '' :
-                                        <tr key={index} className={`feedback-table-row ${selectedRows.includes(item.Id) ? 'feedback-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !item.ServiceName.includes(searchValue) ? '' :
+                                        <tr key={index} className={`menu-table-row ${selectedRows.includes(item.Id) ? 'menu-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
                                             <td>
-                                                <input type='checkbox' className='feedback-table-checkbox'
+                                                <input type='checkbox' className='menu-table-checkbox'
                                                     onChange={() => { }}
                                                     checked={selectedRows.find(x => x === item.Id) !== undefined}
                                                 />
                                             </td>
-                                            <td>
-                                            {
-                                                [1, 2, 3, 4, 5].map(index => 
-                                                    index > parseInt(item.RatingStar) ? <StarBorderIcon htmlColor='#dbdb07'/> : <StarIcon htmlColor='#dbdb07'/>
-                                                )
-                                            }
-                                            </td>
-                                            <td>{item.Comment}</td>
-                                            <td>{item.ModifiedDate}</td>
-                                            <td>{item.User}</td>
+                                            <td>{item.ServiceName}</td>
+                                            <td>{item.RoomType}</td>
+                                            <td>{item.Description}</td>
+                                            <td>{item.Status}</td>
+                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
                                         </tr>
                                 )
                         }
@@ -176,4 +171,4 @@ const Feedback = () => {
     )
 }
 
-export default Feedback;
+export default Menu;

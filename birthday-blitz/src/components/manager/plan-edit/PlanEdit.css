@@ -46,7 +46,7 @@
     align-items: center;
     font-size: 15px;
     border-radius: 20px;
-    background-color: #0865fe;
+    background-color: #EAA636;
     color: white;
     box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
     cursor: pointer;
@@ -72,7 +72,7 @@
 }
 
 .plan-save-button:hover {
-    background-color: #075ae0;
+    background-color: #EAA636;
 }
 
 .plan-discard-button {
@@ -152,7 +152,7 @@
 }
 
 .plan-edit-row-index {
-    background-color: #0865fe;
+    background-color: #EAA636;
     color: white;
     padding: 7px 15px;
     border-radius: 50px;
@@ -194,7 +194,7 @@
 }
 
 .plan-edit-row-add:hover {
-    background-color: #6598eb;
+    background-color: #f7e3c4;
 }
 
 .plan-edit-row-extend {

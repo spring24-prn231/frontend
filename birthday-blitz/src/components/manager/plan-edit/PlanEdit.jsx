@@ -152,7 +152,7 @@ const PlanEdit = () => {
                                                                 value={item.Content} />
                                                         </div>
                                                         <div className="plan-edit-row-extend" onClick={() => onClickExpand(item.Id)}>
-                                                            <OpenInNewIcon htmlColor='blue' />
+                                                            <OpenInNewIcon htmlColor='#EAA636' />
                                                         </div>
                                                     </div>
                                                 </div>
