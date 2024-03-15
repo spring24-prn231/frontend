@@ -57,7 +57,7 @@ const RoomEdit = () => {
                                 <div className="feedback-event-name-container">
                                 </div>
 
-                                <div className='feedback-save-button'>
+                                <div className='room-edit-save-button'>
                                     <DoneIcon style={{ marginRight: '4px' }} fontSize='small' />
                                     <span>Lưu</span>
                                 </div>

@@ -1,7 +1,7 @@
-.voucher-edit-container {
+.staff-edit-container {
 }
 
-.voucher-edit-top {
+.staff-edit-top {
     height: 50px;
     display: flex;
     align-items: center;
@@ -10,11 +10,11 @@
     border-bottom: 0.2px solid rgb(226, 213, 213);
 }
 
-.voucher-event-name-container {
+.staff-event-name-container {
     flex: 1;
 }
 
-.voucher-event-name {
+.staff-event-name {
     display: flex;
     align-items: center;
     border: 1px solid white;
@@ -22,12 +22,12 @@
     padding: 5px 10px;
 }
 
-.voucher-event-name:focus-within {
+.staff-event-name:focus-within {
     border-bottom: 0.2px solid rgb(221, 217, 217);
     border-right: 0.2px solid rgb(221, 217, 217);
 }
 
-.voucher-event-name-input {
+.staff-event-name-input {
     margin-right: 10px;
     border: none;
     font-size: 20px;
@@ -35,11 +35,11 @@
     font-weight: bold;
 }
 
-.voucher-event-name-input:focus {
+.staff-event-name-input:focus {
     outline: none;
 }
 
-.voucher-save-button {
+.staff-save-button {
     display: flex;
     justify-content: center;
     padding: 5px 15px;
@@ -53,11 +53,11 @@
     margin-right: 5px;
 }
 
-.voucher-save-button:hover {
-    background-color: #b9770c;
+.staff-save-button:hover {
+    background-color: #EAA636;
 }
 
-.voucher-discard-button {
+.staff-discard-button {
     display: flex;
     justify-content: center;
     padding: 5px 15px;
@@ -70,12 +70,12 @@
     cursor: pointer;
 }
 
-.voucher-discard-button:hover {
+.staff-discard-button:hover {
     background-color: rgb(206, 2, 2);
 }
 
 
-.voucher-edit-bottom {
+.staff-edit-bottom {
     margin-top: 40px;
     display: block;
     overflow-y: scroll;
@@ -84,29 +84,29 @@
 }
 
 
-.voucher-edit-bottom::-webkit-scrollbar {
+.staff-edit-bottom::-webkit-scrollbar {
     width: 5px;
 }
 
-.voucher-edit-bottom::-webkit-scrollbar-track {
+.staff-edit-bottom::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-.voucher-edit-bottom::-webkit-scrollbar-thumb {
+.staff-edit-bottom::-webkit-scrollbar-thumb {
     background: #888;
 }
 
-.voucher-edit-bottom::-webkit-scrollbar-thumb:hover {
+.staff-edit-bottom::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
-.voucher-edit-row {
+.staff-edit-row {
     justify-content: left;
     display: flex;
     align-items: center;
 }
 
-.voucher-edit-row-index {
+.staff-edit-row-index {
     background-color: #EAA636;
     color: white;
     padding: 8px 10px;
@@ -116,48 +116,48 @@
     margin-left: 30px;
 }
 
-.voucher-edit-row-time-input {
+.staff-edit-row-time-input {
     font-size: 15px;
     padding: 5px;
 }
 
-.voucher-edit-row-content {
+.staff-edit-row-content {
     padding: 10px 15px;
     border-radius: 10px;
     border: 2px solid #bdd1f1;
 }
 
-.voucher-edit-row-content:focus-within {
+.staff-edit-row-content:focus-within {
     border: 2px solid #EAA636;
 }
 
-.voucher-edit-row-content-input {
+.staff-edit-row-content-input {
     border: none;
     width: 45vw;
     font-size: 16px;
 }
 
-.voucher-edit-row-content-input:focus-within {
+.staff-edit-row-content-input:focus-within {
     outline: none;
 }
 
-.voucher-edit-row-space {
+.staff-edit-row-space {
     height: 40px;
     border-left: 5px dashed rgb(138, 136, 136);
     margin: 6px 0px;
     margin-left: 45px;
 }
 
-.voucher-edit-row-add:hover {
-    background-color: #9e660c;
+.staff-edit-row-add:hover {
+    background-color: #EAA636;
 }
 
-.voucher-row-delete {
+.staff-row-delete {
     margin-left: 10px;
     cursor: pointer;
 }
 
-.voucher-edit-row-label {
+.staff-edit-row-label {
     font-size: 20px;
     font-weight: bold;
     margin-right: 50px;

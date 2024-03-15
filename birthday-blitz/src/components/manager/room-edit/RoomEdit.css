@@ -18,6 +18,21 @@
     transition: height 1s;
 }
 
+.room-edit-save-button {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: #EAA636;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+
 
 .room-edit-bottom::-webkit-scrollbar {
     width: 5px;
@@ -42,7 +57,7 @@
 }
 
 .room-edit-row-index {
-    background-color: #0865fe;
+    background-color: #EAA636;
     color: white;
     padding: 8px 10px;
     border-radius: 50px;
@@ -63,7 +78,7 @@
 }
 
 .room-edit-row-content:focus-within {
-    border: 2px solid #0865fe;
+    border: 2px solid #EAA636;
 }
 
 .room-edit-row-content-input {

@@ -2,13 +2,14 @@ import "./Sidebar.css";
 import { Link, useLocation } from 'react-router-dom';
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import EventNoteIcon from '@mui/icons-material/EventNote';
-import RoomServiceIcon from '@mui/icons-material/RoomService';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import DiscountIcon from '@mui/icons-material/Discount';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import ListIcon from '@mui/icons-material/List';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 const Sidebar = () => {
     // const { dispatch } = useContext(DarkModeContext);
 
@@ -55,6 +56,12 @@ const Sidebar = () => {
                             <span className="sidebar-item-name">Phòng</span>
                         </li>
                     </Link>
+                    <Link to={'food'} style={{ textDecoration: 'none', color: 'black' }}>
+                        <li className={`sidebar-item ${pathname.includes('food')?'sidebar-item-active': ''}`}>
+                            <LocalDiningIcon className="sidebar-icon" />
+                            <span className="sidebar-item-name">Món ăn</span>
+                        </li>
+                    </Link>
                     <Link to={'order'} style={{ textDecoration: 'none', color: 'black' }}>
                         <li className={`sidebar-item ${pathname.includes('order')?'sidebar-item-active': ''}`}>
                             <AttachMoneyIcon className="sidebar-icon" />
@@ -64,7 +71,13 @@ const Sidebar = () => {
                     <Link to={'menu'} style={{ textDecoration: 'none', color: 'black' }}>
                         <li className={`sidebar-item ${pathname.includes('menu')?'sidebar-item-active': ''}`}>
                             <ListIcon className="sidebar-icon" />
-                            <span className="sidebar-item-name">Menu</span>
+                            <span className="sidebar-item-name">Các gói dịch vụ</span>
+                        </li>
+                    </Link>
+                    <Link to={'staff'} style={{ textDecoration: 'none', color: 'black' }}>
+                        <li className={`sidebar-item ${pathname.includes('staff')?'sidebar-item-active': ''}`}>
+                            <SupervisedUserCircleIcon className="sidebar-icon" />
+                            <span className="sidebar-item-name">Nhân viên</span>
                         </li>
                     </Link>
                 </ul>

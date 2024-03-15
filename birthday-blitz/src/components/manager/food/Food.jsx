@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import StarIcon from '@mui/icons-material/Star';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import './Feedback.css';
+import './Food.css';
 import { Link } from 'react-router-dom';
 import Loading from '../../common/loading/Loading';
 import PopupConfirm from '../../common/popup-confirm/PopupConfirm';
-import { deleteFeedback, getAllFeedback } from '../../../apis/feedbackService';
+import { deleteFood, getAllFood } from '../../../apis/foodService';
 
-const Feedback = () => {
+const Food = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isDisplayConfirm, setIsDisplayConfirm] = useState(false);
@@ -22,7 +21,7 @@ const Feedback = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllFeedback(true);
+            const res = await getAllFood(true);
             return res;
         };
 
@@ -32,7 +31,7 @@ const Feedback = () => {
         })
 
         window.addEventListener('click', function (e) {
-            var element = this.document.getElementsByClassName('feedback-popup')[0];
+            var element = this.document.getElementsByClassName('food-popup')[0];
             if (element !== undefined) {
                 if (!element.contains(e.target)) {
                     element.style.display = 'none';
@@ -64,10 +63,10 @@ const Feedback = () => {
         event.stopPropagation();
         var element = event.target;
         var rect = element.getBoundingClientRect();
-        let FeedbackPopup = document.getElementsByClassName('feedback-popup');
-        FeedbackPopup[0].style.display = "block";
-        FeedbackPopup[0].style.top = `${rect.top - 45}px`;
-        FeedbackPopup[0].style.left = `${rect.left - 140}px`;
+        let foodPopup = document.getElementsByClassName('food-popup');
+        foodPopup[0].style.display = "block";
+        foodPopup[0].style.top = `${rect.top - 45}px`;
+        foodPopup[0].style.left = `${rect.left - 140}px`;
         setSelectedEditRow(id);
     }
 
@@ -78,38 +77,38 @@ const Feedback = () => {
     const deleteSelectedRows = async () => {
         setData(data.filter(x => !selectedRows.includes(x.Id)));
         setSelectedRows([]);
-        await deleteFeedback('123', true);
+        await deleteFood('123', true);
         setIsDisplayConfirm(false);
     }
 
     return (
-        <div className='feedback-center-container'>
+        <div className='food-center-container'>
             <PopupConfirm isDisplay={isDisplayConfirm}
-                confirmContent="Bạn có muốn xoá các phản hồi đã chọn?"
+                confirmContent="Bạn có muốn xoá những món ăn đã chọn?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
-            <div className='feedback-popup'>
+            <div className='food-popup'>
                 <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className="feedback-popup-option">
+                    <div className="food-popup-option">
                         <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
                         <span>Chỉnh sửa</span>
                     </div>
                 </Link>
             </div>
 
-            <div className='feedback-center-top'>
-                <div className="feedback-search-bar-container">
+            <div className='food-center-top'>
+                <div className="food-search-bar-container">
                     <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
-                        <div className='feedback-add-new'>
+                        <div className='food-add-new'>
                             <AddIcon />
                             <span>Thêm mới</span>
                         </div>
                     </Link>
-                    <div className="feedback-search-bar">
+                    <div className="food-search-bar">
                         <SearchIcon htmlColor='grey' />
-                        <input className='feedback-search-bar-input'
-                            placeholder='Tìm kiếm theo bình luận'
+                        <input className='food-search-bar-input'
+                            placeholder='Tìm kiếm theo tên'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -117,52 +116,54 @@ const Feedback = () => {
                 </div>
                 {
                     selectedRows.length > 0 ?
-                        <div className='feedback-delete'
+                        <div className='food-delete'
                             onClick={confirmDelete}
                         >
                             <DeleteIcon htmlColor='white' />
-                            <span style={{ color: "white", marginLeft: "5px" }}>Xoá {selectedRows.length} hàng</span>
+                            <span style={{ color: "white", marginLeft: "5px" }}>Delete {selectedRows.length} item(s)</span>
                         </div> : ""
                 }
             </div>
-            <div className="feedback-center-bottom">
-                <table className='feedback-center-table'>
+            <div className="food-center-bottom">
+                <table className='food-center-table'>
                     <thead>
-                        <tr className='feedback-table-header'>
+                        <tr className='food-table-header'>
                             <th style={{ width: "60px" }}>
-                                <input className='feedback-table-checkbox' type='checkbox'
+                                <input className='food-table-checkbox' type='checkbox'
                                     checked={selectedRows.length !== 0 && selectedRows.length >= data.length}
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th>Số sao</th>
-                            <th>Bình luận</th>
-                            <th>Ngày bình luận</th>
-                            <th>Khách hàng</th>
+                            <th>Id</th>
+                            <th></th>
+                            <th>Tên món ăn</th>
+                            <th>Loại đồ ăn</th>
+                            <th>Giá</th>
+                            <th>Mô tả</th>
+                            <th style={{ width: "20px" }}></th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.Comment.includes(searchValue) ? '' :
-                                        <tr key={index} className={`feedback-table-row ${selectedRows.includes(item.Id) ? 'feedback-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !item.Name.includes(searchValue) ? '' :
+                                        <tr key={index} className={`food-table-row ${selectedRows.includes(item.Id) ? 'food-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
                                             <td>
-                                                <input type='checkbox' className='feedback-table-checkbox'
+                                                <input type='checkbox' className='food-table-checkbox'
                                                     onChange={() => { }}
                                                     checked={selectedRows.find(x => x === item.Id) !== undefined}
                                                 />
                                             </td>
+                                            <td>{item.Id}</td>
                                             <td>
-                                            {
-                                                [1, 2, 3, 4, 5].map(index => 
-                                                    index > parseInt(item.RatingStar) ? <StarBorderIcon htmlColor='#dbdb07'/> : <StarIcon htmlColor='#dbdb07'/>
-                                                )
-                                            }
+                                                <img width='100px' src='https://cdn.eva.vn/upload/3-2023/images/2023-07-13/cach-nau-pho-bo-ha-noi-thom-ngon-chuan-vi-tai-nha-cuc-don-gian-14-1689214964-384-width700height482.jpg' />
                                             </td>
-                                            <td>{item.Comment}</td>
-                                            <td>{item.ModifiedDate}</td>
-                                            <td>{item.User}</td>
+                                            <td>{item.Name}</td>
+                                            <td>{item.DishType}</td>
+                                            <td>{item.Price}</td>
+                                            <td>{item.Description}</td>
+                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
                                         </tr>
                                 )
                         }
@@ -176,4 +177,4 @@ const Feedback = () => {
     )
 }
 
-export default Feedback;
+export default Food;
