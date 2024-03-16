@@ -2,7 +2,8 @@ import { getAxiosInstance } from './axiosInstance';
 import Orders from '../data/order';
 
 const getAllOrder = async (isMock = false) => {
-    const url = '';
+    const url = 'orders';
+    const token = localStorage.getItem('AccessToken');
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -12,7 +13,11 @@ const getAllOrder = async (isMock = false) => {
         });
     }
     else {
-        const data = instance.get(url).then(res => res.data);
+        const data = instance.get(url, {
+            'headers': {
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => res.data);
         return data;
     }
 }

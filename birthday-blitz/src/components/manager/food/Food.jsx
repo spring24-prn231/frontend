@@ -21,12 +21,12 @@ const Food = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllFood(true);
+            const res = await getAllFood();
             return res;
         };
 
         getData().then(res => {
-            setData(res);
+            setData(res.data);
             setIsLoading(false);
         })
 
@@ -46,7 +46,7 @@ const Food = () => {
             setSelectedRows([]);
         }
         else {
-            setSelectedRows(data.map(x => x.Id));
+            setSelectedRows(data.map(x => x.id));
         }
     }
 
@@ -75,7 +75,7 @@ const Food = () => {
     }
 
     const deleteSelectedRows = async () => {
-        setData(data.filter(x => !selectedRows.includes(x.Id)));
+        setData(data.filter(x => !selectedRows.includes(x.id)));
         setSelectedRows([]);
         await deleteFood('123', true);
         setIsDisplayConfirm(false);
@@ -134,7 +134,6 @@ const Food = () => {
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th>Id</th>
                             <th></th>
                             <th>Tên món ăn</th>
                             <th>Loại đồ ăn</th>
@@ -147,23 +146,22 @@ const Food = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.Name.includes(searchValue) ? '' :
-                                        <tr key={index} className={`food-table-row ${selectedRows.includes(item.Id) ? 'food-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !item.name.includes(searchValue) ? '' :
+                                        <tr key={index} className={`food-table-row ${selectedRows.includes(item.id) ? 'food-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
                                             <td>
                                                 <input type='checkbox' className='food-table-checkbox'
                                                     onChange={() => { }}
-                                                    checked={selectedRows.find(x => x === item.Id) !== undefined}
+                                                    checked={selectedRows.find(x => x === item.id) !== undefined}
                                                 />
                                             </td>
-                                            <td>{item.Id}</td>
                                             <td>
                                                 <img width='100px' src='https://cdn.eva.vn/upload/3-2023/images/2023-07-13/cach-nau-pho-bo-ha-noi-thom-ngon-chuan-vi-tai-nha-cuc-don-gian-14-1689214964-384-width700height482.jpg' />
                                             </td>
-                                            <td>{item.Name}</td>
-                                            <td>{item.DishType}</td>
-                                            <td>{item.Price}</td>
-                                            <td>{item.Description}</td>
-                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
+                                            <td>{item.name}</td>
+                                            <td>{item.dishType.name}</td>
+                                            <td>{item.price}</td>
+                                            <td>{item.description}</td>
+                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.id)} /></td>
                                         </tr>
                                 )
                         }

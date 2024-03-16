@@ -5,9 +5,13 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import React, { useEffect, useState } from 'react';
 import './Navbar.css';
 import { Link } from 'react-router-dom';
+import { logout } from '../../../apis/loginService';
+import {useNavigate} from "react-router-dom";
+import { getRole } from '../../../utils/JwtParser';
 
 const Navbar = () => {
     const [isCollapse, setIsCollapse] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         window.addEventListener('click', function (e) {
@@ -70,12 +74,17 @@ const Navbar = () => {
         navbarPopup.style.left = `${rect.left - 100}px`;
     }
 
+    const onLogoutClick = () => {
+        logout();
+        navigate('/logout');
+    }
+
     return (
         <div className='navbar-container'>
 
             <div className='navbar-popup'>
                 <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className="navbar-popup-option">
+                    <div className="navbar-popup-option" onClick={onLogoutClick}>
                         <ExitToAppIcon fontSize='small' style={{ marginRight: "5px" }} />
                         <span>Đăng xuất</span>
                     </div>

@@ -22,7 +22,7 @@ const RoomEdit = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getRoomById(roomId, true);
+            const res = await getRoomById(roomId, false);
             const roomTypes = await getAllRoomType(true, 3);
             return { res, roomTypes };
         };
@@ -35,8 +35,8 @@ const RoomEdit = () => {
                     "RoomType": "",
                 };
             }
-            setData(JSON.parse(JSON.stringify(res)));
-            setOldData(JSON.parse(JSON.stringify(res)));
+            setData(JSON.parse(JSON.stringify(res.data[0])));
+            setOldData(JSON.parse(JSON.stringify(res.data[0])));
             setRoomType(JSON.parse(JSON.stringify(roomTypes)));
             setIsLoading(false);
         })
@@ -84,8 +84,8 @@ const RoomEdit = () => {
                                         <div className="room-edit-row-content">
                                             <input type="text" spellCheck={false}
                                                 placeholder='Mã phòng'
-                                                value={data.RoomNo}
-                                                onChange={(e) => setData({ ...data, RoomNo: e.target.value })}
+                                                value={data.roomNo}
+                                                onChange={(e) => setData({ ...data, roomNo: e.target.value })}
                                                 className="room-edit-row-content-input"
                                             />
                                         </div>
@@ -103,8 +103,8 @@ const RoomEdit = () => {
                                         <div className="room-edit-row-content">
                                             <input type="text" spellCheck={false}
                                                 placeholder='Sức chứa'
-                                                value={data.Capacity}
-                                                onChange={(e) => setData({ ...data, Capacity: e.target.value })}
+                                                value={data.capacity}
+                                                onChange={(e) => setData({ ...data, capacity: e.target.value })}
                                                 className="room-edit-row-content-input"
                                             />
                                         </div>

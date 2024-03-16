@@ -29,6 +29,7 @@ import Staff from "./components/manager/staff/Staff";
 import StaffEdit from "./components/manager/staff-edit/StaffEdit";
 import Food from "./components/manager/food/Food";
 import FoodEdit from "./components/manager/food-edit/FoodEdit";
+import { getRole } from "./utils/JwtParser";
 
 function App() {
     return (
@@ -37,7 +38,6 @@ function App() {
                 <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />
 
-
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 {/* <Route path='/navbar' element={<Navbar />} />
@@ -45,30 +45,33 @@ function App() {
                 <Route path='/customer' element={<Customer />}>
                     <Route path='' element={<LandingPage />} />
                     <Route path='aboutus' element={<AboutUs />} />
-                </Route> 
-                <Route path='/manager' element={<Manager />}>
-                    <Route path='' element={<Dashboard />} />
-                    <Route path='dashboard' element={<Dashboard />} />
-                    <Route path='plan' element={<Plan />} />
-                    <Route path='plan/new' element={<PlanNew/>} />
-                    <Route path="plan/:planId" element={<PlanEdit />} />
-                    <Route path="user" element={<User />} />
-                    <Route path="voucher" element={<Voucher/>} />
-                    <Route path="voucher/:voucherId" element={<VoucherEdit/>} />
-                    <Route path="feedback" element={<Feedback/>} />
-                    <Route path="feedback/:feedbackId" element={<FeedbackEdit/>} />
-                    <Route path="room" element={<Room/>} />
-                    <Route path="room-type" element={<RoomType/>} />
-                    <Route path="room/:roomId" element={<RoomEdit/>} />
-                    <Route path="order" element={<Order/>}/>
-                    <Route path="order/:orderId" element={<OrderDetail/>} />
-                    <Route path="menu" element={<Menu/>}/>
-                    <Route path="menu/:menuId" element={<MenuEdit/>}/>
-                    <Route path="staff" element={<Staff/>}/>
-                    <Route path="staff/:staffId" element={<StaffEdit/>} />
-                    <Route path="food" element={<Food/>}/>
-                    <Route path="food/:foodId" element={<FoodEdit/>}/>
                 </Route>
+                {
+                    getRole() !== 'ADMIN' ? '' :
+                        <Route path='/manager' element={<Manager />}>
+                            <Route path='' element={<Dashboard />} />
+                            <Route path='dashboard' element={<Dashboard />} />
+                            <Route path='plan' element={<Plan />} />
+                            <Route path='plan/new' element={<PlanNew />} />
+                            <Route path="plan/:planId" element={<PlanEdit />} />
+                            <Route path="user" element={<User />} />
+                            <Route path="voucher" element={<Voucher />} />
+                            <Route path="voucher/:voucherId" element={<VoucherEdit />} />
+                            <Route path="feedback" element={<Feedback />} />
+                            <Route path="feedback/:feedbackId" element={<FeedbackEdit />} />
+                            <Route path="room" element={<Room />} />
+                            <Route path="room-type" element={<RoomType />} />
+                            <Route path="room/:roomId" element={<RoomEdit />} />
+                            <Route path="order" element={<Order />} />
+                            <Route path="order/:orderId" element={<OrderDetail />} />
+                            <Route path="menu" element={<Menu />} />
+                            <Route path="menu/:menuId" element={<MenuEdit />} />
+                            <Route path="staff" element={<Staff />} />
+                            <Route path="staff/:staffId" element={<StaffEdit />} />
+                            <Route path="food" element={<Food />} />
+                            <Route path="food/:foodId" element={<FoodEdit />} />
+                        </Route>
+                }
             </Routes>
         </Router>
     );

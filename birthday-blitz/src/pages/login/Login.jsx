@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css'; // Import custom CSS for LoginForm
+import { login } from '../../apis/loginService';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { getRole } from '../../utils/JwtParser';
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
 
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const onClickLogin = async () => {
+        const data = await login(username, password).then(res => {
+            toast.success("Login success !!!", {
+                position: "top-center"
+            });
+            localStorage.setItem("AccessToken", res.data.data.accessToken);
+            localStorage.setItem("RefreshToken", res.data.data.refreshToken);
+            const role = getRole();
+            let route = '/';
+            if (role === 'ADMIN') {
+                route = 'manager';
+            }
+            else {
+                route = 'customer';
+            }
+            window.location.replace("/manager");
+            return res.data;
+        }).catch(error => {
+            console.log(error);
+            toast.error("Wrong username or password!!!", {
+                position: "top-center"
+            });
+        });
+
+    }
+
     return (
         <div className='login-container'>
-            <div class="login-form">
-                <ul class="login-tab-group">
-                    <li class="login-tab login-active"><a className='login-link' href="/login">Log In</a></li>
-                    <li class="login-tab"><a className='login-link' href="/register">Sign Up</a></li>
+            <ToastContainer />
+            <div className="login-form">
+                <ul className="login-tab-group">
+                    <li className="login-tab login-active"><a className='login-link' href="/login">Đăng nhập</a></li>
+                    <li className="login-tab"><a className='login-link' href="/register">Đăng ký</a></li>
                 </ul>
                 <div>
-                    <h1 className='login-header'>Welcome Back!</h1>
-                    <form>
-                        <div class="login-field-wrap">
-                            <input className='login-input' type="email" placeholder='Email Address*' required autocomplete="off" />
+                    <h1 className='login-header'>Chào mừng bạn quay lại!</h1>
+                    <div>
+                        <div className="login-field-wrap">
+                            <input className='login-input' type="text" placeholder='Tên đăng nhập*'
+                                onChange={(e) => setUsername(e.target.value)}
+                                required autoComplete="off" />
                         </div>
-                        <div class="login-field-wrap">
-                            <input className='login-input' type="password" placeholder='Password*' required autocomplete="off" />
+                        <div className="login-field-wrap">
+                            <input className='login-input' type="password"
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder='Mật khẩu*' required autoComplete="off" />
                         </div>
-                        <p class="login-forgot"><a className='login-link' href="#">Forgot Password?</a></p>
-                        <button class="login-button login-button-block" >Log In</button>
-                    </form>
+                        <p className="login-forgot"><a className='login-link' href="#">Quên mật khẩu?</a></p>
+                        <button className="login-button login-button-block" onClick={onClickLogin}>Đăng nhập</button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -18,13 +18,13 @@ const RoomType = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllRoomType(true);
+            const res = await getAllRoomType();
             return res;
         };
 
         getData().then(res => {
-            setData(JSON.parse(JSON.stringify(res)));
-            setOldData(JSON.parse(JSON.stringify(res)));
+            setData(JSON.parse(JSON.stringify(res.data)));
+            setOldData(JSON.parse(JSON.stringify(res.data)));
             setIsLoading(false);
         })
     }, []);
@@ -34,7 +34,7 @@ const RoomType = () => {
     };
 
     const onDeleteRow = (id) => {
-        setData(data.filter(x => x.Id !== id));
+        setData(data.filter(x => x.id !== id));
     };
 
     const onNameChange = (e, id) => {
@@ -48,8 +48,8 @@ const RoomType = () => {
 
     const onDescriptionChange = (e, id) => {
         data.forEach(item => {
-            if (item.Id === id) {
-                item.Description = e.target.value;
+            if (item.id === id) {
+                item.description = e.target.value;
             }
         });
         setData([...data]);
@@ -104,16 +104,16 @@ const RoomType = () => {
                                                 <div className="room-type-row-content">
                                                     <input type="text" spellCheck={false}
                                                         className="room-type-row-content-input"
-                                                        onChange={(e) => onNameChange(e, item.Id)}
-                                                        value={item.Name} />
+                                                        onChange={(e) => onNameChange(e, item.id)}
+                                                        value={item.name} />
                                                 </div>
                                                 <div className="room-type-row-content">
                                                     <input type="text" spellCheck={false}
                                                         className="room-type-row-content-input"
-                                                        onChange={(e) => onDescriptionChange(e, item.Id)}
-                                                        value={item.Description} />
+                                                        onChange={(e) => onDescriptionChange(e, item.id)}
+                                                        value={item.description} />
                                                 </div>
-                                                <div className="room-type-row-delete" onClick={() => onDeleteRow(item.Id)}>
+                                                <div className="room-type-row-delete" onClick={() => onDeleteRow(item.id)}>
                                                     <RemoveCircleOutlineIcon htmlColor='red' />
                                                 </div>
                                             </div>

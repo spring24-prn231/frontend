@@ -1,19 +1,18 @@
 import { getAxiosInstance } from './axiosInstance';
 
-const login = async (isMock = false) => {
+const login = async (username, password) => {
     const url = '/authentication/login';
     const instance = await getAxiosInstance();
-    if (isMock) {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                resolve(Menus);
-            }, 1000);
-        });
-    }
-    else {
-        const data = instance.get(url).then(res => res.data);
-        return data;
-    }
+    const data = instance.post(url, {
+        username: username,
+        password: password
+    });
+    return data;
 }
 
-export { login };
+const logout = () => {
+    localStorage.removeItem('AccessToken');
+    localStorage.removeItem('RefreshToken');
+}
+
+export { login, logout};

@@ -2,7 +2,7 @@ import { getAxiosInstance } from './axiosInstance';
 import Rooms from '../data/room';
 
 const getAllRoom = async (isMock = false) => {
-    const url = '';
+    const url = 'rooms';
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -18,7 +18,7 @@ const getAllRoom = async (isMock = false) => {
 }
 
 const getRoomById = async (id, isMock = false) => {
-    const url = '';
+    const url = `rooms?id=${id}`;
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {

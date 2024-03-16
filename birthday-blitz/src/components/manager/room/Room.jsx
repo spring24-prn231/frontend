@@ -22,12 +22,12 @@ const Room = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllRoom(true);
+            const res = await getAllRoom(false);
             return res;
         };
 
         getData().then(res => {
-            setData(res);
+            setData(res.data);
             setIsLoading(false);
         })
 
@@ -53,7 +53,7 @@ const Room = () => {
             setSelectedRows([]);
         }
         else {
-            setSelectedRows(data.map(x => x.Id));
+            setSelectedRows(data.map(x => x.id));
         }
     }
 
@@ -92,7 +92,7 @@ const Room = () => {
     }
 
     const deleteSelectedRows = async () => {
-        setData(data.filter(x => !selectedRows.includes(x.Id)));
+        setData(data.filter(x => !selectedRows.includes(x.id)));
         setSelectedRows([]);
         await deleteRoom('123', true);
         setIsDisplayConfirm(false);
@@ -174,18 +174,18 @@ const Room = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.RoomNo.includes(searchValue) ? '' :
-                                        <tr key={index} className={`room-table-row ${selectedRows.includes(item.Id) ? 'room-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !toString(item.roomNo).includes(searchValue) ? '' :
+                                        <tr key={index} className={`room-table-row ${selectedRows.includes(item.id) ? 'room-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
                                             <td>
                                                 <input type='checkbox' className='room-table-checkbox'
                                                     onChange={() => { }}
-                                                    checked={selectedRows.find(x => x === item.Id) !== undefined}
+                                                    checked={selectedRows.find(x => x === item.id) !== undefined}
                                                 />
                                             </td>
-                                            <td>{item.RoomNo}</td>
-                                            <td>{item.Capacity}</td>
-                                            <td>{item.RoomType}</td>
-                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
+                                            <td>{item.roomNo}</td>
+                                            <td>{item.capacity}</td>
+                                            <td>{item.roomType.name}</td>
+                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.id)} /></td>
                                         </tr>
                                 )
                         }

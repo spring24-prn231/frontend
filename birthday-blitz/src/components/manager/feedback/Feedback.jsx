@@ -22,12 +22,12 @@ const Feedback = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllFeedback(true);
+            const res = await getAllFeedback();
             return res;
         };
 
         getData().then(res => {
-            setData(res);
+            setData(res.data);
             setIsLoading(false);
         })
 
@@ -47,7 +47,7 @@ const Feedback = () => {
             setSelectedRows([]);
         }
         else {
-            setSelectedRows(data.map(x => x.Id));
+            setSelectedRows(data.map(x => x.id));
         }
     }
 
@@ -76,7 +76,7 @@ const Feedback = () => {
     }
 
     const deleteSelectedRows = async () => {
-        setData(data.filter(x => !selectedRows.includes(x.Id)));
+        setData(data.filter(x => !selectedRows.includes(x.id)));
         setSelectedRows([]);
         await deleteFeedback('123', true);
         setIsDisplayConfirm(false);
@@ -145,24 +145,24 @@ const Feedback = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.Comment.includes(searchValue) ? '' :
-                                        <tr key={index} className={`feedback-table-row ${selectedRows.includes(item.Id) ? 'feedback-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !item.comment.includes(searchValue) ? '' :
+                                        <tr key={index} className={`feedback-table-row ${selectedRows.includes(item.id) ? 'feedback-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
                                             <td>
                                                 <input type='checkbox' className='feedback-table-checkbox'
                                                     onChange={() => { }}
-                                                    checked={selectedRows.find(x => x === item.Id) !== undefined}
+                                                    checked={selectedRows.find(x => x === item.id) !== undefined}
                                                 />
                                             </td>
                                             <td>
                                             {
                                                 [1, 2, 3, 4, 5].map(index => 
-                                                    index > parseInt(item.RatingStar) ? <StarBorderIcon htmlColor='#dbdb07'/> : <StarIcon htmlColor='#dbdb07'/>
+                                                    index > parseInt(item.ratingStar) ? <StarBorderIcon htmlColor='#dbdb07'/> : <StarIcon htmlColor='#dbdb07'/>
                                                 )
                                             }
                                             </td>
-                                            <td>{item.Comment}</td>
-                                            <td>{item.ModifiedDate}</td>
-                                            <td>{item.User}</td>
+                                            <td>{item.comment}</td>
+                                            <td>{item.modifiedDate}</td>
+                                            <td>{item.order.userId}</td>
                                         </tr>
                                 )
                         }
