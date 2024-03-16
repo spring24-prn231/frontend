@@ -1,7 +1,45 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import panelSection1 from '../../assets/landing-page/panel2.jpg'
 import panelSection2 from '../../assets/landing-page/panel3.jpg'
+import {getCountOrders, getCountRooms, getCountCapacities} from  '../apis/homeService';
+
 const LandingPage = () => {
+    const [countOrders, setCountOrders] = useState(0);
+    const [countRooms, setCountRooms] = useState('');
+    const [countCapacities, setCountCapacities] = useState('');
+    useEffect(() => {
+        //count Order
+        const callCountOrders = async () => {
+            const res = await getCountOrders(false);
+
+            return res;
+        };
+
+        callCountOrders().then(res => {
+            setCountOrders(res);
+        })
+
+        // count Rooms
+        const callCountRooms = async () => {
+            const res = await getCountRooms(false);
+            return res;
+        };
+
+        callCountRooms().then(res => {
+            setCountRooms(res);
+        })
+
+        // count Capacities
+        const callCountCapacities = async () => {
+            const res = await getCountCapacities(false);
+            return res;
+        };
+
+        callCountCapacities().then(res => {
+            setCountCapacities(res);
+        })
+
+    })
     return (
         <div className="main-content">
             <div className="container-xxl py-6">
@@ -11,21 +49,21 @@ const LandingPage = () => {
                             <div className="fact-item bg-light rounded text-center h-100 p-5">
                                 <i className="fa fa-certificate fa-4x text-primary mb-4"></i>
                                 <p className="mb-2">Đã tổ chức</p>
-                                <h1 className="display-5 mb-0" data-toggle="counter-up">59 tiệc</h1>
+                                <h1 className="display-5 mb-0" data-toggle="counter-up">{countOrders} tiệc</h1>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 wow fadeIn" data-wow-delay="0.3s">
                             <div className="fact-item bg-light rounded text-center h-100 p-5">
                                 <i className="fa fa-users fa-4x text-primary mb-4"></i>
                                 <p className="mb-2">Số lượng phòng</p>
-                                <h1 className="display-5 mb-0" data-toggle="counter-up">6996 phòng</h1>
+                                <h1 className="display-5 mb-0" data-toggle="counter-up">{countRooms} phòng</h1>
                             </div>
                         </div>
                         <div className="col-lg-4 col-md-6 wow fadeIn" data-wow-delay="0.7s">
                             <div className="fact-item bg-light rounded text-center h-100 p-5">
                                 <i className="fa fa-cart-plus fa-4x text-primary mb-4"></i>
                                 <p className="mb-2">Sức chứa</p>
-                                <h1 className="display-5 mb-0" data-toggle="counter-up"> Trên 7749 người</h1>
+                                <h1 className="display-5 mb-0" data-toggle="counter-up"> Trên {countCapacities}&nbsp;người</h1>
                             </div>
                         </div>
                     </div>

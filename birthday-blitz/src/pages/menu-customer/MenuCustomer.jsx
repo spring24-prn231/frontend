@@ -4,6 +4,7 @@ import '../common/customer-css/bootstrap.min.css'
 import menu_img from '../../assets/menu/menu.jpg'
 import { CheckBox } from '@mui/icons-material';
 import { element } from 'prop-types';
+import {getCountOrders, getCountRooms, getCountCapacities} from  '../apis/homeService';
 const MenuCustomer = () => {
     var mockData = [
         {
