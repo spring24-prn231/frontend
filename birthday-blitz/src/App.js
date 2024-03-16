@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages/home/Home';
 // import Navbar from './pages/navbar-customer/NavbarCustomer';
+import MenuCustomer from "./pages/menu-customer/MenuCustomer";
 import AboutUs from "./pages/about-us-customer/AboutUsCustomer";
 import LandingPage from './pages/landing-page/LandingPage';
 import Customer from './pages/customer-page/CustomerPage';
@@ -45,6 +46,7 @@ function App() {
                 <Route path='/customer' element={<Customer />}>
                     <Route path='' element={<LandingPage />} />
                     <Route path='aboutus' element={<AboutUs />} />
+                    <Route path='menu' element={<MenuCustomer />} />
                 </Route> 
                 <Route path='/manager' element={<Manager />}>
                     <Route path='' element={<Dashboard />} />

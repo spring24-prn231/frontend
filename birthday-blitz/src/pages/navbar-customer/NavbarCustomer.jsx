@@ -1,34 +1,40 @@
-import React, {useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import '../common/customer-css/style.css'
 import '../common/customer-css/bootstrap.min.css'
 import carousel1 from '../../assets/landing-page/panel1.jpg'
 import { Link } from 'react-router-dom'
 const NavbarCustomer = () => {
+
+    var pathname = window.location.pathname.split("/")[1]
+
     const initialized = useRef(false)
     useEffect(() => {
         if (!initialized.current) {
             initialized.current = true
-            var listPage = ["aboutus", "service", "cook-table"]
+
+            var listPage = ["aboutus", "service", "menu", "music", "stage-show"]
             var page = window.location.pathname.split("/").pop();
-            if (page == "") {
+           // alert(page);
+         //   document.getElementById("main")?.classList.remove("active")
+            if (page == "" || page == "customer") {
                 document.getElementById("main").classList.add("active")
             }
-            listPage.forEach(function(item){
+            listPage.forEach(function (item) {
+              //  document.getElementById(item)?.classList.remove("active")
                 if (item == page) {
-                     document.getElementById(page).classList.add("active")
+                    document.getElementById(page).classList.add("active")
                 }
 
             });
-            
-          }
 
+        }
 
     }, []);
 
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-                <Link to="index.html" className="navbar-brand ms-4 ms-lg-0">
+                <Link to="/" className="navbar-brand ms-4 ms-lg-0">
                     <h1 className="text-primary m-0">TIỆC SINH NHẬT</h1>
                 </Link>
                 <button type="button" className="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -36,10 +42,12 @@ const NavbarCustomer = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarCollapse">
                     <div className="navbar-nav mx-auto p-4 p-lg-0">
-                        <Link id="main" to="index.html" className="nav-item nav-link">Trang chủ</Link>
-                        <Link id="aboutus" to="/manager/feedback" className="nav-item nav-link">Về chúng tôi</Link>
-                        <Link id="service" to="service.html" className="nav-item nav-link">Dịch vụ</Link>
-                        <Link id="cook-table" to="product.html" className="nav-item nav-link">Thực đơn</Link>
+                        <a id="main" href="/customer/" className="nav-item nav-link">Trang chủ</a>
+                        <a id="aboutus" href="aboutus" className="nav-item nav-link">Về chúng tôi</a>
+                        <a id="service" href="service.html" className="nav-item nav-link">Dịch vụ</a>
+                        <a id="menu" href="menu" className="nav-item nav-link">Thực đơn</a>
+                        <a id="music" href="/text" className="nav-item nav-link">Âm thanh</a>
+                        <a id="stage-show" href="/text" className="nav-item nav-link">Chương trình</a>
                         {/* <div className="nav-item dropdown">
                         <Link to="https://mail.google.com/mail/u/0/" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</Link>
                         <div className="dropdown-menu m-0">
@@ -48,7 +56,7 @@ const NavbarCustomer = () => {
                             <Link to="404.html" className="dropdown-item">404 Page</Link>
                         </div>
                     </div> */}
-                        <Link to="contact.html" className="nav-item nav-link">Liên hệ</Link>
+                        <a href="contact.html" className="nav-item nav-link">Liên hệ</a>
                     </div>
                     <div className=" d-none d-lg-flex">
                         <div className="flex-shrink-0 btn-lg-square border border-light rounded-circle">
