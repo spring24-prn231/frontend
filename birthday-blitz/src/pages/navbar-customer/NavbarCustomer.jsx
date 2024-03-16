@@ -90,8 +90,6 @@ const NavbarCustomer = () => {
                 </div>
             </div>
         </div>
-
-
     )
 }
 

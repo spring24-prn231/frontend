@@ -1,36 +1,33 @@
 .navbar-container {
     height: 60px;
-    background-color: #0865fe;
+    background-color: #EAA636;
     display: flex;
     position: fixed;
     font-size: 14px;
     color: white;
     width: 100%;
     z-index: 999;
+    justify-content: space-between;
 }
 
 .navbar-logo {
     display: flex;
     justify-content: right;
     align-items: center;
-    width: 200px;
-    flex: 3;
     cursor: pointer;
+    margin-left: 15px;
 }
 
 .navbar-logo-title {
     font-size: 26px;
     font-family: cursive;
-}
-
-.navbar-center {
-    flex: 11;
+    color: white !important;
 }
 
 .navbar-helper {
-    flex: 3;
     display: flex;
     align-items: center;
+    width: 200px;
 }
 
 .navbar-popup {
@@ -38,8 +35,9 @@
     position: absolute;
     background-color: white;
     box-shadow: 1px 1px 1px 1px grey;
-    width: 130px;
-    padding: 10px;
+    width: 110px;
+    justify-content: center;
+    padding: 5px;
 }
 
 .navbar-popup-option {

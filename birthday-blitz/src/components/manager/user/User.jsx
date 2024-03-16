@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
+import BlockIcon from '@mui/icons-material/Block';
 import './User.css';
 import { Link } from 'react-router-dom';
 import Loading from '../../common/loading/Loading';
@@ -66,7 +66,7 @@ const User = () => {
         let userPopup = document.getElementsByClassName('user-popup');
         userPopup[0].style.display = "block";
         userPopup[0].style.top = `${rect.top - 45}px`;
-        userPopup[0].style.left = `${rect.left - 140}px`;
+        userPopup[0].style.left = `${rect.left - 100}px`;
         setSelectedEditRow(id);
     }
 
@@ -84,17 +84,15 @@ const User = () => {
     return (
         <div className='user-center-container'>
             <PopupConfirm isDisplay={isDisplayConfirm}
-                confirmContent="Do you want to delete selected items?"
+                confirmContent="Bạn có muốn xoá các khách hàng đã chọn?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
             <div className='user-popup'>
-                <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className="user-popup-option">
-                        <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
-                        <span>Edit</span>
-                    </div>
-                </Link>
+                <div className="user-popup-option">
+                    <BlockIcon fontSize='small' style={{ marginRight: "10px" }} />
+                    <span>Chặn</span>
+                </div>
             </div>
 
             <div className='user-center-top'>
@@ -102,13 +100,13 @@ const User = () => {
                     <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
                         <div className='user-add-new'>
                             <AddIcon />
-                            <span>Add new</span>
+                            <span>Thêm mới</span>
                         </div>
                     </Link>
                     <div className="user-search-bar">
                         <SearchIcon htmlColor='grey' />
                         <input className='user-search-bar-input'
-                            placeholder='Search by name'
+                            placeholder='Tìm kiếm theo họ và tên'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -134,9 +132,9 @@ const User = () => {
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th>Full name</th>
-                            <th>Phone</th>
-                            <th>Birthday</th>
+                            <th>Họ và tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Ngày sinh</th>
                             <th>Email</th>
                             <th style={{ width: "20px" }}></th>
                         </tr>

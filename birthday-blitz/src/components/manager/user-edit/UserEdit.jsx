@@ -57,13 +57,13 @@ const UserEdit = () => {
 
                                 <div className='user-save-button'>
                                     <DoneIcon style={{ marginRight: '4px' }} fontSize='small' />
-                                    <span>Save</span>
+                                    <span>Lưu</span>
                                 </div>
                                 {
                                     JSON.stringify(data) === JSON.stringify(oldData) ? '' :
                                         <div className='user-discard-button' onClick={() => setData(JSON.parse(JSON.stringify(oldData)))}>
                                             <CloseIcon style={{ marginRight: '4px' }} fontSize='small' />
-                                            <span>Discard</span>
+                                            <span>Loại bỏ</span>
                                         </div>
                                 }
                             </div>
@@ -77,7 +77,7 @@ const UserEdit = () => {
                                             <span><KeyboardArrowDownIcon fontSize='small' /></span>
                                         </div>
                                         <span className='user-edit-row-label'>
-                                            Full name:
+                                            Họ và tên:
                                         </span>
                                         <div className="user-edit-row-content">
                                             <input type="text" spellCheck={false}
@@ -96,7 +96,7 @@ const UserEdit = () => {
                                             <span><KeyboardArrowDownIcon fontSize='small' /></span>
                                         </div>
                                         <span className='user-edit-row-label'>
-                                            Phone number:
+                                            Số điện thoại:
                                         </span>
                                         <div className="user-edit-row-content">
                                             <input type="text" spellCheck={false}
@@ -134,7 +134,7 @@ const UserEdit = () => {
                                             <span><KeyboardArrowDownIcon fontSize='small' /></span>
                                         </div>
                                         <span className='user-edit-row-label'>
-                                            Birthday:
+                                            Ngày sinh:
                                         </span>
                                         <div className="user-edit-row-content">
                                             <input type="date" spellCheck={false}

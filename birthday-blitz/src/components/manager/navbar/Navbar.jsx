@@ -67,7 +67,7 @@ const Navbar = () => {
         let navbarPopup = document.getElementsByClassName('navbar-popup')[0];
         navbarPopup.style.display = "block";
         navbarPopup.style.top = `${rect.top + 30}px`;
-        navbarPopup.style.left = `${rect.left - 130}px`;
+        navbarPopup.style.left = `${rect.left - 100}px`;
     }
 
     return (
@@ -76,8 +76,8 @@ const Navbar = () => {
             <div className='navbar-popup'>
                 <Link to="/login" style={{ textDecoration: 'none', color: 'black' }}>
                     <div className="navbar-popup-option">
-                        <ExitToAppIcon fontSize='small' style={{ marginRight: "10px" }} />
-                        <span>Logout</span>
+                        <ExitToAppIcon fontSize='small' style={{ marginRight: "5px" }} />
+                        <span>Đăng xuất</span>
                     </div>
                 </Link>
             </div>

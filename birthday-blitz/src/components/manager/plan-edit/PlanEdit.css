@@ -1,5 +1,4 @@
-.plan-edit-container {
-}
+.plan-edit-container {}
 
 .plan-edit-top {
     height: 50px;
@@ -33,6 +32,7 @@
     font-size: 20px;
     width: 400px;
     font-weight: bold;
+    background-color: #ffffff00;
 }
 
 .plan-event-name-input:focus {
@@ -46,15 +46,33 @@
     align-items: center;
     font-size: 15px;
     border-radius: 20px;
-    background-color: #0865fe;
+    background-color: #EAA636;
     color: white;
     box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
     cursor: pointer;
     margin-right: 5px;
 }
 
+.plan-approve-button {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: #05ac20;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.plan-approve-button:hover {
+    background-color: #038d31;
+}
+
 .plan-save-button:hover {
-    background-color: #075ae0;
+    background-color: #EAA636;
 }
 
 .plan-discard-button {
@@ -76,65 +94,92 @@
 
 
 .plan-edit-bottom {
-    margin-top: 40px;
+    display: flex;
+}
+
+.plan-edit-bottom-left {
+    margin-top: 30px;
     display: block;
     overflow-y: scroll;
     height: 70vh;
     transition: height 1s;
+    flex: 9;
 }
 
-
-.plan-edit-bottom::-webkit-scrollbar {
+.plan-edit-bottom-left::-webkit-scrollbar {
     width: 5px;
 }
 
-.plan-edit-bottom::-webkit-scrollbar-track {
+.plan-edit-bottom-left::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-.plan-edit-bottom::-webkit-scrollbar-thumb {
+.plan-edit-bottom-left::-webkit-scrollbar-thumb {
     background: #888;
 }
 
-.plan-edit-bottom::-webkit-scrollbar-thumb:hover {
+.plan-edit-bottom-left::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.plan-edit-bottom-right::-webkit-scrollbar {
+    width: 5px;
+}
+
+.plan-edit-bottom-right::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.plan-edit-bottom-right::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.plan-edit-bottom-right::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
 .plan-edit-row {
-    justify-content: space-around;
     display: flex;
     align-items: center;
 }
 
+.plan-edit-row-edit {
+    display: flex;
+    padding: 10px 25px;
+    border-radius: 30px;
+    box-shadow: 1px 0.4px 0.5px 0px;
+    border: 1px rgb(245, 241, 241) solid;
+}
+
 .plan-edit-row-index {
-    background-color: #0865fe;
+    background-color: #EAA636;
     color: white;
-    padding: 10px 15px;
+    padding: 7px 15px;
     border-radius: 50px;
     font-weight: bolder;
-    margin-right: 50px;
-    margin-left: 30px;
+    margin-right: 20px;
+    margin-left: 32px;
 }
 
 .plan-edit-row-time-input {
-    font-size: 15px;
-    padding: 5px;
+    font-size: 14px;
+    padding: 2px;
+    background-color: #ffffff00;
+    border: none;
 }
 
 .plan-edit-row-content {
     padding: 3px;
-    border-bottom: 0.1px solid #0865fe;
 }
 
 .plan-edit-row-content:focus-within {
-    border-bottom: 2.5px solid #0865fe;
-    /* box-shadow: 0px 2px 0px 0px #337bf0; */
 }
 
 .plan-edit-row-content-input {
     border: none;
-    width: 45vw;
+    background-color: #ffffff00;
     font-size: 15px;
+    text-overflow: ellipsis;
 }
 
 .plan-edit-row-content-input:focus-within {
@@ -142,17 +187,59 @@
 }
 
 .plan-edit-row-space {
-    height: 40px;
+    height: 30px;
     border-left: 5px dashed rgb(138, 136, 136);
     margin: 6px 0px;
-    margin-left: 45px;
+    margin-left: 48px;
 }
 
 .plan-edit-row-add:hover {
-    background-color: #6598eb;
+    background-color: #f7e3c4;
 }
 
-.plan-row-delete {
-    margin-left: 10px;
+.plan-edit-row-extend {
+    padding: 2px 3px;
     cursor: pointer;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.plan-edit-row-extend:hover {
+    background-color: #e2dbdb;
+}
+
+.plan-edit-bottom-right {
+    flex: 5;
+    padding-top: 10px;
+    transition: visibility 0s, opacity 0.5s linear;
+    padding-left: 20px;
+    overflow-y: scroll;
+    max-height: 500px;
+}
+
+.plan-edit-bottom-right-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-right: 4px;
+}
+
+.plan-edit-bottom-right-content-label {
+    width: 30%;
+    font-weight: bold;
+}
+
+.plan-edit-bottom-right-content-item {
+    display: flex;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.plan-edit-text-area:focus {
+    outline: none;
 }

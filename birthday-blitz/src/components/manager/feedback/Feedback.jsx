@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import StarIcon from '@mui/icons-material/Star';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
@@ -84,7 +85,7 @@ const Feedback = () => {
     return (
         <div className='feedback-center-container'>
             <PopupConfirm isDisplay={isDisplayConfirm}
-                confirmContent="Do you want to delete selected items?"
+                confirmContent="Bạn có muốn xoá các phản hồi đã chọn?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
@@ -92,7 +93,7 @@ const Feedback = () => {
                 <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
                     <div className="feedback-popup-option">
                         <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
-                        <span>Edit</span>
+                        <span>Chỉnh sửa</span>
                     </div>
                 </Link>
             </div>
@@ -102,13 +103,13 @@ const Feedback = () => {
                     <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
                         <div className='feedback-add-new'>
                             <AddIcon />
-                            <span>Add new</span>
+                            <span>Thêm mới</span>
                         </div>
                     </Link>
                     <div className="feedback-search-bar">
                         <SearchIcon htmlColor='grey' />
                         <input className='feedback-search-bar-input'
-                            placeholder='Search by name'
+                            placeholder='Tìm kiếm theo bình luận'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -120,7 +121,7 @@ const Feedback = () => {
                             onClick={confirmDelete}
                         >
                             <DeleteIcon htmlColor='white' />
-                            <span style={{ color: "white", marginLeft: "5px" }}>Delete {selectedRows.length} item(s)</span>
+                            <span style={{ color: "white", marginLeft: "5px" }}>Xoá {selectedRows.length} hàng</span>
                         </div> : ""
                 }
             </div>
@@ -134,11 +135,10 @@ const Feedback = () => {
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th>Rating star</th>
-                            <th>Comment</th>
-                            <th>Modified date</th>
-                            <th>User</th>
-                            <th style={{ width: "20px" }}></th>
+                            <th>Số sao</th>
+                            <th>Bình luận</th>
+                            <th>Ngày bình luận</th>
+                            <th>Khách hàng</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -153,11 +153,16 @@ const Feedback = () => {
                                                     checked={selectedRows.find(x => x === item.Id) !== undefined}
                                                 />
                                             </td>
-                                            <td>{item.RatingStar}</td>
+                                            <td>
+                                            {
+                                                [1, 2, 3, 4, 5].map(index => 
+                                                    index > parseInt(item.RatingStar) ? <StarBorderIcon htmlColor='#dbdb07'/> : <StarIcon htmlColor='#dbdb07'/>
+                                                )
+                                            }
+                                            </td>
                                             <td>{item.Comment}</td>
                                             <td>{item.ModifiedDate}</td>
                                             <td>{item.User}</td>
-                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
                                         </tr>
                                 )
                         }

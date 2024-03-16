@@ -1,0 +1,114 @@
+.room-edit-container {
+}
+
+.room-edit-top {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    border-bottom: 0.2px solid rgb(226, 213, 213);
+}
+
+.room-edit-bottom {
+    margin-top: 40px;
+    display: block;
+    overflow-y: scroll;
+    height: 70vh;
+    transition: height 1s;
+}
+
+.room-edit-save-button {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: #EAA636;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+
+
+.room-edit-bottom::-webkit-scrollbar {
+    width: 5px;
+}
+
+.room-edit-bottom::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.room-edit-bottom::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.room-edit-bottom::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.room-edit-row {
+    justify-content: left;
+    display: flex;
+    align-items: center;
+}
+
+.room-edit-row-index {
+    background-color: #EAA636;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 50px;
+    font-weight: bolder;
+    margin-right: 50px;
+    margin-left: 30px;
+}
+
+.room-edit-row-time-input {
+    font-size: 15px;
+    padding: 5px;
+}
+
+.room-edit-row-content {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 2px solid #bdd1f1;
+}
+
+.room-edit-row-content:focus-within {
+    border: 2px solid #EAA636;
+}
+
+.room-edit-row-content-input {
+    border: none;
+    width: 30vw;
+    font-size: 15px;
+}
+
+.room-edit-row-content-input:focus-within {
+    outline: none;
+}
+
+.room-edit-row-space {
+    height: 30px;
+    border-left: 5px dashed rgb(138, 136, 136);
+    margin: 6px 0px;
+    margin-left: 45px;
+}
+
+.room-edit-row-add:hover {
+    background-color: #6598eb;
+}
+
+.room-row-delete {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.room-edit-row-label {
+    font-size: 17px;
+    font-weight: bold;
+    width: 120px;
+}

@@ -19,6 +19,17 @@ import Voucher from "./components/manager/voucher/Voucher";
 import VoucherEdit from "./components/manager/voucher-edit/VoucherEdit";
 import Feedback from "./components/manager/feedback/Feedback";
 import FeedbackEdit from "./components/manager/feedback-edit/FeedbackEdit";
+import Room from "./components/manager/room/Room";
+import RoomType from "./components/manager/room-type/RoomType";
+import RoomEdit from "./components/manager/room-edit/RoomEdit";
+import Order from "./components/manager/order/Order";
+import OrderDetail from "./components/manager/order-detail/OrderDetail";
+import Menu from "./components/manager/menu/Menu";
+import MenuEdit from "./components/manager/menu-edit/MenuEdit";
+import Staff from "./components/manager/staff/Staff";
+import StaffEdit from "./components/manager/staff-edit/StaffEdit";
+import Food from "./components/manager/food/Food";
+import FoodEdit from "./components/manager/food-edit/FoodEdit";
 
 function App() {
     return (
@@ -44,12 +55,21 @@ function App() {
                     <Route path='plan/new' element={<PlanNew/>} />
                     <Route path="plan/:planId" element={<PlanEdit />} />
                     <Route path="user" element={<User />} />
-                    <Route path="user/:userId" element={<UserEdit />} />
-                    <Route path="service" element={<Serivce/>} />
                     <Route path="voucher" element={<Voucher/>} />
                     <Route path="voucher/:voucherId" element={<VoucherEdit/>} />
                     <Route path="feedback" element={<Feedback/>} />
                     <Route path="feedback/:feedbackId" element={<FeedbackEdit/>} />
+                    <Route path="room" element={<Room/>} />
+                    <Route path="room-type" element={<RoomType/>} />
+                    <Route path="room/:roomId" element={<RoomEdit/>} />
+                    <Route path="order" element={<Order/>}/>
+                    <Route path="order/:orderId" element={<OrderDetail/>} />
+                    <Route path="menu" element={<Menu/>}/>
+                    <Route path="menu/:menuId" element={<MenuEdit/>}/>
+                    <Route path="staff" element={<Staff/>}/>
+                    <Route path="staff/:staffId" element={<StaffEdit/>} />
+                    <Route path="food" element={<Food/>}/>
+                    <Route path="food/:foodId" element={<FoodEdit/>}/>
                 </Route>
             </Routes>
         </Router>
