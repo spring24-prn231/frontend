@@ -131,12 +131,15 @@ const ServiceCustomer = () => {
 
             <div className="container-xxl py-6">
                 <div className="container">
-                    <h1 className="display-6 mb-4 center-title">THỰC ĐƠN</h1>
-                    <p className='mb-0 font-menu'>- Khám phá thế giới ẩm thực của chúng tôi là hành trình của sự sáng tạo
-                        và sự hòa quyện giữa các hương vị đặc trưng.</p>
+                    <h1 className="display-6 mb-4 center-title">DỊCH VỤ</h1>
+                    <p className='mb-0 font-menu'>- Dịch vụ tổ chức tiệc sinh nhật của chúng tôi không chỉ là việc tổ chức một buổi tiệc, mà còn là việc tạo ra một trải nghiệm đầy ý nghĩa và đáng nhớ cho bạn. </p>
                     <br></br>
-                    <p className='mb-0 font-menu'>- Không chỉ là nơi để thưởng thức các món ăn ngon, nhà hàng của chúng tôi
-                        còn là không gian tận hưởng và chia sẻ niềm đam mê ẩm thực cùng bạn bè và gia đình.</p>
+
+                    <p className='mb-0 font-menu'>
+                    - Từ việc lên kế hoạch cho chủ đề đến việc chăm sóc mỗi chi tiết nhỏ, chúng tôi cam kết mang lại sự hài lòng tuyệt đối và không gian ấm áp, vui vẻ cho mọi người tham dự. Hãy để chúng tôi chia sẻ niềm vui và hạnh phúc cùng bạn trong ngày sinh nhật đặc biệt này!
+                    </p>
+                    <br></br>
+               
                     <div class="wrapper d-flex align-items-stretch">
 
 
@@ -211,7 +214,7 @@ const ServiceCustomer = () => {
 
                     </div>
 
-                    <img className="center-img" src={menu_img} />
+               
                 </div>
             </div>
         </div>
