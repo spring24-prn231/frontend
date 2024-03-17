@@ -24,8 +24,6 @@ const NavbarCustomer = () => {
 
         });
 
-
-
     }, [location]);
  
     return (
