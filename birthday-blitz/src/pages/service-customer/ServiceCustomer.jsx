@@ -72,7 +72,7 @@ const ServiceCustomer = () => {
 
 
     const changeNavbar = (currentNavbarId) => {
-        console.log("current: " + currentNavbarId + " previous: " + previousNavbarId)
+        // console.log("current: " + currentNavbarId + " previous: " + previousNavbarId)
 
         document.getElementById(currentNavbarId).style.color = "#000";
         
@@ -140,15 +140,15 @@ const ServiceCustomer = () => {
                     </p>
                     <br></br>
                
-                    <div class="wrapper d-flex align-items-stretch">
+                    <div className="wrapper d-flex align-items-stretch">
 
 
                         {/* <!--  Side Navigation  --> */}
                         <nav id="sidebar" className='col-lg-2'>
-                            <div class="custom-menu">
+                            <div className="custom-menu">
                                 <h5>Quy trình</h5>
                             </div>
-                            <ul class="list-unstyled components">
+                            <ul className="list-unstyled components">
                                 <li><button className='btn btn-primary rounded-pill button-custom' style={{ color: "black" }} onClick={() => changeTable("room-show")} id="room-show">
                                     Phòng</button>
                                 </li>
@@ -171,7 +171,7 @@ const ServiceCustomer = () => {
 
                         <div id="content" className="col-lg-10 scrollable-table-wrapper">
 
-                            <table class="table">
+                            <table className="table">
                                 <thead>
                                     <tr>
                                         <th scope="col" style={{ backgroundColor: '#EAA636', zIndex: '100' }}><h5 id="title-table">Phòng</h5></th>
