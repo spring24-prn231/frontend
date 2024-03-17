@@ -8,11 +8,16 @@ import './User.css';
 import { Link } from 'react-router-dom';
 import Loading from '../../common/loading/Loading';
 import PopupConfirm from '../../common/popup-confirm/PopupConfirm';
-import { deleteUser, getAllUser } from '../../../apis/userService';
+import { blockUser, deleteUser, getAllUser, unBlockUser } from '../../../apis/userService';
+import MoodIcon from '@mui/icons-material/Mood';
+import MoodBadIcon from '@mui/icons-material/MoodBad';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const User = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isReload, setIsReload] = useState(false);
     const [isDisplayConfirm, setIsDisplayConfirm] = useState(false);
     const [selectedEditRow, setSelectedEditRow] = useState('');
     const [selectedRows, setSelectedRows] = useState([]);
@@ -21,12 +26,12 @@ const User = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllUser(true);
+            const res = await getAllUser();
             return res;
         };
 
         getData().then(res => {
-            setData(res);
+            setData(res.data);
             setIsLoading(false);
         })
 
@@ -39,7 +44,7 @@ const User = () => {
                 }
             }
         });
-    }, []);
+    }, [isReload]);
 
     const selectAll = () => {
         if (selectedRows.length === data.length) {
@@ -81,17 +86,48 @@ const User = () => {
         setIsDisplayConfirm(false);
     }
 
+    const onBlockUser = () => {
+        blockUser(selectedEditRow).then(res => {
+            toast.success("Chặn thành công !!!", {
+                position: "bottom-right"
+            });
+            setIsReload(!isReload);
+        }).catch(err => {
+            toast.error("Chặn thất bại, hãy thử lại !!!", {
+                position: "bottom-right"
+            });
+        });
+    }
+
+    const onUnBlockUser = () => {
+        unBlockUser(selectedEditRow).then(res => {
+            toast.success("Bỏ chặn thành công !!!", {
+                position: "bottom-right"
+            });
+            setIsReload(!isReload);
+        }).catch(err => {
+            toast.error("Bỏ chặn thất bại, hãy thử lại !!!", {
+                position: "bottom-right"
+            });
+        });
+    }
+
     return (
         <div className='user-center-container'>
+            <ToastContainer />
             <PopupConfirm isDisplay={isDisplayConfirm}
                 confirmContent="Bạn có muốn xoá các khách hàng đã chọn?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
             <div className='user-popup'>
-                <div className="user-popup-option">
-                    <BlockIcon fontSize='small' style={{ marginRight: "10px" }} />
+                <div className="user-popup-option" onClick={onBlockUser}>
+                    <MoodBadIcon fontSize='small' style={{ marginRight: "10px" }} />
                     <span>Chặn</span>
+                </div>
+                <div className="user-popup-option" onClick={onUnBlockUser}>
+                    <MoodIcon fontSize='small' style={{ marginRight: "10px" }} />
+                    <span>Bỏ chặn</span>
                 </div>
             </div>
 
@@ -106,7 +142,7 @@ const User = () => {
                     <div className="user-search-bar">
                         <SearchIcon htmlColor='grey' />
                         <input className='user-search-bar-input'
-                            placeholder='Tìm kiếm theo họ và tên'
+                            placeholder='Tìm kiếm theo tên đăng nhập'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -133,9 +169,10 @@ const User = () => {
                                 />
                             </th>
                             <th>Họ và tên</th>
+                            <th>Tên đăng nhập</th>
                             <th>Số điện thoại</th>
-                            <th>Ngày sinh</th>
                             <th>Email</th>
+                            <th>Bị chặn</th>
                             <th style={{ width: "20px" }}></th>
                         </tr>
                     </thead>
@@ -143,19 +180,20 @@ const User = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.FullName.includes(searchValue) ? '' :
-                                        <tr key={index} className={`user-table-row ${selectedRows.includes(item.Id) ? 'user-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !item.userName.includes(searchValue) ? '' :
+                                        <tr key={index} className={`user-table-row ${selectedRows.includes(item.id) ? 'user-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
                                             <td>
                                                 <input type='checkbox' className='user-table-checkbox'
                                                     onChange={() => { }}
-                                                    checked={selectedRows.find(x => x === item.Id) !== undefined}
+                                                    checked={selectedRows.find(x => x === item.id) !== undefined}
                                                 />
                                             </td>
-                                            <td>{item.FullName}</td>
-                                            <td>{item.PhoneNumber}</td>
-                                            <td>{item.Birthday}</td>
-                                            <td>{item.Email}</td>
-                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
+                                            <td>{item.fullname}</td>
+                                            <td>{item.userName}</td>
+                                            <td>{item.phoneNumber}</td>
+                                            <td>{item.email}</td>
+                                            <td>{item.status === false ? 'Bị chặn' : 'Hoạt động'}</td>
+                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.id)} /></td>
                                         </tr>
                                 )
                         }

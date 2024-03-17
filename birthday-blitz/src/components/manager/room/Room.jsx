@@ -125,7 +125,7 @@ const Room = () => {
 
             <div className='room-center-top'>
                 <div className="room-search-bar-container">
-                    <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
+                    <Link to={`addnew`} style={{ textDecoration: 'none', color: 'black' }}>
                         <div className='room-add-new'>
                             <AddIcon />
                             <span>Thêm mới</span>

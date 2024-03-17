@@ -21,12 +21,12 @@ const Staff = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllStaff(true);
+            const res = await getAllStaff();
             return res;
         };
 
         getData().then(res => {
-            setData(res);
+            setData(res.data);
             setIsLoading(false);
         })
 
@@ -46,7 +46,7 @@ const Staff = () => {
             setSelectedRows([]);
         }
         else {
-            setSelectedRows(data.map(x => x.Id));
+            setSelectedRows(data.map(x => x.id));
         }
     }
 
@@ -75,7 +75,7 @@ const Staff = () => {
     }
 
     const deleteSelectedRows = async () => {
-        setData(data.filter(x => !selectedRows.includes(x.Id)));
+        setData(data.filter(x => !selectedRows.includes(x.id)));
         setSelectedRows([]);
         await deleteStaff('123', true);
         setIsDisplayConfirm(false);
@@ -99,7 +99,7 @@ const Staff = () => {
 
             <div className='staff-center-top'>
                 <div className="staff-search-bar-container">
-                    <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
+                    <Link to="addnew" style={{ textDecoration: 'none', color: 'black' }}>
                         <div className='staff-add-new'>
                             <AddIcon />
                             <span>Thêm mới</span>
@@ -120,7 +120,7 @@ const Staff = () => {
                             onClick={confirmDelete}
                         >
                             <DeleteIcon htmlColor='white' />
-                            <span style={{ color: "white", marginLeft: "5px" }}>Delete {selectedRows.length} item(s)</span>
+                            <span style={{ color: "white", marginLeft: "5px" }}>Xoá {selectedRows.length} hàng</span>
                         </div> : ""
                 }
             </div>
@@ -135,8 +135,8 @@ const Staff = () => {
                                 />
                             </th>
                             <th>Họ và tên</th>
+                            <th>Tên đăng nhập</th>
                             <th>Số điện thoại</th>
-                            <th>Ngày sinh</th>
                             <th>Email</th>
                             <th style={{ width: "20px" }}></th>
                         </tr>
@@ -145,19 +145,19 @@ const Staff = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.FullName.includes(searchValue) ? '' :
-                                        <tr key={index} className={`staff-table-row ${selectedRows.includes(item.Id) ? 'staff-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    item.fullname === null? '' :  !item.fullname.includes(searchValue) ? '' :
+                                        <tr key={index} className={`staff-table-row ${selectedRows.includes(item.id) ? 'staff-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
                                             <td>
                                                 <input type='checkbox' className='staff-table-checkbox'
                                                     onChange={() => { }}
-                                                    checked={selectedRows.find(x => x === item.Id) !== undefined}
+                                                    checked={selectedRows.find(x => x === item.id) !== undefined}
                                                 />
                                             </td>
-                                            <td>{item.FullName}</td>
-                                            <td>{item.PhoneNumber}</td>
-                                            <td>{item.Birthday}</td>
-                                            <td>{item.Email}</td>
-                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
+                                            <td>{item.fullname}</td>
+                                            <td>{item.userName}</td>
+                                            <td>{item.phoneNumber}</td>
+                                            <td>{item.email}</td>
+                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.id)} /></td>
                                         </tr>
                                 )
                         }

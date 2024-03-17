@@ -173,3 +173,32 @@
 .order-detail-assign {
     margin-bottom: 20px;
 }
+
+.order-detail-staff-assign {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order-detail-staff-assign-select {
+    flex: 4;
+}
+
+.order-detail-staff-assign-btn {
+    flex: 1;
+    border: 1px solid rgb(219, 201, 201);
+    padding: 10px 15px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #EAA636;
+    color: white;
+    font-weight: bold;
+    margin-left: 20px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.order-detail-staff-assign-btn:hover {
+    background-color: #ad7418;
+}

@@ -10,9 +10,16 @@ const login = async (username, password) => {
     return data;
 }
 
+const register = async (user) => {
+    const url = 'authentication/register';
+    const instance = await getAxiosInstance();
+    const data = instance.post(url, user);
+    return data;
+}
+
 const logout = () => {
     localStorage.removeItem('AccessToken');
     localStorage.removeItem('RefreshToken');
 }
 
-export { login, logout};
+export { login, logout, register};

@@ -30,10 +30,26 @@ import StaffEdit from "./components/manager/staff-edit/StaffEdit";
 import Food from "./components/manager/food/Food";
 import FoodEdit from "./components/manager/food-edit/FoodEdit";
 import { getRole } from "./utils/JwtParser";
+import { useEffect, useState } from "react";
+import { getAllNotification } from "./apis/notificationService";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         getAllNotification('ADMIN').then(res => {
+    //             toast.success(item.content, {
+    //                 position: "top-right",
+    //                 containerId: "noti"
+    //             });
+    //         })
+    //     }, 8000);
+    // }, []);
+
     return (
         <Router basename='/'>
+            <ToastContainer containerId="noti" />
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/home' element={<Home />} />

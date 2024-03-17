@@ -30,6 +30,7 @@ const RoomType = () => {
     }, []);
 
     const onAddRow = () => {
+        console.log(Math.floor(Math.random * 1000).toString());
         setData([...data, { Id: Math.floor(Math.random * 1000).toString(), Name: '', Description: '' }]);
     };
 
@@ -82,13 +83,6 @@ const RoomType = () => {
                                     <DoneIcon style={{ marginRight: '4px' }} fontSize='small' />
                                     <span>Lưu</span>
                                 </div>
-                                {
-                                    JSON.stringify(data) === JSON.stringify(oldData) ? '' :
-                                        <div className='room-type-discard-button' onClick={() => setData(JSON.parse(JSON.stringify(oldData)))}>
-                                            <CloseIcon style={{ marginRight: '4px' }} fontSize='small' />
-                                            <span>Loại bỏ</span>
-                                        </div>
-                                }
                             </div>
                         </div>
 

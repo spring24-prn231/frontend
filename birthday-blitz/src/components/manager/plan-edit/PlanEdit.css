@@ -67,6 +67,20 @@
     margin-right: 5px;
 }
 
+.plan-approve {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: #05ac20;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
 .plan-approve-button:hover {
     background-color: #038d31;
 }

@@ -4,7 +4,7 @@ import { login } from '../../apis/loginService';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { getRole } from '../../utils/JwtParser';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
 
@@ -43,8 +43,8 @@ const Login = () => {
             <ToastContainer />
             <div className="login-form">
                 <ul className="login-tab-group">
-                    <li className="login-tab login-active"><a className='login-link' href="/login">Đăng nhập</a></li>
-                    <li className="login-tab"><a className='login-link' href="/register">Đăng ký</a></li>
+                    <li className="login-tab login-active"><Link to="/login" className='login-link'>Đăng nhập</Link></li>
+                    <li className="login-tab"><Link to="/register" className='login-link'>Đăng ký</Link></li>
                 </ul>
                 <div>
                     <h1 className='login-header'>Chào mừng bạn quay lại!</h1>

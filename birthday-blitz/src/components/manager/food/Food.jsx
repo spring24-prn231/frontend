@@ -155,7 +155,7 @@ const Food = () => {
                                                 />
                                             </td>
                                             <td>
-                                                <img width='100px' src='https://cdn.eva.vn/upload/3-2023/images/2023-07-13/cach-nau-pho-bo-ha-noi-thom-ngon-chuan-vi-tai-nha-cuc-don-gian-14-1689214964-384-width700height482.jpg' />
+                                                <img width='100px' src={item.image} />
                                             </td>
                                             <td>{item.name}</td>
                                             <td>{item.dishType.name}</td>

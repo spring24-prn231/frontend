@@ -5,41 +5,64 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Loading from '../../common/loading/Loading';
 import { Link } from 'react-router-dom';
-import { getVoucherById } from '../../../apis/voucherService';
+import { getVoucherById, updateVoucher } from '../../../apis/voucherService';
 import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from 'react-router-dom';
-import { converDateTime, converFormat, formatDateTimeString, formatDatetimeLocal } from '../../../utils/TimeFormat';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const VoucherEdit = () => {
     const [oldData, setOldData] = useState(null);
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isReload, setIsReload] = useState(false);
     const { voucherId } = useParams();
 
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getVoucherById(voucherId, true);
+            const res = await getVoucherById(voucherId).catch(err => {
+
+            });
             return res;
         };
 
         getData().then(res => {
+            console.log(res);
             if (res === undefined) {
                 res = {
-                    "Code": "",
-                    "Discount": "",
-                    "MaximumValue": "",
-                    "ExpirationDate": ""
+                    "data": [
+                        {
+                            "code": "",
+                            "discount": "",
+                            "maximumValue": "",
+                            "expirationDate": ""
+                        }
+                    ]
                 };
             }
-            setData(JSON.parse(JSON.stringify(res)));
-            setOldData(JSON.parse(JSON.stringify(res)));
+            setData(JSON.parse(JSON.stringify(res.data[0])));
+            setOldData(JSON.parse(JSON.stringify(res.data[0])));
             setIsLoading(false);
         })
-    }, []);
+    }, [isReload]);
+
+    const onUpdateVoucher = () => {
+        const res = updateVoucher(data).then(res => {
+            setIsReload(!isReload);
+            toast.success("Cập nhật thành công !!!", {
+                position: "bottom-right"
+            });
+        }).catch(err => {
+            toast.error("Cập nhật thất bại, hãy thử lại !!!", {
+                position: "bottom-right"
+            });
+        });
+    };
 
     return (
         <>
+            <ToastContainer />
             {
                 isLoading || data == null ? <Loading /> :
                     <div className='voucher-edit-container'>
@@ -53,7 +76,7 @@ const VoucherEdit = () => {
                                 <div className="voucher-event-name-container">
                                 </div>
 
-                                <div className='voucher-save-button'>
+                                <div className='voucher-save-button' onClick={onUpdateVoucher}>
                                     <DoneIcon style={{ marginRight: '4px' }} fontSize='small' />
                                     <span>Lưu</span>
                                 </div>
@@ -75,13 +98,13 @@ const VoucherEdit = () => {
                                             <span><KeyboardArrowDownIcon fontSize='small' /></span>
                                         </div>
                                         <span className='voucher-edit-row-label'>
-                                            Mã: 
+                                            Mã:
                                         </span>
                                         <div className="voucher-edit-row-content">
                                             <input type="text" spellCheck={false}
                                                 placeholder='Code'
-                                                value={data.Code}
-                                                onChange={(e) => setData({ ...data, Code: e.target.value })}
+                                                value={data.code}
+                                                onChange={(e) => setData({ ...data, code: e.target.value })}
                                                 className="voucher-edit-row-content-input"
                                             />
                                         </div>
@@ -99,8 +122,8 @@ const VoucherEdit = () => {
                                         <div className="voucher-edit-row-content">
                                             <input type="text" spellCheck={false}
                                                 placeholder='Discount'
-                                                value={data.Discount}
-                                                onChange={(e) => setData({ ...data, Discount: e.target.value })}
+                                                value={data.discount}
+                                                onChange={(e) => setData({ ...data, discount: e.target.value })}
                                                 className="voucher-edit-row-content-input"
                                             />
                                         </div>
@@ -119,8 +142,8 @@ const VoucherEdit = () => {
                                             <input type="date" spellCheck={false}
                                                 placeholder='Expiration date'
                                                 className="voucher-edit-row-content-input"
-                                                onChange={(e) => setData({ ...data, ExpirationDate: converFormat(e.target.value) })}
-                                                value={converDateTime(data.ExpirationDate)}
+                                                onChange={(e) => setData({ ...data, expirationDate: e.target.value })}
+                                                value={data.expirationDate.split('T')[0]}
                                             />
                                         </div>
                                     </div>
@@ -137,8 +160,8 @@ const VoucherEdit = () => {
                                         <div className="voucher-edit-row-content">
                                             <input type="number" spellCheck={false}
                                                 placeholder='Maximum value'
-                                                value={data.MaximumValue}
-                                                onChange={(e) => setData({ ...data, MaximumValue: e.target.value })}
+                                                value={data.maximumValue}
+                                                onChange={(e) => setData({ ...data, maximumValue: e.target.value })}
                                                 className="voucher-edit-row-content-input"
                                             />
                                         </div>

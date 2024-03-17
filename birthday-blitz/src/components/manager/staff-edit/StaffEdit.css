@@ -124,6 +124,7 @@
 .staff-edit-row-content {
     padding: 10px 15px;
     border-radius: 10px;
+    width: 100%;
     border: 2px solid #bdd1f1;
 }
 

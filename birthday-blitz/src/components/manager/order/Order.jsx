@@ -26,8 +26,8 @@ const Order = () => {
         };
 
         getData().then(res => {
-            setData(res.data);
             console.log(res.data);
+            setData(res.data);
             setIsLoading(false);
         })
 
@@ -84,19 +84,19 @@ const Order = () => {
 
     const convertStatus = (status) => {
         switch (status) {
-            case '1':
+            case 1:
                 return (
                 <div className='order-status' style={{ backgroundColor: '#f6ff70b5' }}>
                     Mới tạo
                 </div>
                 );
-            case '2':
+            case 2:
                 return (
                     <div className='order-status' style={{ backgroundColor: '#ef1d1b38' }}>
                         Đang tiến hành
                     </div>
                     );
-            case '3':
+            case 3:
                 return (
                     <div className='order-status' style={{ backgroundColor: '#68e5837a' }}>
                         Kết thúc
@@ -187,7 +187,7 @@ const Order = () => {
                                                 />
                                             </td>
                                             <td>{item.service.name}</td>
-                                            <td>{item.user?item.staff.name : 'Khách hàng ảo'}</td>
+                                            <td>{item.user?item.user.fullname : 'Khách hàng ảo'}</td>
                                             <td>{item.staff?item.staff.name : 'Chưa được giao'}</td>
                                             <td>{item.createDate}</td>
                                             <td style={{width: '100px'}}>{item.total}</td>
