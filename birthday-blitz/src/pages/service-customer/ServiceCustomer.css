@@ -1,0 +1,47 @@
+.center-title {
+  text-align: center;
+}
+.font-menu {
+  font-size: 23px;
+}
+.center-img {
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.button-custom{
+  margin-bottom: 10px;
+}
+
+.scrollable-table-wrapper {
+  height: 500px;
+  overflow-y: scroll;
+
+ 
+}
+.scrollable-table-wrapper thead th {
+  position: sticky; /* make the table heads sticky */
+  top: 0px; /* table head will be placed from the top of the table and sticks to it */
+}
+
+.row-container{
+  display: flex;
+  justify-content: center;
+}
+
+.row-content-header{
+  display: flex;
+  justify-content: center;
+  height:100px;
+}
+
+.line-break{
+  word-wrap: break-word;
+  width: 300px;
+}
+
+.margin-checkbox {
+  margin: 10px; 
+  transform: scale(1.5);
+}

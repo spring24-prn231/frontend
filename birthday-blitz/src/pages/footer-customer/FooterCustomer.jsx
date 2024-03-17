@@ -1,6 +1,8 @@
 import React from 'react'
 import '../common/customer-css/style.css'
 import '../common/customer-css/bootstrap.min.css'
+import { Link } from 'react-router-dom'
+
 
 const FooterCustomer = () => {
     return (
@@ -22,10 +24,9 @@ const FooterCustomer = () => {
                 
                 <div className="col-lg-3 col-md-6">
                     <h4 className="text-light mb-4">Tham khảo</h4>
-                    <a className="btn btn-link" href="">Về chúng tôi</a>
-                    <a className="btn btn-link" href="">Liên hệ</a>
-                    <a className="btn btn-link" href="">Dịch vụ</a>
-                    <a className="btn btn-link" href="">Thực đơn</a>
+                    <Link className="btn btn-link" to="aboutus">Về chúng tôi</Link>
+                    <Link className="btn btn-link" to="service">Dịch vụ</Link>
+                    <Link className="btn btn-link" to="contact">Liên hệ</Link>
                 </div>
                 
             </div>

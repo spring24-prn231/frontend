@@ -139,7 +139,7 @@ const Voucher = () => {
             <div className="voucher-center-bottom">
                 <table className='voucher-center-table'>
                     <thead>
-                        <tr className='voucher-table-header'>
+                        <tr className='voucher-tablee-header'>
                             <th style={{ width: "60px" }}>
                                 <input className='voucher-table-checkbox' type='checkbox'
                                     checked={selectedRows.length !== 0 && selectedRows.length >= data.length}
