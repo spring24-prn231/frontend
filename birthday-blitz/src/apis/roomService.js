@@ -2,7 +2,7 @@ import { getAxiosInstance } from './axiosInstance';
 import Rooms from '../data/room';
 
 const getAllRoom = async (isMock = false) => {
-    const url = '';
+    const url = 'rooms';
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -17,8 +17,45 @@ const getAllRoom = async (isMock = false) => {
     }
 }
 
+const createRoom = async (room) =>  {
+    const url = `rooms`;
+    const request = {
+        'price': room.price,
+        'roomTypeId': room.roomTypeId,
+        'capacity': room.capacity,
+        'roomNo': parseInt(room.roomNo)
+    }
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.post(url, request, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    });
+    return data;
+}
+
+const updateRoom = async (room) =>  {
+    const url = `rooms`;
+    const request = {
+        'id': room.id,
+        'price': room.price,
+        'roomTypeId': room.roomTypeId,
+        'capacity': room.capacity,
+        'roomNo': parseInt(room.roomNo)
+    }
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.put(url, request, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    });
+    return data;
+}
+
 const getRoomById = async (id, isMock = false) => {
-    const url = '';
+    const url = `rooms?id=${id}`;
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -44,4 +81,4 @@ const deleteRoom = async (id, isMock = false) => {
     }
 }
 
-export { getAllRoom, deleteRoom, getRoomById };
+export { getAllRoom, deleteRoom, getRoomById, updateRoom, createRoom };

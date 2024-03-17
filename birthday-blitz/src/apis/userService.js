@@ -2,8 +2,10 @@ import { getAxiosInstance } from './axiosInstance';
 import Users from '../data/user';
 
 const getAllUser = async (isMock = false) => {
-    const url = '';
+    const url = 'users';
     const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+
     if (isMock) {
         return new Promise(resolve => {
             setTimeout(() => {
@@ -12,10 +14,39 @@ const getAllUser = async (isMock = false) => {
         });
     }
     else {
-        const data = instance.get(url).then(res => res.data);
+        const data = instance.get(url, {
+            'headers': {
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => res.data);
         return data;
     }
 }
+
+const blockUser = async (id) => {
+    const url = `users/${id}`;
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.delete(url, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+const unBlockUser = async (id) => {
+    const url = `users/${id}`;
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.put(url, '', {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
 
 const getUserById = async (id, isMock = false) => {
     const url = '';
@@ -44,4 +75,4 @@ const deleteUser = async (id, isMock = false) => {
     }
 }
 
-export { getAllUser, deleteUser, getUserById };
+export { getAllUser, deleteUser, getUserById, blockUser,unBlockUser };

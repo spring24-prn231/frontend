@@ -6,11 +6,12 @@ import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Loading from '../../common/loading/Loading';
 import { Link } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
-import { useParams } from 'react-router-dom';
-import { getRoomById } from '../../../apis/roomService';
+import { useParams, useNavigate } from 'react-router-dom';
+import { createRoom, getRoomById, updateRoom } from '../../../apis/roomService';
 import { getAllRoomType } from '../../../apis/roomTypeService';
 import Select from 'react-select';
-
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const RoomEdit = () => {
     const [oldData, setOldData] = useState(null);
@@ -18,32 +19,67 @@ const RoomEdit = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [roomType, setRoomType] = useState([]);
     const { roomId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getRoomById(roomId, true);
-            const roomTypes = await getAllRoomType(true, 3);
+            const res = await getRoomById(roomId, false).catch(err => {
+                return {
+                    "data": [
+                        {
+                            "id": roomId,
+                            "code": "",
+                            "capacity": "",
+                            "roomType": "",
+                        }
+                    ]
+                };
+
+            });
+            const roomTypes = await getAllRoomType(false);
             return { res, roomTypes };
         };
 
         getData().then(({ res, roomTypes }) => {
-            if (res === undefined) {
-                res = {
-                    "Code": "",
-                    "Capacity": "",
-                    "RoomType": "",
-                };
-            }
-            setData(JSON.parse(JSON.stringify(res)));
-            setOldData(JSON.parse(JSON.stringify(res)));
-            setRoomType(JSON.parse(JSON.stringify(roomTypes)));
+            setData(JSON.parse(JSON.stringify(res.data[0])));
+            setOldData(JSON.parse(JSON.stringify(res.data[0])));
+            setRoomType(JSON.parse(JSON.stringify(roomTypes.data)));
             setIsLoading(false);
         })
     }, []);
 
+    const onSaveRoom = () => {
+        if (data.id === 'addnew') {
+            const res = createRoom(data).then(res => {
+                toast.success("Thêm mới thành công !!!", {
+                    position: "bottom-right"
+                });
+                setTimeout(() => {
+                    navigate('/manager/room');
+                }, 1000);
+            }).catch(err => {
+                toast.error("Thêm mới thất bại, hãy thử lại !!!", {
+                    position: "bottom-right"
+                });
+            });
+        }
+        else {
+            const res = updateRoom(data).then(res => {
+                toast.success("Cập nhật thành công !!!", {
+                    position: "bottom-right"
+                });
+            }).catch(err => {
+                toast.error("Cập nhật thất bại, hãy thử lại !!!", {
+                    position: "bottom-right"
+                });
+            });
+        }
+    }
+
     return (
         <>
+            <ToastContainer />
             {
                 isLoading || data == null ? <Loading /> :
                     <div className='room-edit-container'>
@@ -57,7 +93,7 @@ const RoomEdit = () => {
                                 <div className="feedback-event-name-container">
                                 </div>
 
-                                <div className='room-edit-save-button'>
+                                <div className='room-edit-save-button' onClick={onSaveRoom}>
                                     <DoneIcon style={{ marginRight: '4px' }} fontSize='small' />
                                     <span>Lưu</span>
                                 </div>
@@ -82,10 +118,10 @@ const RoomEdit = () => {
                                             Mã phòng:
                                         </span>
                                         <div className="room-edit-row-content">
-                                            <input type="text" spellCheck={false}
+                                            <input type="number" spellCheck={false}
                                                 placeholder='Mã phòng'
-                                                value={data.RoomNo}
-                                                onChange={(e) => setData({ ...data, RoomNo: e.target.value })}
+                                                value={data.roomNo}
+                                                onChange={(e) => setData({ ...data, roomNo: e.target.value })}
                                                 className="room-edit-row-content-input"
                                             />
                                         </div>
@@ -101,10 +137,10 @@ const RoomEdit = () => {
                                             Sức chứa:
                                         </span>
                                         <div className="room-edit-row-content">
-                                            <input type="text" spellCheck={false}
+                                            <input type="number" spellCheck={false}
                                                 placeholder='Sức chứa'
-                                                value={data.Capacity}
-                                                onChange={(e) => setData({ ...data, Capacity: e.target.value })}
+                                                value={data.capacity}
+                                                onChange={(e) => setData({ ...data, capacity: e.target.value })}
                                                 className="room-edit-row-content-input"
                                             />
                                         </div>
@@ -122,12 +158,14 @@ const RoomEdit = () => {
                                         <div className="room-edit-row-content">
                                             <div className='room-edit-row-content-input'>
                                                 <Select
+                                                    onChange={(e) => setData({ ...data, roomTypeId: e.value })}
                                                     options={
                                                         roomType.map(item => {
-                                                            return { value: item.Id, label: item.Name }
+                                                            return { value: item.id, label: item.name }
                                                         }
-                                                        ).concat([{value: null, label: '...', isDisabled: true}])
+                                                        ).concat([{ value: null, label: '...', isDisabled: true }])
                                                     }
+                                                    defaultValue={[{ value: data.roomType.id, label: data.roomType.name }]}
                                                 />
                                             </div>
                                         </div>

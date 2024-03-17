@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import './Plan.css';
-import { deletePlan, getAllPlan } from '../../../apis/planService';
+import { getAllOrder } from '../../../apis/orderService';
 import Loading from '../../common/loading/Loading';
 import {useNavigate} from "react-router-dom";
 
@@ -15,12 +15,12 @@ const Plan = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllPlan(true);
+            const res = await getAllOrder();
             return res;
         };
 
         getData().then(res => {
-            setData(res);
+            setData(res.data);
             setIsLoading(false);
         })
     }, []);
@@ -47,27 +47,25 @@ const Plan = () => {
                 <table className='plan-center-table'>
                     <thead>
                         <tr className='plan-table-header'>
-                            <th>Id</th>
                             <th>Tên sự kiện</th>
-                            <th>Kế hoạch</th>
+                            <th>Tên đơn hàng</th>
                             <th>Ngày tạo</th>
-                            <th>Ngày sửa</th>
                             <th>Người tổ chức</th>
+                            <th>Số khách tối đa</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.EventName.includes(searchValue) ? '' :
+                                    !item.service.name.includes(searchValue) ? '' :
                                         <tr key={index} className="plan-table-row" 
-                                            onClick={() => cellOnClick(item.Id)}>
-                                            <td>{item.Id}</td>
-                                            <td>{item.EventName}</td>
-                                            <td>{item.PlanName}</td>
-                                            <td>{item.CreatedAt}</td>
-                                            <td>{item.ModifiedAt}</td>
-                                            <td>{item.Host}</td>
+                                            onClick={() => cellOnClick(item.id)}>
+                                            <td>{item.service.name}</td>
+                                            <td>{item.name}</td>
+                                            <td>{item.createDate}</td>
+                                            <td>{item.user?item.user.name:'Người dùng ảo'}</td>
+                                            <td>{item.maxGuest}</td>
                                         </tr>
                                 )
                         }

@@ -9,18 +9,22 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #e2e2e2;
+    background: url('https://image.slidesdocs.com/responsive-images/background/light-happy-birthday-yellow-marketing-beautiful-festival-powerpoint-background_845cced6f8__960_540.jpg');
     font-family: "Titillium Web", sans-serif;
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+    overflow-y: scroll;
 }
 
 
 .login-link {
   text-decoration: none;
-  color: #0865fe;
+  color: #EAA636;
   transition: 0.5s ease;
 }
 .login-link:hover {
-  color: #154796;
+  color: #b3781a;
 }
 
 .login-form {
@@ -28,7 +32,7 @@
   padding: 40px;
   max-width: 600px;
   margin: 40px auto;
-  margin-top: 60px;
+  margin-top: 10vh;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
@@ -57,11 +61,11 @@
   transition: 0.5s ease;
 }
 .login-tab-group li a:hover {
-  background: #71a2f0;
+  background: #bb7c16b0;
   color: #ffffff;
 }
 .login-tab-group .login-active a {
-  background: #0865fe;
+  background: #EAA636;
   color: #ffffff;
 }
 
@@ -71,7 +75,7 @@
 
 .login-header {
   text-align: center;
-  color: #0865fe;
+  color: #EAA636;
   font-weight: 700;
   margin: 0 0 40px;
 }
@@ -91,7 +95,7 @@
 }
 .login-input:focus {
   outline: 0;
-  border-color: #0865fe;
+  border-color: #EAA636;
 }
 
 .login-field-wrap {
@@ -122,18 +126,19 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  background: #0865fe;
+  background: #EAA636;
   color: #ffffff;
   transition: all 0.5s ease;
   -webkit-appearance: none;
 }
 .login-button:hover, .login-button:focus {
-  background: #3e6bb3;
+  background: #976410af;
 }
 
 .login-button-block {
-  display: block;
+  display: flex;
   width: 100%;
+  justify-content: center;
 }
 
 .login-forgot {

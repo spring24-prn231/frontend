@@ -21,12 +21,13 @@ const Order = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllOrder(true);
+            const res = await getAllOrder();
             return res;
         };
 
         getData().then(res => {
-            setData(res);
+            console.log(res.data);
+            setData(res.data);
             setIsLoading(false);
         })
 
@@ -46,7 +47,7 @@ const Order = () => {
             setSelectedRows([]);
         }
         else {
-            setSelectedRows(data.map(x => x.Id));
+            setSelectedRows(data.map(x => x.id));
         }
     }
 
@@ -75,7 +76,7 @@ const Order = () => {
     }
 
     const deleteSelectedRows = async () => {
-        setData(data.filter(x => !selectedRows.includes(x.Id)));
+        setData(data.filter(x => !selectedRows.includes(x.id)));
         setSelectedRows([]);
         await deleteOrder('123', true);
         setIsDisplayConfirm(false);
@@ -83,19 +84,19 @@ const Order = () => {
 
     const convertStatus = (status) => {
         switch (status) {
-            case '1':
+            case 1:
                 return (
                 <div className='order-status' style={{ backgroundColor: '#f6ff70b5' }}>
                     Mới tạo
                 </div>
                 );
-            case '2':
+            case 2:
                 return (
                     <div className='order-status' style={{ backgroundColor: '#ef1d1b38' }}>
                         Đang tiến hành
                     </div>
                     );
-            case '3':
+            case 3:
                 return (
                     <div className='order-status' style={{ backgroundColor: '#68e5837a' }}>
                         Kết thúc
@@ -177,27 +178,27 @@ const Order = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.ServiceName.includes(searchValue) ? '' :
-                                        <tr key={index} className={`order-table-row ${selectedRows.includes(item.Id) ? 'order-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !item.service.name.includes(searchValue) ? '' :
+                                        <tr key={index} className={`order-table-row ${selectedRows.includes(item.id) ? 'order-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
                                             <td>
                                                 <input type='checkbox' className='order-table-checkbox'
                                                     onChange={() => { }}
-                                                    checked={selectedRows.find(x => x === item.Id) !== undefined}
+                                                    checked={selectedRows.find(x => x === item.id) !== undefined}
                                                 />
                                             </td>
-                                            <td>{item.ServiceName}</td>
-                                            <td>{item.UserName}</td>
-                                            <td>{item.StaffName}</td>
-                                            <td>{item.CreateDate}</td>
-                                            <td style={{width: '100px'}}>{item.Total}</td>
+                                            <td>{item.service.name}</td>
+                                            <td>{item.user?item.user.fullname : 'Khách hàng ảo'}</td>
+                                            <td>{item.staff?item.staff.name : 'Chưa được giao'}</td>
+                                            <td>{item.createDate}</td>
+                                            <td style={{width: '100px'}}>{item.total}</td>
                                             <td style={{width: '140px'}}>
                                                 {
-                                                    convertStatus(item.Status)
+                                                    convertStatus(item.executionStatus)
                                                 }
                                             </td>
-                                            <td>{item.EventEnd}</td>
-                                            <td>{item.EventStart}</td>
-                                            <td><MoreVertIcon className='order-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
+                                            <td>{item.eventEnd}</td>
+                                            <td>{item.eventStart}</td>
+                                            <td><MoreVertIcon className='order-option' onClick={(e) => chooseOption(e, item.id)} /></td>
                                         </tr>
                                 )
                         }

@@ -18,7 +18,8 @@ const getAllPlan = async (isMock = false) => {
 }
 
 const getPlanById = async (id, isMock = false) => {
-    const url = '';
+    const url = `partyplans?orderId=${id}`;
+    const token = localStorage.getItem('AccessToken');
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -28,9 +29,45 @@ const getPlanById = async (id, isMock = false) => {
         });
     }
     else {
-        const data = instance.get(url).then(res => res.data);
+        const data = instance.get(url,  {
+            'headers': {
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => res.data);
         return data;
     }
+}
+
+
+const savePlans = async (plans) => {
+    const url = 'partyplans/list';
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const request = plans.map(plan => ({
+        'id': plan.id,
+        'feedback': plan.feedback
+    }));
+    const data = instance.put(url, request ,{
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+const approvePlan = async (id) => {
+    const url = 'partyplans/approvement';
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const request = {
+        'orderId': id
+    };
+    const data = instance.post(url, request ,{
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
 }
 
 const deletePlan = async (id, isMock = false) => {
@@ -44,4 +81,4 @@ const deletePlan = async (id, isMock = false) => {
     }
 }
 
-export { getAllPlan, deletePlan, getPlanById };
+export { getAllPlan, deletePlan, getPlanById, savePlans, approvePlan };

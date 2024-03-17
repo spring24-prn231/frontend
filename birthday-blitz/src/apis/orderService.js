@@ -2,7 +2,8 @@ import { getAxiosInstance } from './axiosInstance';
 import Orders from '../data/order';
 
 const getAllOrder = async (isMock = false) => {
-    const url = '';
+    const url = 'orders';
+    const token = localStorage.getItem('AccessToken');
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -12,13 +13,18 @@ const getAllOrder = async (isMock = false) => {
         });
     }
     else {
-        const data = instance.get(url).then(res => res.data);
+        const data = instance.get(url, {
+            'headers': {
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => res.data);
         return data;
     }
 }
 
 const getOrderById = async (id, isMock = false) => {
-    const url = '';
+    const url = `orders?id=${id}`;
+    const token = localStorage.getItem('AccessToken');
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -28,7 +34,11 @@ const getOrderById = async (id, isMock = false) => {
         });
     }
     else {
-        const data = instance.get(url).then(res => res.data);
+        const data = instance.get(url, {
+            'headers': {
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => res.data);
         return data;
     }
 }
@@ -44,4 +54,20 @@ const deleteOrder = async (id, isMock = false) => {
     }
 }
 
-export { getAllOrder, deleteOrder, getOrderById };
+const staffAssign = async (staffId, orderId) => {
+    const url = 'orders/staff-assignment';
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const request = {
+        staffId,
+        orderId
+    };
+    const data = instance.post(url, request, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+export { getAllOrder, deleteOrder, getOrderById, staffAssign };

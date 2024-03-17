@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { getFoodById } from '../../../apis/foodService';
 import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from 'react-router-dom';
-import { converDateTime, converFormat, formatDateTimeString, formatDatetimeLocal } from '../../../utils/TimeFormat';
 
 const FoodEdit = () => {
     const [oldData, setOldData] = useState(null);
@@ -20,7 +19,7 @@ const FoodEdit = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getFoodById(foodId, true);
+            const res = await getFoodById(foodId);
             return res;
         };
 
@@ -33,9 +32,9 @@ const FoodEdit = () => {
                     "Email": ""
                 };
             }
-            setData(JSON.parse(JSON.stringify(res)));
-            setOldData(JSON.parse(JSON.stringify(res)));
-            setImgSrc(res.Image);
+            setData(JSON.parse(JSON.stringify(res.data[0])));
+            setOldData(JSON.parse(JSON.stringify(res.data[0])));
+            setImgSrc(res.data[0].image);
             setIsLoading(false);
         })
     }, []);
@@ -49,14 +48,14 @@ const FoodEdit = () => {
             reader.onload = function (e) {
                 setImgSrc(e.target.result);
             }
-            setData({ ...data, Image: e.target.result})
+            setData({ ...data, image: e.target.result})
             reader.readAsDataURL(file);
         }
     }
 
     const onDiscard = (e) => {
         setData(JSON.parse(JSON.stringify(oldData)));
-        setImgSrc(oldData.Image);
+        setImgSrc(oldData.image);
     }
 
     return (
@@ -101,8 +100,8 @@ const FoodEdit = () => {
                                         <div className="food-edit-row-content">
                                             <input type="text" spellCheck={false}
                                                 placeholder='Tên món'
-                                                value={data.Name}
-                                                onChange={(e) => setData({ ...data, Name: e.target.value })}
+                                                value={data.name}
+                                                onChange={(e) => setData({ ...data, name: e.target.value })}
                                                 className="food-edit-row-content-input"
                                             />
                                         </div>
@@ -120,8 +119,8 @@ const FoodEdit = () => {
                                         <div className="food-edit-row-content">
                                             <textarea type="text" spellCheck={false}
                                                 placeholder='Mô tả'
-                                                value={data.Description}
-                                                onChange={(e) => setData({ ...data, Description: e.target.value })}
+                                                value={data.description}
+                                                onChange={(e) => setData({ ...data, description: e.target.value })}
                                                 className="food-edit-row-content-input"
                                             >
                                             </textarea>
@@ -140,8 +139,8 @@ const FoodEdit = () => {
                                         <div className="food-edit-row-content">
                                             <input type="number" spellCheck={false}
                                                 placeholder='Giá tiền'
-                                                value={parseFloat(data.Price)}
-                                                onChange={(e) => setData({ ...data, Price: e.target.value })}
+                                                value={parseFloat(data.price)}
+                                                onChange={(e) => setData({ ...data, price: e.target.value })}
                                                 className="food-edit-row-content-input"
                                             />
                                         </div>

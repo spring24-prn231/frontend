@@ -9,10 +9,13 @@ import { Link } from 'react-router-dom';
 import Loading from '../../common/loading/Loading';
 import PopupConfirm from '../../common/popup-confirm/PopupConfirm';
 import { deleteVoucher, getAllVoucher } from '../../../apis/voucherService';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const Voucher = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isReload, setIsReload] = useState(false);
     const [isDisplayConfirm, setIsDisplayConfirm] = useState(false);
     const [selectedEditRow, setSelectedEditRow] = useState('');
     const [selectedRows, setSelectedRows] = useState([]);
@@ -21,12 +24,12 @@ const Voucher = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllVoucher(true);
+            const res = await getAllVoucher();
             return res;
         };
 
         getData().then(res => {
-            setData(res);
+            setData(res.data);
             setIsLoading(false);
         })
 
@@ -39,14 +42,14 @@ const Voucher = () => {
                 }
             }
         });
-    }, []);
+    }, [isReload]);
 
     const selectAll = () => {
         if (selectedRows.length === data.length) {
             setSelectedRows([]);
         }
         else {
-            setSelectedRows(data.map(x => x.Id));
+            setSelectedRows(data.map(x => x.id));
         }
     }
 
@@ -75,14 +78,23 @@ const Voucher = () => {
     }
 
     const deleteSelectedRows = async () => {
-        setData(data.filter(x => !selectedRows.includes(x.Id)));
-        setSelectedRows([]);
-        await deleteVoucher('123', true);
+        selectedRows.forEach(async (id) => {
+            await deleteVoucher(id);
+            toast.success("Xoá thành công !!!", {
+                position: "bottom-right"
+            });
+        });
         setIsDisplayConfirm(false);
+        setTimeout(() => {
+            setData(data.filter(x => !selectedRows.includes(x.id)));
+            setSelectedRows([]);
+            setIsReload(!isReload);
+        }, 900);
     }
 
     return (
         <div className='voucher-center-container'>
+            <ToastContainer />
             <PopupConfirm isDisplay={isDisplayConfirm}
                 confirmContent="Bạn có muốn xoá những mã đã chọn?"
                 okCallback={deleteSelectedRows}
@@ -99,7 +111,7 @@ const Voucher = () => {
 
             <div className='voucher-center-top'>
                 <div className="voucher-search-bar-container">
-                    <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
+                    <Link to={`addnew`} style={{ textDecoration: 'none', color: 'black' }}>
                         <div className='voucher-add-new'>
                             <AddIcon />
                             <span>Thêm mới</span>
@@ -120,7 +132,7 @@ const Voucher = () => {
                             onClick={confirmDelete}
                         >
                             <DeleteIcon htmlColor='white' />
-                            <span style={{ color: "white", marginLeft: "5px" }}>Delete {selectedRows.length} item(s)</span>
+                            <span style={{ color: "white", marginLeft: "5px" }}>Xoá {selectedRows.length} hàng</span>
                         </div> : ""
                 }
             </div>
@@ -145,19 +157,19 @@ const Voucher = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !item.Code.includes(searchValue) ? '' :
-                                        <tr key={index} className={`voucher-table-row ${selectedRows.includes(item.Id) ? 'voucher-table-row-active' : ''}`} onClick={() => selectCell(item.Id, !(selectedRows.find(x => x === item.Id) !== undefined))}>
+                                    !item.code.includes(searchValue) ? '' :
+                                        <tr key={index} className={`voucher-table-row ${selectedRows.includes(item.id) ? 'voucher-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
                                             <td>
                                                 <input type='checkbox' className='voucher-table-checkbox'
                                                     onChange={() => { }}
-                                                    checked={selectedRows.find(x => x === item.Id) !== undefined}
+                                                    checked={selectedRows.find(x => x === item.id) !== undefined}
                                                 />
                                             </td>
-                                            <td>{item.Code}</td>
-                                            <td>{item.Discount}</td>
-                                            <td>{item.MaximumValue}</td>
-                                            <td>{item.ExpirationDate}</td>
-                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.Id)} /></td>
+                                            <td>{item.code}</td>
+                                            <td>{item.discount}</td>
+                                            <td>{item.maximumValue}</td>
+                                            <td>{item.expirationDate}</td>
+                                            <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.id)} /></td>
                                         </tr>
                                 )
                         }

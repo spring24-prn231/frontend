@@ -5,41 +5,86 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Loading from '../../common/loading/Loading';
 import { Link } from 'react-router-dom';
-import { getStaffById } from '../../../apis/staffService';
+import { createStaff, getStaffById, updateStaff } from '../../../apis/staffService';
 import CloseIcon from '@mui/icons-material/Close';
-import { useParams } from 'react-router-dom';
-import { converDateTime, converFormat, formatDateTimeString, formatDatetimeLocal } from '../../../utils/TimeFormat';
+import Select from 'react-select';
+import { useParams, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const StaffEdit = () => {
     const [oldData, setOldData] = useState(null);
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [isReload, setIsReload] = useState(false);
     const { staffId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getStaffById(staffId, true);
-            return res;
+            if (staffId !== 'addnew') {
+                const res = await getStaffById(staffId);
+                return res;
+            }
+            else {
+                return {
+                    "data": [
+                        {
+                            "userName": "",
+                            "fullname": "",
+                            "phoneNumber": "",
+                            "role": "HOST_STAFF",
+                            "email": "",
+                            "password": "Loc@12345"
+                        }
+                    ]
+                };
+            }
         };
 
         getData().then(res => {
-            if (res === undefined) {
-                res = {
-                    "FullName": "",
-                    "PhoneNumber": "",
-                    "Birthday": "",
-                    "Email": ""
-                };
-            }
-            setData(JSON.parse(JSON.stringify(res)));
-            setOldData(JSON.parse(JSON.stringify(res)));
+            setData(JSON.parse(JSON.stringify(res.data[0])));
+            setOldData(JSON.parse(JSON.stringify(res.data[0])));
             setIsLoading(false);
         })
     }, []);
 
+    const onUpdateStaff = () => {
+        if (staffId === 'addnew') {
+            createStaff(data).then(res => {
+                toast.success("Tạo mới thành công !!!", {
+                    position: "bottom-right"
+                });
+                setIsReload(!isReload);
+                setTimeout(() => {
+                    navigate("/manager/staff")
+                }, 1000);
+            }).catch(err => {
+                toast.error("Tạo mới thất bại, hãy thử lại !!!", {
+                    position: "bottom-right"
+                });
+                setIsReload(!isReload);
+            });
+        }
+        else {
+            updateStaff(data).then(res => {
+                toast.success("Cập nhật thành công !!!", {
+                    position: "bottom-right"
+                });
+                setIsReload(!isReload);
+            }).catch(err => {
+                toast.error("Cập nhật thất bại, hãy thử lại !!!", {
+                    position: "bottom-right"
+                });
+                setIsReload(!isReload);
+            });
+        }
+    }
+
     return (
         <>
+            <ToastContainer />
             {
                 isLoading || data == null ? <Loading /> :
                     <div className='staff-edit-container'>
@@ -53,7 +98,7 @@ const StaffEdit = () => {
                                 <div className="staff-event-name-container">
                                 </div>
 
-                                <div className='staff-save-button'>
+                                <div className='staff-save-button' onClick={onUpdateStaff}>
                                     <DoneIcon style={{ marginRight: '4px' }} fontSize='small' />
                                     <span>Lưu</span>
                                 </div>
@@ -79,9 +124,9 @@ const StaffEdit = () => {
                                         </span>
                                         <div className="staff-edit-row-content">
                                             <input type="text" spellCheck={false}
-                                                placeholder='Full name'
-                                                value={data.FullName}
-                                                onChange={(e) => setData({ ...data, FullName: e.target.value })}
+                                                placeholder='Họ và tên'
+                                                value={data.fullname}
+                                                onChange={(e) => setData({ ...data, fullname: e.target.value })}
                                                 className="staff-edit-row-content-input"
                                             />
                                         </div>
@@ -97,10 +142,10 @@ const StaffEdit = () => {
                                             Số điện thoại:
                                         </span>
                                         <div className="staff-edit-row-content">
-                                            <input type="text" spellCheck={false}
-                                                placeholder='Phone number'
-                                                value={data.PhoneNumber}
-                                                onChange={(e) => setData({ ...data, PhoneNumber: e.target.value })}
+                                            <input type="number" spellCheck={false}
+                                                placeholder='Số điện thoại'
+                                                value={data.phoneNumber}
+                                                onChange={(e) => setData({ ...data, phoneNumber: e.target.value })}
                                                 className="staff-edit-row-content-input"
                                             />
                                         </div>
@@ -118,8 +163,8 @@ const StaffEdit = () => {
                                         <div className="staff-edit-row-content">
                                             <input type="email" spellCheck={false}
                                                 placeholder='Email'
-                                                value={data.Email}
-                                                onChange={(e) => setData({ ...data, Email: e.target.value })}
+                                                value={data.email}
+                                                onChange={(e) => setData({ ...data, email: e.target.value })}
                                                 className="staff-edit-row-content-input"
                                             />
                                         </div>
@@ -132,15 +177,42 @@ const StaffEdit = () => {
                                             <span><KeyboardArrowDownIcon fontSize='small' /></span>
                                         </div>
                                         <span className='staff-edit-row-label'>
-                                            Ngày sinh:
+                                            Tên đăng nhập:
                                         </span>
                                         <div className="staff-edit-row-content">
-                                            <input type="date" spellCheck={false}
-                                                placeholder='Birthday'
+                                            <input type="text" spellCheck={false}
+                                                placeholder='Tên đăng nhập'
+                                                value={data.userName}
+                                                disabled={staffId !== 'addnew'}
+                                                onChange={(e) => setData({ ...data, userName: e.target.value })}
                                                 className="staff-edit-row-content-input"
-                                                onChange={(e) => setData({ ...data, Birthday: converFormat(e.target.value) })}
-                                                value={converDateTime(data.Birthday)}
                                             />
+                                        </div>
+                                    </div>
+
+                                    <div className="staff-edit-row-space"></div>
+
+                                    <div className="staff-edit-row">
+                                        <div className="staff-edit-row-index">
+                                            <span><KeyboardArrowDownIcon fontSize='small' /></span>
+                                        </div>
+                                        <span className='staff-edit-row-label'>
+                                            Vai trò:
+                                        </span>
+                                        <div className='staff-edit-row-content'>
+                                            <div>
+                                                <Select
+                                                    options={[{
+                                                        value: 'HOST_STAFF',
+                                                        label: 'HOST_STAFF'
+                                                    },
+                                                    {
+                                                        value: 'IMPLEMENT_STAFF',
+                                                        label: 'IMPLEMENT_STAFF'
+                                                    }
+                                                    ]}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

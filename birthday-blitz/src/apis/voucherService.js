@@ -2,7 +2,7 @@ import { getAxiosInstance } from './axiosInstance';
 import Vouchers from '../data/voucher';
 
 const getAllVoucher = async (isMock = false) => {
-    const url = '';
+    const url = 'vouchers';
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -18,7 +18,7 @@ const getAllVoucher = async (isMock = false) => {
 }
 
 const getVoucherById = async (id, isMock = false) => {
-    const url = '';
+    const url = `vouchers?id=${id}`;
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -33,15 +33,29 @@ const getVoucherById = async (id, isMock = false) => {
     }
 }
 
-const deleteVoucher = async (id, isMock = false) => {
-    const url = '';
+const updateVoucher = async (voucher) => {
+    const url = `vouchers`;
     const instance = await getAxiosInstance();
-    if (isMock) {
-        return true;
-    }
-    else {
-        return true;
-    }
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.put(url, voucher, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
 }
 
-export { getAllVoucher, deleteVoucher, getVoucherById };
+const deleteVoucher = async (id, isMock = false) => {
+    const url = `vouchers/${id}`;
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.delete(url, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+
+}
+
+export { getAllVoucher, deleteVoucher, getVoucherById, updateVoucher };

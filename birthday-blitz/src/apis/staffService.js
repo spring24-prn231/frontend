@@ -2,8 +2,9 @@ import { getAxiosInstance } from './axiosInstance';
 import Staffs from '../data/staff';
 
 const getAllStaff = async (isMock = false) => {
-    const url = '';
+    const url = 'staffs';
     const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
     if (isMock) {
         return new Promise(resolve => {
             setTimeout(() => {
@@ -12,14 +13,52 @@ const getAllStaff = async (isMock = false) => {
         });
     }
     else {
-        const data = instance.get(url).then(res => res.data);
+        const data = instance.get(url, {
+            'headers': {
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => res.data);
         return data;
     }
 }
 
-const getStaffById = async (id, isMock = false) => {
-    const url = '';
+const createStaff = async (staff) => {
+    const url = `staffs`;
     const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.post(url, staff, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+
+const updateStaff = async (staff) => {
+    const url = `staffs`;
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const request = {
+        'id': staff.id,
+        'fullname': staff.fullname,
+        'phoneNumber': staff.phoneNumber,
+        'email': staff.email
+    }
+    const data = instance.put(url, request, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+
+const getStaffById = async (id, isMock = false) => {
+    const url = `staffs?id=${id}`;
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+
     if (isMock) {
         return new Promise(resolve => {
             setTimeout(() => {
@@ -28,20 +67,25 @@ const getStaffById = async (id, isMock = false) => {
         });
     }
     else {
-        const data = instance.get(url).then(res => res.data);
+        const data = instance.get(url, {
+            'headers': {
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => res.data);
         return data;
     }
 }
 
-const deleteStaff = async (id, isMock = false) => {
+const deleteStaff = async (id) => {
     const url = '';
     const instance = await getAxiosInstance();
-    if (isMock) {
-        return true;
-    }
-    else {
-        return true;
-    }
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.get(url, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
 }
 
-export { getAllStaff, deleteStaff, getStaffById };
+export { getAllStaff, deleteStaff, getStaffById, updateStaff, createStaff };
