@@ -42,7 +42,7 @@ const NavbarCustomer = () => {
                         <Link id="main" to="/customer/" className="nav-item nav-link">Trang chủ</Link>
                         <Link id="aboutus" to="aboutus" className="nav-item nav-link">Về chúng tôi</Link>
                         <Link id="service" to="service" className="nav-item nav-link">Dịch vụ</Link>
-                        <Link id="contact" to="contact.html" className="nav-item nav-link">Liên hệ</Link>
+                        <Link id="contact" to="contact" className="nav-item nav-link">Liên hệ</Link>
                     </div>
                     <div className=" d-none d-lg-flex">
                         <div className="flex-shrink-0 btn-lg-square border border-light rounded-circle">

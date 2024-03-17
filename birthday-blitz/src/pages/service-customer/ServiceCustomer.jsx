@@ -72,7 +72,6 @@ const ServiceCustomer = () => {
 
 
     const changeNavbar = (currentNavbarId) => {
-        // console.log("current: " + currentNavbarId + " previous: " + previousNavbarId)
 
         document.getElementById(currentNavbarId).style.color = "#000";
         
