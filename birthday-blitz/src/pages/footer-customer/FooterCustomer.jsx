@@ -26,7 +26,7 @@ const FooterCustomer = () => {
                     <h4 className="text-light mb-4">Tham khảo</h4>
                     <Link className="btn btn-link" to="aboutus">Về chúng tôi</Link>
                     <Link className="btn btn-link" to="service">Dịch vụ</Link>
-                    <Link className="btn btn-link" to="aa">Liên hệ</Link>
+                    <Link className="btn btn-link" to="contact">Liên hệ</Link>
                 </div>
                 
             </div>
