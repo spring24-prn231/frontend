@@ -23,11 +23,8 @@ const FooterCustomer = () => {
                 <div className="col-lg-3 col-md-6">
                     <h4 className="text-light mb-4">Tham khảo</h4>
                     <a className="btn btn-link" href="aboutus">Về chúng tôi</a>
+                    <a className="btn btn-link" href="service">Dịch vụ</a>
                     <a className="btn btn-link" href="aa">Liên hệ</a>
-                    <a className="btn btn-link" href="service.html">Dịch vụ</a>
-                    <a className="btn btn-link" href="menu">Thực đơn</a>
-                    <a className="btn btn-link" href="music">Âm thanh</a>
-                    <a className="btn btn-link" href="stage-show">Chương trình</a>
                 </div>
                 
             </div>

@@ -12,7 +12,7 @@ const NavbarCustomer = () => {
         if (!initialized.current) {
             initialized.current = true
 
-            var listPage = ["aboutus", "service", "menu", "music", "stage-show"]
+            var listPage = ["aboutus", "service"]
             var page = window.location.pathname.split("/").pop();
            // alert(page);
          //   document.getElementById("main")?.classList.remove("active")
@@ -44,10 +44,8 @@ const NavbarCustomer = () => {
                     <div className="navbar-nav mx-auto p-4 p-lg-0">
                         <a id="main" href="/customer/" className="nav-item nav-link">Trang chủ</a>
                         <a id="aboutus" href="aboutus" className="nav-item nav-link">Về chúng tôi</a>
-                        <a id="service" href="service.html" className="nav-item nav-link">Dịch vụ</a>
-                        <a id="menu" href="menu" className="nav-item nav-link">Thực đơn</a>
-                        <a id="music" href="/text" className="nav-item nav-link">Âm thanh</a>
-                        <a id="stage-show" href="/text" className="nav-item nav-link">Chương trình</a>
+                        <a id="service" href="service" className="nav-item nav-link">Dịch vụ</a>
+                     
                         {/* <div className="nav-item dropdown">
                         <Link to="https://mail.google.com/mail/u/0/" className="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</Link>
                         <div className="dropdown-menu m-0">
