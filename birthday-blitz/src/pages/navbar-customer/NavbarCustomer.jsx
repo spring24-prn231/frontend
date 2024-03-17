@@ -79,7 +79,7 @@ const NavbarCustomer = () => {
                                         <p className="text-primary text-uppercase fw-bold mb-2">// Team LOC12345</p>
                                         <h1 className="display-1 text-light mb-4 animated slideInDown">TỔ CHỨC SINH NHẬT</h1>
                                         <p className="text-light fs-5 mb-4 pb-3">Chúng tôi tự hào là đối tác đáng tin cậy trong việc tổ chức tiệc sinh nhật, tạo nên những khoảnh khắc đặc biệt và ngọt ngào, để bữa tiệc trở thành kỷ niệm không thể quên.</p>
-                                        <a href="" className="btn btn-primary rounded-pill py-3 px-5">TÌM HIỂU THÊM</a>
+                                        <a href="aboutus" className="btn btn-primary rounded-pill py-3 px-5">TÌM HIỂU THÊM</a>
                                     </div>
                                 </div>
                             </div>
