@@ -2,7 +2,7 @@ import { getAxiosInstance } from './axiosInstance';
 import Foods from '../data/food';
 
 const getAllFood = async (isMock = false) => {
-    const url = 'dishs';
+    const url = 'dishes';
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -18,7 +18,7 @@ const getAllFood = async (isMock = false) => {
 }
 
 const getFoodById = async (id, isMock = false) => {
-    const url = `dishs?id=${id}`;
+    const url = `dishes?id=${id}`;
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {

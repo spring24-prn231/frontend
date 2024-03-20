@@ -1,0 +1,14 @@
+.staff-page-container {
+    margin-top: 60px;
+    position: absolute;
+    display: flex;
+}
+
+.staff-page-center-container {
+    height: 100vh;
+    width: calc(100vw - 250px);
+    margin-left: 250px;
+    background-color: white;
+    padding: 15px;
+    transition: width 1s, margin 1s;
+}

@@ -100,12 +100,6 @@ const Feedback = () => {
 
             <div className='feedback-center-top'>
                 <div className="feedback-search-bar-container">
-                    <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
-                        <div className='feedback-add-new'>
-                            <AddIcon />
-                            <span>Thêm mới</span>
-                        </div>
-                    </Link>
                     <div className="feedback-search-bar">
                         <SearchIcon htmlColor='grey' />
                         <input className='feedback-search-bar-input'

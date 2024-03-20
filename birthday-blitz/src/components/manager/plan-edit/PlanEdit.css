@@ -257,3 +257,11 @@
 .plan-edit-text-area:focus {
     outline: none;
 }
+
+
+.plan-edit-assign {
+    width: 260px;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+}
