@@ -12,18 +12,21 @@ import { useParams } from 'react-router-dom';
 import { formatDateTimeString, formatDatetimeLocal } from '../../../utils/TimeFormat';
 import InfoIcon from '@mui/icons-material/Info';
 import makeAnimated from 'react-select/animated';
-import { approvePlan, getPlanById, savePlans } from '../../../apis/planService';
+import { approvePlan, getPlanById, planAssign, savePlans } from '../../../apis/planService';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { getAllStaff } from '../../../apis/staffService';
 
 const animatedComponents = makeAnimated();
 
 const PlanEdit = () => {
     const [oldData, setOldData] = useState(null);
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isReload, setIsReload] = useState(false);
     const [isExpandCell, setisExpandCell] = useState(null);
+    const [staffs, setStaffs] = useState([]);
+    const [currentStaffs, setCurrentStaffs] = useState([]);
     const { planId } = useParams();
 
 
@@ -31,10 +34,12 @@ const PlanEdit = () => {
         const getData = async () => {
             setIsLoading(true);
             const res = await getPlanById(planId);
-            return res;
+            const staffList = await getAllStaff(false, false);
+            return { res, staffList };
         };
 
-        getData().then((res) => {
+        getData().then(({ res, staffList }) => {
+            setStaffs(staffList.data);
             setData(JSON.parse(JSON.stringify(res.data)));
             setOldData(JSON.parse(JSON.stringify(res.data)));
             setIsLoading(false);
@@ -60,7 +65,14 @@ const PlanEdit = () => {
     }
 
     const onClickExpand = (id) => {
-        setisExpandCell(id === isExpandCell ? null : id);
+        if (id === isExpandCell) {
+            setisExpandCell(null);
+            setCurrentStaffs([]);
+        }
+        else {
+            setisExpandCell(id);
+            setCurrentStaffs(data.find(x => x.id === id).staffs.map(y => y.staffId));
+        }
     }
 
     const onFeedbackChange = (e) => {
@@ -87,6 +99,7 @@ const PlanEdit = () => {
             toast.success("Duyệt thành công !!!", {
                 position: "bottom-right"
             });
+            setIsReload(!isReload);
         }).catch(err => {
             toast.error("Duyệt thất bại, hãy thử lại !!!", {
                 position: "bottom-right"
@@ -94,11 +107,24 @@ const PlanEdit = () => {
         });
     }
 
+    const onAssign = () => {
+        const res = planAssign(isExpandCell, currentStaffs).then(res => {
+            setIsReload(!isReload);
+            toast.success("Giao quyền thành công !!!", {
+                position: "bottom-right"
+            });
+        }).catch(err => {
+            toast.error("Giao quyền thất bại, hãy thử lại !!!", {
+                position: "bottom-right"
+            });
+        });
+    }
+
     return (
         <>
-            <ToastContainer/>
+            <ToastContainer />
             {
-                isLoading || data == null ? <Loading /> :
+                isLoading || data.length === 0 ? <Loading /> :
                     <div className='plan-edit-container'>
                         <div className="plan-edit-top-container">
                             <div className="plan-edit-top">
@@ -214,18 +240,33 @@ const PlanEdit = () => {
                                             </div>
                                             <div className='plan-edit-bottom-right-content-item'>
                                                 <span className='plan-edit-bottom-right-content-label'>Phân công:</span>
-                                                <div style={{ width: '250px', zIndex: '9999' }}>
-                                                    <Select
-                                                        closeMenuOnSelect={false}
-                                                        components={animatedComponents}
-                                                        isMulti
-                                                        options={[
-                                                            { value: '1', label: 'Đạt' },
-                                                            { value: '2', label: 'Duy' },
-                                                            { value: '3', label: 'Khanh' },
-                                                            { value: '4', label: 'Tân' },
-                                                        ]}
-                                                    />
+                                                <div className='plan-edit-assign'>
+                                                    <div style={{ flex: '5', marginRight: '10px' }}>
+                                                        <Select
+                                                            closeMenuOnSelect={false}
+                                                            components={animatedComponents}
+                                                            isMulti
+                                                            onChange={(e) => setCurrentStaffs(e.map(x => x.value))}
+                                                            options={
+                                                                staffs.map(item => ({
+                                                                    value: item.id,
+                                                                    label: item.fullname
+                                                                }))
+                                                            }
+                                                            defaultValue={
+                                                                data.find(x => x.id === isExpandCell).staffs.map(x => ({
+                                                                    value: x.staffId,
+                                                                    label: staffs.find(y => y.id === x.staffId).fullname
+                                                                }))
+                                                            }
+                                                        />
+                                                    </div>
+                                                    {
+                                                        JSON.stringify(currentStaffs) === JSON.stringify(data.find(x => x.id === isExpandCell).staffs.map(x => x.staffId)) ? '' :
+                                                            <div>
+                                                                <div style={{ flex: '1' }} onClick={onAssign} className='plan-save-button'>Giao</div>
+                                                            </div>
+                                                    }
                                                 </div>
                                             </div>
                                             <div className='plan-edit-bottom-right-content-item'>

@@ -70,4 +70,16 @@ const staffAssign = async (staffId, orderId) => {
     return data;
 }
 
-export { getAllOrder, deleteOrder, getOrderById, staffAssign };
+const createOrderDetail = async (orderDetail) => {
+    const url = 'orderdetails';
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.post(url, orderDetail, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+export { getAllOrder, deleteOrder, getOrderById, staffAssign, createOrderDetail };

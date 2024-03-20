@@ -25,7 +25,7 @@ const OrderDetail = () => {
         const getData = async () => {
             setIsLoading(true);
             const res = await getOrderById(orderId);
-            const staffs = (await getAllStaff()).data;
+            const staffs = (await getAllStaff(false, true, false)).data;
             return { res, staffs };
         };
 
