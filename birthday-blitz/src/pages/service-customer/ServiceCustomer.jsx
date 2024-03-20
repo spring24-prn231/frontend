@@ -36,7 +36,7 @@ const ServiceCustomer = () => {
         "menu-customer": "Thực Đơn",
         "decoration-show": "Trang Trí",
         "stage-cus": "Chương Trình",
-        "music-show": "Âm Thanh"
+        "music-show": "Dịch Vụ Khác"
     }
     useEffect(() => {
         getData();
@@ -101,11 +101,6 @@ const ServiceCustomer = () => {
             }
         }
 
-        //Set default value for selected Items
-        if (selectedIds.length == 0) {
-            selectedIds.push(arrayObj[0].id);
-        }
-
         return selectedIds;
     }
     const setSelectedItems = () => {
@@ -122,6 +117,11 @@ const ServiceCustomer = () => {
         var previousSelectedItems = localStorage.getItem(currentNavbarId);
         var currentChoice = document.getElementsByName("elementChoose");
 
+        //set default for all case
+        currentChoice.forEach(function (checkbox) {
+            checkbox.checked = false;
+ 
+        });
         if (previousSelectedItems != null) {
             var listPreviousSelectedItems = JSON.parse(previousSelectedItems);
 
@@ -149,10 +149,16 @@ const ServiceCustomer = () => {
     };
 
     const RedirectToNextStage = () => {
+
+        setSelectedItems("music-show")
         var isNotSelected = false;
         var notSelectedItems = "Vui lòng chọn ";
         for (var key in baseNavbar) {
-            if (localStorage.getItem(key) == null) {
+            var item = localStorage.getItem(key)
+            if (item == null) {
+                isNotSelected = true;
+                notSelectedItems += baseNavbar[key] + ", ";
+            } else if (item.length == 2) { //Not parse to JSON --> [] is 2 characters
                 isNotSelected = true;
                 notSelectedItems += baseNavbar[key] + ", ";
             }
@@ -163,10 +169,14 @@ const ServiceCustomer = () => {
             notSelectedItems = notSelectedItems.substring(0, notSelectedItems.length - 2) + ".";
             alert(notSelectedItems);
         } else {
-            window.location = "/customer/previeworder";
+           window.location = "/customer/previeworder";
         }
     }
-
+    const parseToVND = (money) => {
+        var config = { style: 'currency', currency: 'VND', maximumFractionDigits: 9 }
+        var formated = new Intl.NumberFormat('vi-VN', config).format(money);
+        return formated;
+    }
 
     return (
         <div className="menu-customer">
@@ -201,12 +211,13 @@ const ServiceCustomer = () => {
                                 <li><button className='btn btn-primary rounded-pill button-custom' onClick={() => changeTable("stage-cus")} id="stage-cus">
                                     Chương Trình</button>
                                 </li>
-                                <li><button className='btn btn-primary rounded-pill button-custom' onClick={() => changeTable("music-show")} id="music-show">
-                                    Âm Thanh</button>
-                                </li>
                                 <li><button className='btn btn-primary rounded-pill button-custom' onClick={() => changeTable("menu-customer")} id="menu-customer">
                                     Thực Đơn</button>
                                 </li>
+                                <li><button className='btn btn-primary rounded-pill button-custom' onClick={() => changeTable("music-show")} id="music-show">
+                                    Dịch Vụ Khác</button>
+                                </li>
+                               
                             </ul>
 
                         </nav>
@@ -233,7 +244,7 @@ const ServiceCustomer = () => {
                                                     <div className='row-content-header'>
                                                         <h5 className='col-lg-9'>{element.name}</h5>
                                                         <div className='col-lg-3'>
-                                                            <h5 className=''>Giá: {element.price} vnđ</h5>
+                                                            <h5 className=''>Giá: {parseToVND(element.price)}</h5>
                                                             {isMenu
                                                                 ? <h5 className=''>Chọn:<input id={element.id} className='margin-checkbox' name="elementChoose" type='checkbox'></input> </h5>
 
@@ -263,7 +274,7 @@ const ServiceCustomer = () => {
                     </div>
 
                 </div>
-                {previousNavbarId == "menu-customer"
+                {previousNavbarId == "music-show"
                     ? <button className='btn btn-primary rounded-pill button-custom right-side-button'
                         style={{ fontSize: "x-large" }}
                         onClick={() => RedirectToNextStage()}> Đặt Tiệc</button>
