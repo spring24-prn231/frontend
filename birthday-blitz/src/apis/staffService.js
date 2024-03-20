@@ -1,8 +1,8 @@
 import { getAxiosInstance } from './axiosInstance';
 import Staffs from '../data/staff';
 
-const getAllStaff = async (isMock = false) => {
-    const url = 'staffs';
+const getAllStaff = async (isMock = false, isHostStaff = true, isImplementStaff = true) => {
+    const url = `staffs?getHostStaff=${isHostStaff}&getImplementStaff=${isImplementStaff}`;
     const instance = await getAxiosInstance();
     const token = localStorage.getItem('AccessToken');
     if (isMock) {

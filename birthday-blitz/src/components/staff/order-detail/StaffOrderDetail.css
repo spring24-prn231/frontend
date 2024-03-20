@@ -1,0 +1,226 @@
+.staff-order-detail-container {}
+
+.staff-order-detail-top {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgb(226, 220, 220);
+}
+
+
+.staff-order-detail-search-bar-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.staff-order-detail-search-bar {
+    border: solid 0.1px rgb(179, 174, 174);
+    width: 300px;
+    display: flex;
+    padding: 0px 17px;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+    transition: width 0.3s;
+}
+
+.staff-order-detail-search-bar:focus-within {
+    box-shadow: 1px 0.5px 0.5px 0.5px grey;
+    width: 350px;
+}
+
+.staff-order-detail-search-bar-input {
+    font-size: 15px;
+    width: 100%;
+    border: none;
+    margin-left: 5px;
+    height: 40px;
+}
+
+.staff-order-detail-search-bar-input:focus {
+    outline: none;
+}
+
+.staff-order-detail-progress {
+    padding: 10px;
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #f6ff70b5;
+}
+
+.staff-order-detail-content {
+    font-size: 15px;
+    display: flex;
+    margin-top: 10px;
+    overflow-y: scroll;
+    height: calc(100vh - 140px);
+}
+
+.staff-order-detail-staff-order-name {
+    font-weight: bold;
+    padding: 10px 0px;
+    font-size: 20px;
+}
+
+.staff-order-detail-items {
+    flex: 9;
+}
+
+.staff-order-detail-items-container {
+    padding: 5px 30px;
+}
+
+.staff-order-detail-items-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.staff-order-detail-items-table td,
+.staff-order-detail-items-table th {
+    padding: 8px;
+}
+
+.staff-order-detail-items-table tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+/* .staff-order-detail-items-table tr:hover {
+    background-color: #ddd;
+} */
+
+.staff-order-detail-items-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    border-bottom: 2px solid rgb(236, 226, 226);
+    background-color: white;
+}
+
+.staff-order-detail-end-header {
+    padding: 10px 0px;
+    border-bottom: 1px solid rgb(211, 211, 211);
+    font-weight: bold;
+}
+
+.staff-order-detail-total {
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.staff-order-detail-voucher {
+    padding: 10px 0px;
+    border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.staff-order-detail-voucher-table {
+    width: 100%;
+    text-align: end;
+}
+
+.staff-order-detail-voucher-table th {
+    font-weight: normal;
+}
+
+.staff-order-detail-all {
+    font-weight: bold;
+    padding: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.staff-order-detail-summary {
+    flex: 4;
+    padding: 20px;
+}
+
+.staff-order-detail-info {
+    border: 1px solid rgba(128, 128, 128, 0.075);
+    box-shadow: 0px 1.5px 1px 0px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+.staff-order-detail-deposit {
+    border: 1px solid rgba(128, 128, 128, 0.075);
+    box-shadow: 0px 1.5px 1px 0px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+.staff-order-detail-row {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.staff-order-detail-info-label {
+    font-weight: bold;
+    width: 140px;
+}
+
+.staff-order-detail-assign {
+    margin-bottom: 20px;
+}
+
+.staff-order-detail-staff-assign {
+    display: flex;
+    justify-content: space-between;
+}
+
+.staff-order-detail-staff-assign-select {
+    flex: 4;
+}
+
+.staff-order-detail-staff-assign-btn {
+    flex: 1;
+    border: 1px solid rgb(219, 201, 201);
+    padding: 10px 15px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #EAA636;
+    color: white;
+    font-weight: bold;
+    margin-left: 20px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.staff-order-detail-staff-assign-btn:hover {
+    background-color: #ad7418;
+}
+
+.staff-order-detail-add-order-detail {
+    border: 1px solid rgb(219, 201, 201);
+    padding: 10px 15px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #EAA636;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+    width: 230px;
+    margin-bottom: 20px;
+}
+
+.staff-order-detail-add-order-detail-disable {
+    background-color: grey;
+}
+
+.staff-order-detail-add-input {
+    display: flex;
+    align-items: top;
+}

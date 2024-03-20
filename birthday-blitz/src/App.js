@@ -11,9 +11,7 @@ import Dashboard from "./components/manager/dashboard/Dashboard";
 import Plan from "./components/manager/plan/Plan";
 import PlanEdit from "./components/manager/plan-edit/PlanEdit";
 import User from "./components/manager/user/User";
-import UserEdit from "./components/manager/user-edit/UserEdit";
 import PlanNew from "./components/manager/plan-new/PlanNew";
-import Serivce from "./components/manager/service/Serivce";
 import Voucher from "./components/manager/voucher/Voucher";
 import VoucherEdit from "./components/manager/voucher-edit/VoucherEdit";
 import Feedback from "./components/manager/feedback/Feedback";
@@ -30,10 +28,11 @@ import StaffEdit from "./components/manager/staff-edit/StaffEdit";
 import Food from "./components/manager/food/Food";
 import FoodEdit from "./components/manager/food-edit/FoodEdit";
 import { getRole } from "./utils/JwtParser";
-import { useEffect, useState } from "react";
-import { getAllNotification } from "./apis/notificationService";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import StaffPage from "./pages/staff/StaffPage";
+import StaffOrder from "./components/staff/order/StaffOrder";
+import StaffOrderDetail from "./components/staff/order-detail/StaffOrderDetail";
 
 function App() {
     // useEffect(() => {
@@ -88,6 +87,11 @@ function App() {
                             <Route path="food/:foodId" element={<FoodEdit />} />
                         </Route>
                 }
+                <Route path="/staff" element={<StaffPage/>}>
+                    <Route path="" element={<StaffOrder/>} />
+                    <Route path="order" element={<StaffOrder/>} />
+                    <Route path="order/:orderId" element={<StaffOrderDetail/>} />
+                </Route>
             </Routes>
         </Router>
     );

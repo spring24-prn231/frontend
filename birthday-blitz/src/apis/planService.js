@@ -81,4 +81,20 @@ const deletePlan = async (id, isMock = false) => {
     }
 }
 
-export { getAllPlan, deletePlan, getPlanById, savePlans, approvePlan };
+const planAssign = async (planId, staffs) => {
+    const url = 'partyplans/staff-assigment';
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const request = {
+        'planId': planId,
+        'staffIds': staffs
+    };
+    const data = instance.post(url, request ,{
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+export { getAllPlan, deletePlan, getPlanById, savePlans, approvePlan, planAssign };
