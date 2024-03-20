@@ -119,7 +119,6 @@ const ServiceCustomer = () => {
 
     const getPreviousChooseItems = (currentNavbarId) => {
 
-        var isSelected = false;
         var previousSelectedItems = localStorage.getItem(currentNavbarId);
         var currentChoice = document.getElementsByName("elementChoose");
 
@@ -129,7 +128,6 @@ const ServiceCustomer = () => {
             currentChoice.forEach(function (checkbox) {
                 for (var i = 0; i < listPreviousSelectedItems.length; i++) {
                     if (checkbox.id == listPreviousSelectedItems[i]) {
-                        isSelected = true;
                         checkbox.checked = true;
                     }
                 }
@@ -159,13 +157,13 @@ const ServiceCustomer = () => {
                 notSelectedItems += baseNavbar[key] + ", ";
             }
         }
-        
+
         if (isNotSelected) {
             //Change last comma(,) to dot(.) 
             notSelectedItems = notSelectedItems.substring(0, notSelectedItems.length - 2) + ".";
             alert(notSelectedItems);
         } else {
-            window.location = "/customer/";
+            window.location = "/customer/previeworder";
         }
     }
 
@@ -268,7 +266,7 @@ const ServiceCustomer = () => {
                 {previousNavbarId == "menu-customer"
                     ? <button className='btn btn-primary rounded-pill button-custom right-side-button'
                         style={{ fontSize: "x-large" }}
-                        onClick={() => RedirectToNextStage()}> Tiếp theo</button>
+                        onClick={() => RedirectToNextStage()}> Đặt Tiệc</button>
                     : <></>}
             </div>
 
