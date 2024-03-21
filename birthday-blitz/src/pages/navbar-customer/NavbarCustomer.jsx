@@ -10,7 +10,7 @@ const NavbarCustomer = () => {
 
         var page = location.pathname.split("/").pop();
 
-        var listPage = ["aboutus", "service", "contact"]
+        var listPage = ["aboutus", "service", "contact", "combo"]
         // alert(page);
         document.getElementById("main")?.classList.remove("active")
         if (page == "" || page == "customer") {
@@ -40,6 +40,8 @@ const NavbarCustomer = () => {
                         <Link id="main" to="/customer/" className="nav-item nav-link">Trang chủ</Link>
                         <Link id="aboutus" to="aboutus" className="nav-item nav-link">Về chúng tôi</Link>
                         <Link id="service" to="service" className="nav-item nav-link">Dịch vụ</Link>
+                        <Link id="combo" to="combo" className="nav-item nav-link">Gói Dịch Vụ</Link>
+
                         <Link id="contact" to="contact" className="nav-item nav-link">Liên hệ</Link>
                     </div>
                     <div className=" d-none d-lg-flex">

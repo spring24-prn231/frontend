@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages/home/Home';
 // import Navbar from './pages/navbar-customer/NavbarCustomer';
+import Combo from "./pages/combo/Combo"
 import PreviewOrder from "./pages/preview-order/PreviewOrder";
 import ServiceCustomer from "./pages/service-customer/ServiceCustomer";
 import ContactCustomer from "./pages/contact-customer/ContactCustomer";
@@ -66,6 +67,7 @@ function App() {
                     <Route path='service' element={<ServiceCustomer />} />
                     <Route path='contact' element={<ContactCustomer />} />
                     <Route path='previeworder' element={<PreviewOrder />} />
+                    <Route path='combo' element={<Combo />} />
                 </Route> 
                 
                 {
