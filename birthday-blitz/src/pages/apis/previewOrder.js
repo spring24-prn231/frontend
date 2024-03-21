@@ -25,4 +25,17 @@ const getServiceElement = async (isMock = false, id = "") => {
     
 }
 
-export {getRoom, getMenu, getServiceElement};
+const createOrders = async (order) => {
+    console.log(order)
+    const url = 'orders';
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.post(url, order, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+export {getRoom, getMenu, getServiceElement, createOrders};

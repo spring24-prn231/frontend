@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from 'react-router-dom'
-import { getRoom, getMenu, getServiceElement } from '../apis/previewOrder';
+import { toast } from 'react-toastify';
+import { getRoom, getMenu, getServiceElement, createOrders } from '../apis/previewOrder';
 import './PreviewOrder.css'
 const mockData = [
     {
@@ -35,9 +36,11 @@ const PreviewOrder = () => {
 
         if (localRoom == null || localMenu == null || localDecoration == null || localStage == null|| localMusic == null) {
             window.location = "/customer/service";
+            return;
         }
         if (localRoom.length == 0 || localMenu.length == 0 || localDecoration.length == 0 || localStage.length == 0 || localMusic.length == 0) {
             window.location = "/customer/service";
+            return;
         }
 
         getRoomData(localRoom);
@@ -95,6 +98,17 @@ const PreviewOrder = () => {
 
     const getDataFromLocal = (objectName) => {
         return JSON.parse(localStorage.getItem(objectName))
+    }
+    const clearDataFromLocal = () => {
+       
+        localStorage.removeItem("room-show");
+        localStorage.removeItem("menu-customer");
+        localStorage.removeItem("decoration-show");
+        localStorage.removeItem("stage-cus");
+        localStorage.removeItem("music-show");
+
+
+
     }
     // ********** HANDLE GET DATA ************
 
@@ -192,13 +206,28 @@ const PreviewOrder = () => {
                     "dishIds": dishIds
 
                 },
-                "recommendServiceId": recommendServiceId,
+               // "recommendServiceId": recommendServiceId,
                 "eventStart": eventStart,
                 "eventEnd": eventEnd,
                 "maxGuest": maxGuest,
                 "total": totalMenu + staticTotal,
                 "name": name
             }
+            createOrders(request).then(res => {
+                alert("Thêm thành công");
+                clearDataFromLocal();
+                window.location = "./service"
+                // toast.success("Thêm thành công !!!", {
+                //     position: "bottom-right",
+                //     containerId: 'status'
+                // });
+
+            }).catch(err => {
+                alert("Thêm thất bại");
+                // toast.error("Thêm thất bại, hãy thử lại !!!", {
+                //     position: "bottom-right"
+                // });
+            })
 
     }
     const confirmSucessfully = () => {
@@ -218,9 +247,10 @@ const PreviewOrder = () => {
         }
         var accessToken = localStorage.getItem("AccessToken");
         if (accessToken == null) {
+            alert("Bạn phải đăng nhập trước khi đặt tiệc")
             window.location = "/login";
         } else {
-            
+            createRequest();
 
         }
 
