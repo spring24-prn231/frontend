@@ -4,6 +4,8 @@ import Rooms from '../data/room';
 const getAllRoom = async (isMock = false) => {
     const url = 'rooms';
     const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+
     if (isMock) {
         return new Promise(resolve => {
             setTimeout(() => {
@@ -12,7 +14,11 @@ const getAllRoom = async (isMock = false) => {
         });
     }
     else {
-        const data = instance.get(url).then(res => res.data);
+        const data = instance.get(url, {
+            'headers': {
+                'Authorization': 'Bearer ' + token
+            }
+        }).then(res => res.data);
         return data;
     }
 }

@@ -61,6 +61,23 @@
     height: calc(100vh - 140px);
 }
 
+.staff-order-detail-content::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+}
+
+.staff-order-detail-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.staff-order-detail-content::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.staff-order-detail-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 .staff-order-detail-staff-order-name {
     font-weight: bold;
     padding: 10px 0px;
@@ -68,7 +85,7 @@
 }
 
 .staff-order-detail-items {
-    flex: 9;
+    flex: 10;
 }
 
 .staff-order-detail-items-container {
@@ -90,9 +107,9 @@
     background-color: #f2f2f2;
 }
 
-/* .staff-order-detail-items-table tr:hover {
+.staff-order-detail-items-table tr:hover {
     background-color: #ddd;
-} */
+}
 
 .staff-order-detail-items-table th {
     padding-top: 12px;
@@ -223,4 +240,8 @@
 .staff-order-detail-add-input {
     display: flex;
     align-items: top;
+}
+
+.staff-order-detail-table-row {
+    cursor: pointer;
 }

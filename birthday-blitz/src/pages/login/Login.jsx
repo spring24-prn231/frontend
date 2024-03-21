@@ -4,7 +4,7 @@ import { login } from '../../apis/loginService';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { getRole } from '../../utils/JwtParser';
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
 
@@ -25,9 +25,14 @@ const Login = () => {
                 route = 'manager';
             }
             else {
-                route = 'customer';
+                if (role === 'HOST_STAFF') {
+                    route = 'staff';
+                }
+                else {
+                    route = 'customer';
+                }
             }
-            window.location.replace("/manager");
+            window.location.replace(`/${route}`);
             return res.data;
         }).catch(error => {
             console.log(error);

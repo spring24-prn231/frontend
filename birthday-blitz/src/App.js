@@ -35,6 +35,10 @@ import "react-toastify/dist/ReactToastify.css";
 import StaffPage from "./pages/staff/StaffPage";
 import StaffOrder from "./components/staff/order/StaffOrder";
 import StaffOrderDetail from "./components/staff/order-detail/StaffOrderDetail";
+import StaffPlan from "./components/staff/plan/StaffPlan";
+import StaffPlanEdit from "./components/staff/plan-edit/StaffPlanEdit";
+import StaffMenu from "./components/staff/menu/StaffMenu";
+import StaffMenuEdit from "./components/staff/menu-edit/StaffMenuEdit";
 
 function App() {
     // useEffect(() => {
@@ -51,9 +55,11 @@ function App() {
     return (
         <Router basename='/'>
             <ToastContainer containerId="noti" />
+            <ToastContainer containerId="warning" />
+            <ToastContainer containerId="status" />
             <Routes>
-                <Route path='/' element={<Home />} />
-                <Route path='/home' element={<Home />} />
+                <Route path='/' element={<Customer />} />
+                <Route path='/home' element={<Customer />} />
 
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
@@ -64,8 +70,8 @@ function App() {
                     <Route path='aboutus' element={<AboutUs />} />
                     <Route path='service' element={<ServiceCustomer />} />
                     <Route path='contact' element={<ContactCustomer />} />
-                </Route> 
-                
+                </Route>
+
                 {
                     getRole() !== 'ADMIN' ? '' :
                         <Route path='/manager' element={<Manager />}>
@@ -92,11 +98,18 @@ function App() {
                             <Route path="food/:foodId" element={<FoodEdit />} />
                         </Route>
                 }
-                <Route path="/staff" element={<StaffPage/>}>
-                    <Route path="" element={<StaffOrder/>} />
-                    <Route path="order" element={<StaffOrder/>} />
-                    <Route path="order/:orderId" element={<StaffOrderDetail/>} />
-                </Route>
+                {
+                    getRole() !== 'HOST_STAFF' ? '' :
+                        <Route path="/staff" element={<StaffPage />}>
+                            <Route path="" element={<StaffOrder />} />
+                            <Route path="order" element={<StaffOrder />} />
+                            <Route path="order/:orderId" element={<StaffOrderDetail />} />
+                            <Route path="plan" element={<StaffPlan />} />
+                            <Route path="plan/:planId" element={<StaffPlanEdit />} />
+                            <Route path="menu" element={<StaffMenu />} />
+                            <Route path="menu/:menuId" element={<StaffMenuEdit />} />
+                        </Route>
+                }
             </Routes>
         </Router>
     );

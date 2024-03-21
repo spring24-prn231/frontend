@@ -4,13 +4,14 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { createOrderDetail, getAllOrder, getOrderById, staffAssign } from '../../../apis/orderService';
-import { useParams } from 'react-router-dom';
+import { createOrderDetail, deleteOrderDetail, getAllOrder, getOrderById, staffAssign, updateOrderDetail } from '../../../apis/orderService';
+import { Link, useParams } from 'react-router-dom';
 import Loading from '../../common/loading/Loading';
 import { getAllStaff } from '../../../apis/staffService';
 import AddIcon from '@mui/icons-material/Add';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { createVoucher } from '../../../apis/voucherService';
 
 const animatedComponents = makeAnimated();
 
@@ -21,13 +22,24 @@ const StaffOrderDetail = () => {
     const [currentStaff, setCurrentStaff] = useState(null);
     const [isReload, setIsReload] = useState(false);
     const [isAddNew, setIsAddNew] = useState(false);
+    const [updatedItem, setUpdatedItem] = useState(null);
     const [orderDetail, setOrderDetail] = useState({
         'orderId': orderId,
         'amount': 0,
         'price': 0,
         'type': '',
         'cost': 0,
-        'note': ''
+        'note': '',
+        'status': true
+    });
+    const [updatedItemVoucher, setUpdatedItemVoucher] = useState(null);
+    const [isAddNewVoucher, setIsAddNewVoucher] = useState(false);
+    const [voucher, setVoucher] = useState({
+        "orderId": orderId,
+        "code": "",
+        "discount": 0,
+        "maximumValue": 0,
+        "expirationDate": "2034-03-20T14:22:53.209Z"
     });
 
     useEffect(() => {
@@ -37,7 +49,7 @@ const StaffOrderDetail = () => {
             return res;
         };
 
-        getData().then(res  => {
+        getData().then(res => {
             setIsLoading(false);
             setOrders(res.data[0]);
             setCurrentStaff(res.data[0].staffId);
@@ -55,12 +67,18 @@ const StaffOrderDetail = () => {
             case 2:
                 return (
                     <div className='staff-order-status' style={{ backgroundColor: '#ef1d1b38' }}>
-                        Đang tiến hành
+                        Được bàn giao
                     </div>
                 );
             case 3:
                 return (
                     <div className='staff-order-status' style={{ backgroundColor: '#68e5837a' }}>
+                        Đang tiến hành
+                    </div>
+                );
+            case 4:
+                return (
+                    <div className='staff-order-status' style={{ backgroundColor: '#68e5137a' }}>
                         Kết thúc
                     </div>
                 );
@@ -76,15 +94,82 @@ const StaffOrderDetail = () => {
                 'price': 0,
                 'type': '',
                 'cost': 0,
-                'note': ''
+                'note': '',
+                'status': true
             });
             setIsAddNew(false);
             toast.success("Thêm thành công !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
             });
         }).catch(err => {
             toast.error("Thêm thất bại, hãy thử lại !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
+            });
+        });
+    }
+
+    const onUpdateOrderDetail = () => {
+        updateOrderDetail(updatedItem).then(res => {
+            toast.success("Lưu thành công !!!", {
+                position: "bottom-right",
+                containerId: "status"
+            });
+            setIsReload(!isReload);
+            setUpdatedItem(null);
+        }).catch(err => {
+            toast.error("Lưu thất bại, hãy thử lại !!!", {
+                position: "bottom-right",
+                containerId: "status"
+            });
+        });
+    }
+
+    const onDeleteOrderDetail = () => {
+        console.log(updatedItem)
+        deleteOrderDetail(updatedItem.id).then(res => {
+            toast.success("Xoá thành công !!!", {
+                position: "bottom-right",
+                containerId: "status"
+            });
+            setIsReload(!isReload);
+            setUpdatedItem(null);
+        }).catch(err => {
+            toast.error("Xoá thất bại, hãy thử lại !!!", {
+                position: "bottom-right",
+                containerId: "status"
+            });
+        });
+    }
+
+    const totalMoney = () => {
+        let sum = orders.total;
+        orders.vouchers.forEach((item) => {
+            sum -= Math.min(item.maximumValue, item.discount * orders.total / 100);
+        });
+        return sum;
+    }
+
+    const onCreateVoucher = () => {
+        createVoucher(voucher).then(res => {
+            toast.success("Thêm thành công !!!", {
+                position: "bottom-right",
+                containerId: "status"
+            });
+            setIsAddNewVoucher(false);
+            setVoucher({
+                "orderId": orderId,
+                "code": "",
+                "discount": 0,
+                "maximumValue": 0,
+                "expirationDate": "2034-03-20T14:22:53.209Z"
+            });
+            setIsReload(!isReload);
+        }).catch(err => {
+            toast.error("Thêm thất bại, hãy thử lại !!!", {
+                position: "bottom-right",
+                containerId: "status"
             });
         });
     }
@@ -94,7 +179,6 @@ const StaffOrderDetail = () => {
             {
                 (isLoading || orders === null) ? <Loading /> :
                     <>
-                        <ToastContainer />
                         <div className="staff-order-detail-top">
                             <div className="staff-order-detail-search-bar-container">
                                 <div className="staff-order-detail-search-bar">
@@ -106,12 +190,13 @@ const StaffOrderDetail = () => {
                                     />
                                 </div>
                             </div>
-                            <div className="staff-order-detail-progress">
-                                {
-                                    orders.executionStatus !== null ? convertStatus(orders.executionStatus)
-                                        : 'Chưa có trạng thái'
-                                }
-                            </div>
+                            {
+                                orders.executionStatus !== null ? convertStatus(orders.executionStatus)
+                                    :
+                                    <div className="staff-order-detail-progress">
+                                        Chưa có trạng thái
+                                    </div>
+                            }
                         </div>
                         <div className="staff-order-detail-content">
                             <div className='staff-order-detail-items'>
@@ -141,31 +226,88 @@ const StaffOrderDetail = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <button className={`staff-order-detail-add-order-detail
-                                     ${isAddNew ? 'staff-order-detail-add-order-detail-disable' : ''}`} onClick={() => setIsAddNew(true)}>
-                                        <AddIcon /> Thêm chi tiết đơn hàng
-                                    </button>
                                     <table className='staff-order-detail-items-table'>
                                         <tr>
-                                            <th style={{ width: '14%' }}>Loại</th>
-                                            <th style={{ width: '14%' }}>Giá vốn</th>
-                                            <th style={{ width: '14%' }}>Giá bán</th>
-                                            <th style={{ width: '14%' }}>Số lượng</th>
-                                            <th style={{ width: '14%' }}>Ghi chú</th>
-                                            <th style={{ width: '6%' }}></th>
-                                            <th style={{ width: '6%' }}></th>
+                                            <th style={{ width: '150px' }}>Loại</th>
+                                            <th style={{ width: '100px' }}>Giá bán</th>
+                                            <th style={{ width: '100px' }}>Giá vốn</th>
+                                            <th style={{ width: '50px' }}>Số lượng</th>
+                                            <th style={{ width: '150px' }}>Ghi chú</th>
+                                            <th style={{ width: '200px' }}></th>
                                         </tr>
                                         {
-                                            orders.orderDetails.map((item, index) =>
-                                                <tr>
-                                                    <td>{item.type}</td>
-                                                    <td>{item.price}</td>
-                                                    <td>{item.cost}</td>
-                                                    <td>{item.amount}</td>
-                                                    <td>{item.note}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
+                                            orders.orderDetails.filter(item => item.status === true).map((item, index) =>
+                                                (updatedItem !== null && updatedItem.id === item.id) ?
+                                                    <tr style={{ backgroundColor: 'white !important' }}>
+                                                        <td>
+                                                            <div className='staff-order-detail-add-input'>
+                                                                <input type="text"
+                                                                    style={{ width: '150px' }}
+                                                                    value={updatedItem.type}
+                                                                    onChange={(e) => setUpdatedItem({ ...updatedItem, type: e.target.value })}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className='staff-order-detail-add-input'>
+                                                                <input type="number"
+                                                                    style={{ width: '100px' }}
+                                                                    value={updatedItem.price}
+                                                                    onChange={(e) => setUpdatedItem({ ...updatedItem, price: e.target.value })}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                        <td >
+                                                            <div className='staff-order-detail-add-input'>
+                                                                <input type="number"
+                                                                    style={{ width: '100px' }}
+                                                                    value={updatedItem.cost}
+                                                                    onChange={(e) => setUpdatedItem({ ...updatedItem, cost: e.target.value })}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className='staff-order-detail-add-input'>
+                                                                <input type="number"
+                                                                    style={{ width: '80px' }}
+                                                                    value={updatedItem.amount}
+                                                                    onChange={(e) => setUpdatedItem({ ...updatedItem, amount: e.target.value })}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className='staff-order-detail-add-input'>
+                                                                <input type="text"
+                                                                    value={updatedItem.note}
+                                                                    style={{ width: '150px' }}
+                                                                    onChange={(e) => setUpdatedItem({ ...updatedItem, note: e.target.value })}
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div style={{ display: 'flex' }}>
+                                                                <button style={{ width: '50px', height: '30px', marginRight: '5px' }}
+                                                                    className='staff-order-detail-add-order-detail'
+                                                                    onClick={onUpdateOrderDetail}
+                                                                >Lưu</button>
+                                                                <button style={{ width: '50px', height: '30px', marginRight: '5px' }}
+                                                                    onClick={() => setUpdatedItem(null)}
+                                                                    className='staff-order-detail-add-order-detail'>Huỷ</button>
+                                                                <button style={{ width: '50px', height: '30px', marginRight: '5px' }}
+                                                                    onClick={onDeleteOrderDetail}
+                                                                    className='staff-order-detail-add-order-detail'>Xoá</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    :
+                                                    <tr className='staff-order-detail-table-row' onClick={() => { setUpdatedItem(item); setIsAddNew(false); }}>
+                                                        <td style={{ width: '150px' }}>{item.type}</td>
+                                                        <td style={{ width: '100px' }}>{item.price}</td>
+                                                        <td style={{ width: '100px' }}>{item.cost}</td>
+                                                        <td style={{ width: '80px' }}>{item.amount}</td>
+                                                        <td style={{ width: '150px' }}>{item.note}</td>
+                                                        <td></td>
+                                                    </tr>
                                             )
                                         }
                                         {
@@ -201,7 +343,7 @@ const StaffOrderDetail = () => {
                                                     <td>
                                                         <div className='staff-order-detail-add-input'>
                                                             <input type="number"
-                                                                style={{ width: '100px' }}
+                                                                style={{ width: '80px' }}
                                                                 value={orderDetail.amount}
                                                                 onChange={(e) => setOrderDetail({ ...orderDetail, amount: e.target.value })}
                                                             />
@@ -209,7 +351,7 @@ const StaffOrderDetail = () => {
                                                     </td>
                                                     <td>
                                                         <div className='staff-order-detail-add-input'>
-                                                            <textarea type="text"
+                                                            <input type="text"
                                                                 value={orderDetail.note}
                                                                 style={{ width: '150px' }}
                                                                 onChange={(e) => setOrderDetail({ ...orderDetail, note: e.target.value })}
@@ -217,19 +359,24 @@ const StaffOrderDetail = () => {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <button style={{ width: '50px', height: '30px' }}
-                                                            className='staff-order-detail-add-order-detail'
-                                                            onClick={onAddNewOrderDetail}
-                                                        >Thêm</button>
-                                                    </td>
-                                                    <td>
-                                                        <button style={{ width: '50px', height: '30px' }}
-                                                            onClick={() => setIsAddNew(false)}
-                                                            className='staff-order-detail-add-order-detail'>Huỷ</button>
+                                                        <div style={{ display: 'flex' }}>
+                                                            <button style={{ width: '50px', height: '30px', marginRight: '10px' }}
+                                                                className='staff-order-detail-add-order-detail'
+                                                                onClick={onAddNewOrderDetail}
+                                                            >Thêm</button>
+                                                            <button style={{ width: '50px', height: '30px' }}
+                                                                onClick={() => setIsAddNew(false)}
+                                                                className='staff-order-detail-add-order-detail'>Huỷ</button>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                         }
                                     </table>
+
+                                    <button className={`staff-order-detail-add-order-detail
+                                     ${isAddNew || updatedItem !== null ? 'staff-order-detail-add-order-detail-disable' : ''}`} onClick={() => setIsAddNew(true)}>
+                                        <AddIcon /> Thêm chi tiết đơn hàng
+                                    </button>
 
                                     <div className="staff-order-detail-end">
                                         <div className="staff-order-detail-end-header">
@@ -237,28 +384,82 @@ const StaffOrderDetail = () => {
                                         </div>
                                         <div className="staff-order-detail-total">
                                             <span>Tổng tiền đơn hàng:</span>
-                                            <span>{orders.total}</span>
+                                            <span>{orders.total} VND</span>
                                         </div>
                                         <div className="staff-order-detail-voucher">
                                             <span>Mã giảm giá:</span>
                                             <table className='staff-order-detail-voucher-table'>
                                                 <tr>
                                                     <th>Mã:</th>
+                                                    <th>Giảm giá</th>
+                                                    <th>Giảm tối đa</th>
                                                     <th>Số tiền giảm:</th>
                                                 </tr>
                                                 {
                                                     orders.vouchers.map(vitem =>
                                                         <tr>
                                                             <td>{vitem.code}</td>
-                                                            <td>-{vitem.discount}</td>
+                                                            <td>{vitem.discount}%</td>
+                                                            <td>{vitem.maximumValue} VND</td>
+                                                            <td>-{Math.min(vitem.maximumValue, vitem.discount * orders.total / 100)} VND</td>
                                                         </tr>
                                                     )
                                                 }
+                                                {
+                                                    !isAddNewVoucher ? '' :
+                                                        <tr >
+                                                            <td>
+                                                                <input type="text"
+                                                                    value={voucher.code}
+                                                                    onChange={(e) => setVoucher({ ...voucher, code: e.target.value })}
+                                                                />
+                                                            </td>
+                                                            <td>
+                                                                <input type="number"
+                                                                    value={voucher.discount}
+                                                                    min="0"
+                                                                    max="100"
+                                                                    style={{ width: '150px' }}
+                                                                    onChange={(e) => setVoucher({ ...voucher, discount: e.target.value })}
+                                                                />
+                                                            </td>
+                                                            <td>
+                                                                <input type="number"
+                                                                    value={voucher.maximumValue}
+                                                                    style={{ width: '150px' }}
+                                                                    onChange={(e) => setVoucher({ ...voucher, maximumValue: e.target.value })}
+                                                                />
+                                                            </td>
+                                                            <td>
+
+                                                            </td>
+                                                        </tr>
+                                                }
+                                                <div style={{ display: 'flex', alignItems: 'top', marginTop: '20px' }}>
+                                                    <button
+                                                        style={{ marginRight: '20px' }}
+                                                        className={`staff-order-detail-add-order-detail
+                                     ${isAddNewVoucher || updatedItemVoucher !== null ? 'staff-order-detail-add-order-detail-disable' : ''}`} onClick={() => setIsAddNewVoucher(true)}>
+                                                        <AddIcon /> Thêm mới voucher
+                                                    </button>
+                                                    {
+                                                        !isAddNewVoucher ? '' :
+                                                            <>
+                                                                <button style={{ width: '50px', height: '30px', marginRight: '20px' }}
+                                                                    className='staff-order-detail-add-order-detail'
+                                                                    onClick={onCreateVoucher}
+                                                                >Thêm</button>
+                                                                <button style={{ width: '50px', height: '30px' }}
+                                                                    onClick={() => setIsAddNewVoucher(false)}
+                                                                    className='staff-order-detail-add-order-detail'>Huỷ</button>
+                                                            </>
+                                                    }
+                                                </div>
                                             </table>
                                         </div>
                                         <div className="staff-order-detail-all">
                                             <span>Thành tiền:</span>
-                                            <span>{orders.total}</span>
+                                            <span>{totalMoney()} VND</span>
                                         </div>
                                     </div>
                                 </div>
@@ -314,6 +515,20 @@ const StaffOrderDetail = () => {
                                             {orders.maxGuest} người
                                         </span>
                                     </div>
+
+                                    <div className="staff-order-detail-row">
+                                        <span className='staff-order-detail-info-label'>
+                                            Kế hoạch
+                                        </span>
+                                        <span className='staff-order-detail-info-content'>
+                                            {
+                                                orders.partyPlans.length === 0 ?
+                                                    <Link to={`/staff/plan/${orderId}`}>Chưa có (Click để tạo mới)</Link>
+                                                    :
+                                                    <Link to={`/staff/plan/${orderId}`}>Nhấn để xem</Link>
+                                            }
+                                        </span>
+                                    </div>
                                 </div>
 
                                 <div className="staff-order-detail-deposit">
@@ -326,7 +541,7 @@ const StaffOrderDetail = () => {
                                             Tổng tiền:
                                         </span>
                                         <span className='staff-order-detail-info-content'>
-                                            {orders.total}
+                                            {totalMoney()} VND
                                         </span>
                                     </div>
 

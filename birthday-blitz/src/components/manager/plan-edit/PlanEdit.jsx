@@ -6,7 +6,7 @@ import './PlanEdit.css';
 import Select from 'react-select';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import Loading from '../../common/loading/Loading';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import { useParams } from 'react-router-dom';
 import { formatDateTimeString, formatDatetimeLocal } from '../../../utils/TimeFormat';
@@ -21,14 +21,14 @@ const animatedComponents = makeAnimated();
 
 const PlanEdit = () => {
     const [oldData, setOldData] = useState(null);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isReload, setIsReload] = useState(false);
     const [isExpandCell, setisExpandCell] = useState(null);
     const [staffs, setStaffs] = useState([]);
     const [currentStaffs, setCurrentStaffs] = useState([]);
     const { planId } = useParams();
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getData = async () => {
@@ -85,11 +85,13 @@ const PlanEdit = () => {
         const res = savePlans(data).then(res => {
             setIsReload(!isReload);
             toast.success("Cập nhật thành công !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
             });
         }).catch(err => {
             toast.error("Cập nhật thất bại, hãy thử lại !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
             });
         });
     }
@@ -97,12 +99,14 @@ const PlanEdit = () => {
     const onApprovePlan = (id) => {
         const res = approvePlan(id).then(res => {
             toast.success("Duyệt thành công !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
             });
             setIsReload(!isReload);
         }).catch(err => {
             toast.error("Duyệt thất bại, hãy thử lại !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
             });
         });
     }
@@ -111,20 +115,32 @@ const PlanEdit = () => {
         const res = planAssign(isExpandCell, currentStaffs).then(res => {
             setIsReload(!isReload);
             toast.success("Giao quyền thành công !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
             });
         }).catch(err => {
             toast.error("Giao quyền thất bại, hãy thử lại !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
             });
         });
     }
 
+    const onEmptyPlan = () => {
+        toast.error("Đơn hàng này chưa có bản kế hoạch !!!", {
+            position: "top-center",
+            containerId: "warning"
+        });
+        setTimeout(() => {
+            navigate("/manager/plan");
+        }, 1000);
+    }
+
     return (
         <>
-            <ToastContainer />
             {
-                isLoading || data.length === 0 ? <Loading /> :
+                isLoading || data === null ? <Loading /> :
+                data !== null && data.length === 0 ? onEmptyPlan() : 
                     <div className='plan-edit-container'>
                         <div className="plan-edit-top-container">
                             <div className="plan-edit-top">

@@ -82,4 +82,29 @@ const createOrderDetail = async (orderDetail) => {
     return data;
 }
 
-export { getAllOrder, deleteOrder, getOrderById, staffAssign, createOrderDetail };
+const updateOrderDetail = async (orderDetail) => {
+    const url = 'orderdetails';
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.put(url, orderDetail, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+const deleteOrderDetail = async (id) => {
+    const url = `orderdetails/${id}`;
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.delete(url, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+
+export { getAllOrder, deleteOrder, getOrderById, staffAssign, createOrderDetail, updateOrderDetail, deleteOrderDetail };

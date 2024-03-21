@@ -38,12 +38,12 @@ const Sidebar = () => {
                             <span className="sidebar-item-name">Khách hàng</span>
                         </li>
                     </Link>
-                    <Link to={'voucher'} style={{ textDecoration: 'none', color: 'black' }}>
+                    {/* <Link to={'voucher'} style={{ textDecoration: 'none', color: 'black' }}>
                         <li className={`sidebar-item ${pathname.includes('voucher')?'sidebar-item-active': ''}`}>
                             <DiscountIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Mã giảm giá</span>
                         </li>
-                    </Link>
+                    </Link> */}
                     <Link to={'feedback'} style={{ textDecoration: 'none', color: 'black' }}>
                         <li className={`sidebar-item ${pathname.includes('feedback')?'sidebar-item-active': ''}`}>
                             <FeedbackIcon className="sidebar-icon" />
@@ -68,12 +68,12 @@ const Sidebar = () => {
                             <span className="sidebar-item-name">Đơn hàng</span>
                         </li>
                     </Link>
-                    <Link to={'menu'} style={{ textDecoration: 'none', color: 'black' }}>
+                    {/* <Link to={'menu'} style={{ textDecoration: 'none', color: 'black' }}>
                         <li className={`sidebar-item ${pathname.includes('menu')?'sidebar-item-active': ''}`}>
                             <ListIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Các gói dịch vụ</span>
                         </li>
-                    </Link>
+                    </Link> */}
                     <Link to={'staff'} style={{ textDecoration: 'none', color: 'black' }}>
                         <li className={`sidebar-item ${pathname.includes('staff')?'sidebar-item-active': ''}`}>
                             <SupervisedUserCircleIcon className="sidebar-icon" />

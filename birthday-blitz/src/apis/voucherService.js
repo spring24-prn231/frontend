@@ -2,7 +2,7 @@ import { getAxiosInstance } from './axiosInstance';
 import Vouchers from '../data/voucher';
 
 const getAllVoucher = async (isMock = false) => {
-    const url = 'vouchers';
+    const url = 'vouchers?sortBy=1&sort=Discount';
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -33,6 +33,19 @@ const getVoucherById = async (id, isMock = false) => {
     }
 }
 
+const createVoucher = async (voucher) => {
+    const url = `vouchers`;
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const data = instance.post(url, voucher, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
+
 const updateVoucher = async (voucher) => {
     const url = `vouchers`;
     const instance = await getAxiosInstance();
@@ -58,4 +71,4 @@ const deleteVoucher = async (id, isMock = false) => {
 
 }
 
-export { getAllVoucher, deleteVoucher, getVoucherById, updateVoucher };
+export { getAllVoucher, deleteVoucher, getVoucherById, updateVoucher, createVoucher };

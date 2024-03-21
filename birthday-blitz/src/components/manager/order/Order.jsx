@@ -86,24 +86,30 @@ const Order = () => {
         switch (status) {
             case 1:
                 return (
-                <div className='order-status' style={{ backgroundColor: '#f6ff70b5' }}>
-                    Mới tạo
-                </div>
+                    <div className='staff-order-status' style={{ backgroundColor: '#f6ff70b5' }}>
+                        Mới tạo
+                    </div>
                 );
             case 2:
                 return (
-                    <div className='order-status' style={{ backgroundColor: '#ef1d1b38' }}>
-                        Đang tiến hành
+                    <div className='staff-order-status' style={{ backgroundColor: '#ef1d1b38' }}>
+                        Được bàn giao
                     </div>
-                    );
+                );
             case 3:
                 return (
-                    <div className='order-status' style={{ backgroundColor: '#68e5837a' }}>
+                    <div className='staff-order-status' style={{ backgroundColor: '#68e5837a' }}>
+                        Đang tiến hành
+                    </div>
+                );
+            case 4:
+                return (
+                    <div className='staff-order-status' style={{ backgroundColor: '#68e5137a' }}>
                         Kết thúc
                     </div>
-                    );
+                );
         }
-    }
+    };
 
     return (
         <div className='order-center-container'>
@@ -157,12 +163,12 @@ const Order = () => {
                 <table className='order-center-table'>
                     <thead>
                         <tr className='order-table-header'>
-                            <th style={{ width: "60px" }}>
+                            {/* <th style={{ width: "60px" }}>
                                 <input className='order-table-checkbox' type='checkbox'
                                     checked={selectedRows.length !== 0 && selectedRows.length >= data.length}
                                     onChange={selectAll}
                                 />
-                            </th>
+                            </th> */}
                             <th>Tên dịch vụ</th>
                             <th>Khách hàng</th>
                             <th>Nhân viên</th>
@@ -179,13 +185,13 @@ const Order = () => {
                             isLoading ? <></> :
                                 data.map((item, index) =>
                                     !item.service.name.includes(searchValue) ? '' :
-                                        <tr key={index} className={`order-table-row ${selectedRows.includes(item.id) ? 'order-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
-                                            <td>
+                                        <tr key={index} className={`order-table-row ${selectedRows.includes(item.id) ? 'order-table-row-active' : ''}`}>
+                                            {/* <td>
                                                 <input type='checkbox' className='order-table-checkbox'
                                                     onChange={() => { }}
                                                     checked={selectedRows.find(x => x === item.id) !== undefined}
                                                 />
-                                            </td>
+                                            </td> */}
                                             <td>{item.service.name}</td>
                                             <td>{item.user?item.user.fullname : 'Khách hàng ảo'}</td>
                                             <td>{item.staff?item.staff.name : 'Chưa được giao'}</td>
