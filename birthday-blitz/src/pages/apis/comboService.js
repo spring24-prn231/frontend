@@ -1,18 +1,17 @@
 import { getAxiosInstance } from '../../apis/axiosInstance';
-
-const getRoom = async (isMock = false, id = "") => {
-    const url = 'rooms/anonymous?id=' + id;
+const getServices = async (isMock = false) => {
+    const url = 'services/anonymous';
     const instance = await getAxiosInstance();
     const data = instance.get(url).then(res => res.data.data);
     return data;
-
 }
-const getMenu = async (isMock = false, id = "") => {
-    const url = 'dishes?id=' + id;
+
+const getRoom = async (isMock = false, id = null) => {
+    const url = 'rooms/anonymous?roomTypeId=10430275-2d9f-45a5-adfc-31736e1e3cbf';
     const instance = await getAxiosInstance();
     const data = instance.get(url).then(res => res.data.data);
+  
     return data;
-
 
 }
 
@@ -21,20 +20,15 @@ const getServiceElement = async (isMock = false, id = "") => {
     const instance = await getAxiosInstance();
     const data = instance.get(url).then(res => res.data.data);
     return data;
+}
 
+const getDish = async (isMock = false, id) => {
     
-}
-
-const createOrders = async (order) => {
-    const url = 'orders';
+    const url = 'dishes?id='+id;
     const instance = await getAxiosInstance();
-    const token = localStorage.getItem('AccessToken');
-    const data = instance.post(url, order, {
-        'headers': {
-            'Authorization': 'Bearer ' + token
-        }
-    }).then(res => res.data);
+    const data = instance.get(url).then(res => res.data.data);
     return data;
+   
 }
 
-export {getRoom, getMenu, getServiceElement, createOrders};
+export {getServices, getRoom, getDish, getServiceElement};

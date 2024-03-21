@@ -8,15 +8,15 @@ const ServiceCustomer = () => {
         {
             "name": "AA",
             "price": "40004",
-            "content": "Dit me thang Loc",
+            "content": " thang Loc",
             "image": "https://genex.com.vn/wp-content/uploads/2023/03/Coc-tru-thuc-an-cho-be-FB0010N-3-200x200.jpg"
         },
         {
             "name": "BB",
             "price": "232323",
-            "content": "Dit me may Loc oi Dit me may Loc oi \
-            Dit me may Loc oi Dit me may Loc oi Dit me may Loc oi Dit me may Loc oi Dit me may Loc oi Dit me may Loc oi \
-            Dit me may Loc oi ",
+            "content": " may Loc oi  may Loc oi \
+             may Loc oi  may Loc oi  may Loc oi  may Loc oi  may Loc oi  may Loc oi \
+             may Loc oi ",
             "image": "https://product.hstatic.net/1000217401/product/beautypro_cat1_1_c1b6e3c712a645efbabc19c802fa8cfa.png"
         },
         {
