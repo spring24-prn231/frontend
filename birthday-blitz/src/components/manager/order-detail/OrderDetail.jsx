@@ -41,19 +41,25 @@ const OrderDetail = () => {
         switch (status) {
             case 1:
                 return (
-                    <div className='order-status' style={{ backgroundColor: '#f6ff70b5' }}>
+                    <div className='staff-order-status' style={{ backgroundColor: '#f6ff70b5' }}>
                         Mới tạo
                     </div>
                 );
             case 2:
                 return (
-                    <div className='order-status' style={{ backgroundColor: '#ef1d1b38' }}>
-                        Đang tiến hành
+                    <div className='staff-order-status' style={{ backgroundColor: '#ef1d1b38' }}>
+                        Được bàn giao
                     </div>
                 );
             case 3:
                 return (
-                    <div className='order-status' style={{ backgroundColor: '#68e5837a' }}>
+                    <div className='staff-order-status' style={{ backgroundColor: '#68e5837a' }}>
+                        Đang tiến hành
+                    </div>
+                );
+            case 4:
+                return (
+                    <div className='staff-order-status' style={{ backgroundColor: '#68e5137a' }}>
                         Kết thúc
                     </div>
                 );
@@ -63,14 +69,16 @@ const OrderDetail = () => {
     const onAssign = () => {
         const res = staffAssign(currentStaff, orderId).then(res => {
             toast.success("Giao quyền thành công !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
             });
             setTimeout(( ) => {
                 setIsReload(!isReload);
             }, 1000);
         }).catch(err => {
             toast.error("Giao quyền thất bại, hãy thử lại !!!", {
-                position: "bottom-right"
+                position: "bottom-right",
+                containerId: "status"
             });
         });
     };
@@ -80,7 +88,6 @@ const OrderDetail = () => {
             {
                 (isLoading || orders === null) ? <Loading /> :
                     <>
-                        <ToastContainer />
                         <div className="order-detail-top">
                             <div className="order-detail-search-bar-container">
                                 <div className="order-detail-search-bar">
@@ -123,7 +130,7 @@ const OrderDetail = () => {
                                                     }
                                                     )}
                                                     onChange={(e) => {setCurrentStaff(e.value)}}
-                                                    defaultValue={[
+                                                    defaultValue={orders.staff === null ? [] : [
                                                         {
                                                             value: orders.staff.id,
                                                             label: orders.staff.fullname

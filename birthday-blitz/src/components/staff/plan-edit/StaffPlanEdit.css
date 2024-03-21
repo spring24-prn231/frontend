@@ -1,0 +1,268 @@
+.staff-plan-edit-container {}
+
+.staff-plan-edit-top {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    border-bottom: 0.2px solid rgb(226, 213, 213);
+}
+
+.plan-event-name-container {
+    flex: 1;
+}
+
+.plan-event-name {
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    width: fit-content;
+    padding: 5px 10px;
+}
+
+.plan-event-name:focus-within {
+    border-bottom: 0.2px solid rgb(221, 217, 217);
+    border-right: 0.2px solid rgb(221, 217, 217);
+}
+
+.plan-event-name-input {
+    margin-right: 10px;
+    border: none;
+    font-size: 20px;
+    width: 400px;
+    font-weight: bold;
+    background-color: #ffffff00;
+}
+
+.plan-event-name-input:focus {
+    outline: none;
+}
+
+.plan-save-button {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: #EAA636;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.plan-approve-button {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: #05ac20;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.plan-approve {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: #05ac20;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.plan-approve-button:hover {
+    background-color: #038d31;
+}
+
+.plan-save-button:hover {
+    background-color: #EAA636;
+}
+
+.plan-discard-button {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: red;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+}
+
+.plan-discard-button:hover {
+    background-color: rgb(206, 2, 2);
+}
+
+
+.staff-plan-edit-bottom {
+    display: flex;
+}
+
+.staff-plan-edit-bottom-left {
+    margin-top: 30px;
+    display: block;
+    overflow-y: scroll;
+    height: 70vh;
+    transition: height 1s;
+    flex: 9;
+}
+
+.staff-plan-edit-bottom-left::-webkit-scrollbar {
+    width: 5px;
+}
+
+.staff-plan-edit-bottom-left::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.staff-plan-edit-bottom-left::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.staff-plan-edit-bottom-left::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.staff-plan-edit-bottom-right::-webkit-scrollbar {
+    width: 5px;
+}
+
+.staff-plan-edit-bottom-right::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.staff-plan-edit-bottom-right::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.staff-plan-edit-bottom-right::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.staff-plan-edit-row {
+    display: flex;
+    align-items: center;
+}
+
+.staff-plan-edit-row-edit {
+    display: flex;
+    padding: 10px 25px;
+    border-radius: 30px;
+    box-shadow: 1px 0.4px 0.5px 0px;
+    align-items: center;
+    border: 1px rgb(245, 241, 241) solid;
+}
+
+.staff-plan-edit-row-index {
+    background-color: #EAA636;
+    color: white;
+    padding: 7px 15px;
+    border-radius: 50px;
+    font-weight: bolder;
+    margin-right: 20px;
+    margin-left: 32px;
+}
+
+.staff-plan-edit-row-time-input {
+    font-size: 14px;
+    padding: 2px;
+    background-color: #ffffff00;
+    border: none;
+}
+
+.staff-plan-edit-row-content {
+    padding: 3px;
+}
+
+.staff-plan-edit-row-content:focus-within {
+}
+
+.staff-plan-edit-row-content-input {
+    border: none;
+    background-color: #ffffff00;
+    font-size: 15px;
+    text-overflow: ellipsis;
+}
+
+.staff-plan-edit-row-content-input:focus-within {
+    outline: none;
+}
+
+.staff-plan-edit-row-space {
+    height: 30px;
+    border-left: 5px dashed rgb(138, 136, 136);
+    margin: 6px 0px;
+    margin-left: 48px;
+}
+
+.staff-plan-edit-row-add:hover {
+    background-color: #f7e3c4;
+}
+
+.staff-plan-edit-row-extend {
+    padding: 2px 3px;
+    cursor: pointer;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.staff-plan-edit-row-extend:hover {
+    background-color: #e2dbdb;
+}
+
+.staff-plan-edit-bottom-right {
+    flex: 5;
+    padding-top: 10px;
+    transition: visibility 0s, opacity 0.5s linear;
+    padding-left: 20px;
+    overflow-y: scroll;
+    height: calc(100vh - 180px);
+}
+
+.staff-plan-edit-bottom-right-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-right: 4px;
+}
+
+.staff-plan-edit-bottom-right-content-label {
+    width: 30%;
+    font-weight: bold;
+}
+
+.staff-plan-edit-bottom-right-content-item {
+    display: flex;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.staff-plan-edit-text-area:focus {
+    outline: none;
+}
+
+
+.staff-plan-edit-assign {
+    width: 260px;
+    display: flex;
+    justify-content: space-between;
+    align-items: top;
+}

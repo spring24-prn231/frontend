@@ -1,6 +1,6 @@
-.staff-order-center-container {}
+.staff-menu-center-container {}
 
-.staff-order-center-top {
+.staff-menu-center-top {
     height: 50px;
     padding-bottom: 15px;
     display: flex;
@@ -8,35 +8,34 @@
     border-bottom: 0.1px solid rgb(231, 224, 224);
 }
 
-.staff-order-center-bottom {
-    height: calc(100vh - 180px);
+.staff-menu-center-bottom {
+    height: 500px;
     overflow-y: scroll;
 }
 
-.staff-order-center-bottom::-webkit-scrollbar {
+.staff-menu-center-bottom::-webkit-scrollbar {
     width: 5px;
-    height: 10px;
 }
 
-.staff-order-center-bottom::-webkit-scrollbar-track {
+.staff-menu-center-bottom::-webkit-scrollbar-track {
     background: #f1f1f1;
 }
 
-.staff-order-center-bottom::-webkit-scrollbar-thumb {
+.staff-menu-center-bottom::-webkit-scrollbar-thumb {
     background: #888;
 }
 
-.staff-order-center-bottom::-webkit-scrollbar-thumb:hover {
+.staff-menu-center-bottom::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
-.staff-order-search-bar-container {
+.staff-menu-search-bar-container {
     flex: 1;
     display: flex;
     align-items: center;
 }
 
-.staff-order-search-bar {
+.staff-menu-search-bar {
     border: solid 0.1px rgb(179, 174, 174);
     width: 300px;
     display: flex;
@@ -47,7 +46,7 @@
     transition: width 0.3s;
 }
 
-.staff-order-delete {
+.staff-menu-delete {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -55,19 +54,18 @@
     border-radius: 15px;
     background-color: red;
     font-size: 13px;
-    margin-right: 10px;
 }
 
-.staff-order-delete:hover {
+.staff-menu-delete:hover {
     background-color: rgb(212, 4, 4);
 }
 
-.staff-order-search-bar:focus-within {
+.staff-menu-search-bar:focus-within {
     box-shadow: 1px 0.5px 0.5px 0.5px grey;
     width: 350px;
 }
 
-.staff-order-search-bar-input {
+.staff-menu-search-bar-input {
     font-size: 15px;
     width: 100%;
     border: none;
@@ -75,46 +73,46 @@
     height: 40px;
 }
 
-.staff-order-search-bar-input:focus {
+.staff-menu-search-bar-input:focus {
     outline: none;
 }
 
-.staff-order-center-table {
-    width: 93vw;
+.staff-menu-center-table {
+    width: 100%;
     border-collapse: collapse;
     border-radius: 20px;
     text-align: left;
     font-size: 17px;
 }
 
-.staff-order-table-header {
+.staff-menu-table-header {
     background-color: #EAA636;
 }
 
-.staff-order-table-header th {
+.staff-menu-table-header th {
     color: white;
     border: 0.2px solid #EAA636;
     padding: 10px;
 }
 
-.staff-order-table-row {
+.staff-menu-table-row {
     cursor: pointer;
 }
 
-.staff-order-table-row td {
+.staff-menu-table-row td {
     padding: 12px 10px;
 }
 
-.staff-order-table-row:hover {
+.staff-menu-table-row:hover {
     background-color: #edf0f5;
 }
 
-.staff-order-table-checkbox {
+.staff-menu-table-checkbox {
     width: 18px;
     height: 18px;
 }
 
-.staff-order-add-new {
+.staff-menu-add-new {
     border: 1px solid rgb(219, 201, 201);
     padding: 10px 15px;
     border-radius: 20px;
@@ -129,26 +127,26 @@
     font-size: 15px;
 }
 
-.staff-order-add-new:hover {
-    background-color: #af7416;
+.staff-menu-add-new:hover {
+    background-color: #0749b3;
 }
 
-.staff-order-option:hover {
+.staff-menu-option:hover {
     border-radius: 10px;
     border-bottom: 1px solid rgb(175, 155, 155);
     border-right: 1px solid rgb(226, 217, 217);
 }
 
-.staff-order-popup {
+.staff-menu-popup {
     display: none;
     position: absolute;
     background-color: white;
     box-shadow: 1px 1px 1px 1px grey;
-    width: 110px;
-    padding: 5px;
+    width: 130px;
+    padding: 10px;
 }
 
-.staff-order-popup-option {
+.staff-menu-popup-option {
     display: flex;
     align-items: center;
     font-size: 15px;
@@ -156,18 +154,10 @@
     cursor: pointer;
 }
 
-.staff-order-popup-option:hover {
+.staff-menu-popup-option:hover {
     border-bottom: 0.1px solid rgb(224, 209, 209);
 }
 
-.staff-order-table-row-active {
+.staff-menu-table-row-active {
     background-color: #dce4f5 !important;
-}
-
-.staff-order-status {
-    padding: 0px 0px;
-    display: flex;
-    font-size: 14px;
-    justify-content: center;
-    border-radius: 8px;
 }

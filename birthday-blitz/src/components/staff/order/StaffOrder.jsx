@@ -86,24 +86,30 @@ const StaffOrder = () => {
         switch (status) {
             case 1:
                 return (
-                <div className='staff-order-status' style={{ backgroundColor: '#f6ff70b5' }}>
-                    Mới tạo
-                </div>
+                    <div className='staff-order-status' style={{ backgroundColor: '#f6ff70b5' }}>
+                        Mới tạo
+                    </div>
                 );
             case 2:
                 return (
                     <div className='staff-order-status' style={{ backgroundColor: '#ef1d1b38' }}>
-                        Đang tiến hành
+                        Được bàn giao
                     </div>
-                    );
+                );
             case 3:
                 return (
                     <div className='staff-order-status' style={{ backgroundColor: '#68e5837a' }}>
+                        Đang tiến hành
+                    </div>
+                );
+            case 4:
+                return (
+                    <div className='staff-order-status' style={{ backgroundColor: '#68e5137a' }}>
                         Kết thúc
                     </div>
-                    );
+                );
         }
-    }
+    };
 
     return (
         <div className='staff-order-center-container'>
@@ -113,7 +119,7 @@ const StaffOrder = () => {
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
             <div className='staff-order-popup'>
-                <Link to={`${pathname.includes('order')?'':'order/'}${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
+                <Link to={`${pathname.includes('order') ? '' : 'order/'}${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
                     <div className="staff-order-popup-option">
                         <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
                         <span>Chi tiết</span>
@@ -187,11 +193,11 @@ const StaffOrder = () => {
                                                 />
                                             </td>
                                             <td>{item.service.name}</td>
-                                            <td>{item.user?item.user.fullname : 'Khách hàng ảo'}</td>
-                                            <td>{item.staff?item.staff.name : 'Chưa được giao'}</td>
+                                            <td>{item.user ? item.user.fullname : 'Khách hàng ảo'}</td>
+                                            <td>{item.staff ? item.staff.name : 'Chưa được giao'}</td>
                                             <td>{item.createDate}</td>
-                                            <td style={{width: '100px'}}>{item.total}</td>
-                                            <td style={{width: '140px'}}>
+                                            <td style={{ width: '100px' }}>{item.total}</td>
+                                            <td style={{ width: '140px' }}>
                                                 {
                                                     convertStatus(item.executionStatus)
                                                 }

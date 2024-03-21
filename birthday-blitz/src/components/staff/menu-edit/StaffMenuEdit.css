@@ -1,0 +1,175 @@
+.staff-menu-edit-container {
+}
+
+.staff-menu-edit-top {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    border-bottom: 0.2px solid rgb(226, 213, 213);
+}
+
+.staff-menu-edit-bottom {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    transition: height 1s;
+}
+
+
+.staff-menu-edit-bottom-left::-webkit-scrollbar {
+    width: 5px;
+}
+
+.staff-menu-edit-bottom-left::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.staff-menu-edit-bottom-left::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+.staff-menu-edit-bottom-left::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.staff-menu-edit-row {
+    justify-content: left;
+    display: flex;
+    align-items: top;
+    margin-bottom: 50px;
+}
+
+.staff-menu-edit-row-index {
+    background-color: #EAA636;
+    color: white;
+    padding: 8px 10px;
+    border-radius: 50px;
+    font-weight: bolder;
+    margin-right: 50px;
+    margin-left: 30px;
+}
+
+.staff-menu-edit-row-time-input {
+    font-size: 15px;
+    padding: 5px;
+}
+
+.staff-menu-edit-row-content {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 2px solid #bdd1f1;
+    width: 100%;
+}
+
+.staff-menu-edit-row-content:focus-within {
+    border: 2px solid #EAA636;
+}
+
+.staff-menu-edit-save-button {
+    display: flex;
+    justify-content: center;
+    padding: 5px 15px;
+    align-items: center;
+    font-size: 15px;
+    border-radius: 20px;
+    background-color: #EAA636;
+    color: white;
+    box-shadow: 1px 1px 1px 1px rgb(196, 194, 194);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+
+.staff-menu-edit-row-content-input {
+    border: none;
+    width: 20vw;
+    font-size: 15px;
+}
+
+.staff-menu-edit-row-content-input:focus-within {
+    outline: none;
+}
+
+.staff-menu-edit-row-space {
+    height: 30px;
+    border-left: 5px dashed rgb(138, 136, 136);
+    margin: 6px 0px;
+    margin-left: 45px;
+}
+
+.staff-menu-edit-row-add:hover {
+    background-color: #bd8429;
+}
+
+.staff-menu-row-delete {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.staff-menu-edit-row-label {
+    font-weight: bold;
+    width: 150px;
+}
+
+.staff-menu-edit-bottom-left {
+    border-right: 1px solid rgba(0, 0, 0, 0.11);
+    flex: 2;
+    padding: 20px;
+    overflow-y: scroll;
+    height: calc(100vh - 160px);
+}
+
+.staff-menu-edit-header {
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.staff-menu-edit-add-dish {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.staff-menu-edit-select-dish {
+    flex: 3;
+}
+
+.staff-menu-edit-add-btn {
+    flex: 2;
+    border-radius: 10px;
+    background-color: #EAA636;
+    border: none;
+    color: white;
+}
+
+.staff-menu-edit-dish-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    overflow-y: scroll;
+}
+
+.staff-menu-edit-dish-table td,
+.staff-menu-edit-dish-table th {
+    padding: 8px;
+}
+
+.staff-menu-edit-dish-table tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.staff-menu-edit-dish-table tr:hover {
+    background-color: #ddd;
+}
+
+.staff-menu-edit-dish-table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    border-bottom: 2px solid rgb(236, 226, 226);
+    background-color: white;
+}
+

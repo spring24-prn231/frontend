@@ -29,7 +29,7 @@ const getPlanById = async (id, isMock = false) => {
         });
     }
     else {
-        const data = instance.get(url,  {
+        const data = instance.get(url, {
             'headers': {
                 'Authorization': 'Bearer ' + token
             }
@@ -39,15 +39,25 @@ const getPlanById = async (id, isMock = false) => {
 }
 
 
-const savePlans = async (plans) => {
+const savePlans = async (plans, orderId) => {
     const url = 'partyplans/list';
     const instance = await getAxiosInstance();
     const token = localStorage.getItem('AccessToken');
-    const request = plans.map(plan => ({
-        'id': plan.id,
-        'feedback': plan.feedback
-    }));
-    const data = instance.put(url, request ,{
+    const partyplans = plans.map(plan => {
+        return {
+            'id': plan.id.startsWith('newid') ? null : plan.id,
+            'feedback': plan.feedback,
+            'timeEnd': plan.timeEnd,
+            'timeStart': plan.timeStart,
+            'description': plan.description,
+            'note': plan.note
+        }
+    });
+    const request = {
+        'orderId': orderId,
+        'partyPlans': partyplans
+    }
+    const data = instance.put(url, request, {
         'headers': {
             'Authorization': 'Bearer ' + token
         }
@@ -62,7 +72,7 @@ const approvePlan = async (id) => {
     const request = {
         'orderId': id
     };
-    const data = instance.post(url, request ,{
+    const data = instance.post(url, request, {
         'headers': {
             'Authorization': 'Bearer ' + token
         }
@@ -89,7 +99,7 @@ const planAssign = async (planId, staffs) => {
         'planId': planId,
         'staffIds': staffs
     };
-    const data = instance.post(url, request ,{
+    const data = instance.post(url, request, {
         'headers': {
             'Authorization': 'Bearer ' + token
         }
