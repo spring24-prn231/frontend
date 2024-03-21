@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { getRoom, getMenu, getServiceElement, createOrders } from '../apis/previewOrder';
 import './PreviewOrder.css'
@@ -20,9 +20,9 @@ const PreviewOrder = () => {
 
     const [room, setRoom] = useState(mockData);
     const [menu, setMenu] = useState(null);
-    const [decoration, setDecoration] = useState(mockData);
-    const [stage, setStage] = useState(mockData);
-    const [music, setMusic] = useState(mockData);
+    const [decoration, setDecoration] = useState(null);
+    const [stage, setStage] = useState(null);
+    const [music, setMusic] = useState(null);
     const [staticTotal, setStaticTotal] = useState(0);
     const [numOfCustomer, setNumOfCustomer] = useState(1);
     const [totalMenu, setTotalMenu] = useState(0);
@@ -34,7 +34,7 @@ const PreviewOrder = () => {
         var localStage = getDataFromLocal("stage-cus")
         var localMusic = getDataFromLocal("music-show")
 
-        if (localRoom == null || localMenu == null || localDecoration == null || localStage == null|| localMusic == null) {
+        if (localRoom == null || localMenu == null || localDecoration == null || localStage == null || localMusic == null) {
             window.location = "/customer/service";
             return;
         }
@@ -78,21 +78,27 @@ const PreviewOrder = () => {
     };
 
     const getServiceElementData = async (initialArray, nameService) => {
-        var obj;
+        var arrayObject = [];
+        var initTotal = 0;
+        for (var i = 0; i < initialArray.length; i++) {
+            var obj = await getServiceElement(false, initialArray[i])
 
-        obj = await getServiceElement(false, initialArray[0])
-        setStaticTotal(prevTotal => prevTotal + obj[0].price)
+            arrayObject.push(obj);
+            initTotal += obj[0].price;
 
-
+        }
+        setStaticTotal(prevTotal => prevTotal + initTotal)
 
         if (nameService == "decoration") {
-            setDecoration(obj)
+            setDecoration(arrayObject)
 
         } else if (nameService == "stage") {
-            setStage(obj)
+            setStage(arrayObject)
 
         } else if (nameService == "music") {
-            setMusic(obj);
+            setMusic(arrayObject);
+            console.log(arrayObject);
+
         }
     };
 
@@ -100,7 +106,7 @@ const PreviewOrder = () => {
         return JSON.parse(localStorage.getItem(objectName))
     }
     const clearDataFromLocal = () => {
-       
+
         localStorage.removeItem("room-show");
         localStorage.removeItem("menu-customer");
         localStorage.removeItem("decoration-show");
@@ -189,45 +195,45 @@ const PreviewOrder = () => {
 
     const createRequest = () => {
         var roomTypeId = room[0].roomTypeId;
-            var name = document.getElementById("nameBirthday").value;
-            var description = document.getElementById("description").value;
-            var serviceElementIds = getDataFromLocal("decoration-show").concat(getDataFromLocal("stage-cus")).concat(getDataFromLocal("music-show"));
-            var dishIds = getDataFromLocal("menu-customer");
-            var recommendServiceId = "";
-            var eventStart = document.getElementById("startTime").value;
-            var eventEnd = document.getElementById("endTime").value;
-            var maxGuest = document.getElementById("customerNumber").value;
-            var request = {
-                "newService": {
-                    "roomTypeId": roomTypeId,
-                    "name": name,
-                    "description": description,
-                    "serviceElementIds": serviceElementIds,
-                    "dishIds": dishIds
+        var name = document.getElementById("nameBirthday").value;
+        var description = document.getElementById("description").value;
+        var serviceElementIds = getDataFromLocal("decoration-show").concat(getDataFromLocal("stage-cus")).concat(getDataFromLocal("music-show"));
+        var dishIds = getDataFromLocal("menu-customer");
+        var recommendServiceId = "";
+        var eventStart = document.getElementById("startTime").value;
+        var eventEnd = document.getElementById("endTime").value;
+        var maxGuest = document.getElementById("customerNumber").value;
+        var request = {
+            "newService": {
+                "roomTypeId": roomTypeId,
+                "name": name,
+                "description": description,
+                "serviceElementIds": serviceElementIds,
+                "dishIds": dishIds
 
-                },
-               // "recommendServiceId": recommendServiceId,
-                "eventStart": eventStart,
-                "eventEnd": eventEnd,
-                "maxGuest": maxGuest,
-                "total": totalMenu + staticTotal,
-                "name": name
-            }
-            createOrders(request).then(res => {
-                alert("Thêm thành công");
-                clearDataFromLocal();
-                window.location = "./service"
-                // toast.success("Thêm thành công !!!", {
-                //     position: "bottom-right",
-                //     containerId: 'status'
-                // });
+            },
+            // "recommendServiceId": recommendServiceId,
+            "eventStart": eventStart,
+            "eventEnd": eventEnd,
+            "maxGuest": maxGuest,
+            "total": totalMenu + staticTotal,
+            "name": name
+        }
+        createOrders(request).then(res => {
+            alert("Thêm thành công");
+            clearDataFromLocal();
+            window.location = "./service"
+            // toast.success("Thêm thành công !!!", {
+            //     position: "bottom-right",
+            //     containerId: 'status'
+            // });
 
-            }).catch(err => {
-                alert("Thêm thất bại");
-                // toast.error("Thêm thất bại, hãy thử lại !!!", {
-                //     position: "bottom-right"
-                // });
-            })
+        }).catch(err => {
+            alert("Thêm thất bại");
+            // toast.error("Thêm thất bại, hãy thử lại !!!", {
+            //     position: "bottom-right"
+            // });
+        })
 
     }
     const confirmSucessfully = () => {
@@ -281,24 +287,24 @@ const PreviewOrder = () => {
             <div className="container">
                 <h1 className="display-6 mb-4 center-title">HÓA ĐƠN</h1>
                 <input id="nameBirthday" className="form-control w-60 py-3 ps-4 pe-5"
-                    style={{ width: "60%", borderColor:"black"}}
+                    style={{ width: "60%", borderColor: "black" }}
                     placeholder="Tên tiệc sinh nhật" required type="text"></input>
 
                 <br></br>
                 <textarea id="description" className="form-control w-60 py-3 ps-4 pe-5"
-                    placeholder="Điền thêm mô tả" style={{ width: "60%", borderColor:"black" }} >
+                    placeholder="Điền thêm mô tả" style={{ width: "60%", borderColor: "black" }} >
                 </textarea>
                 <br></br>
 
                 <label>Số lượng khách</label>
                 <input id="customerNumber" className="form-control w-60 py-3 ps-4 pe-5"
-                    style={{ width: "60%", borderColor:"black"}} type="number" min="1" defaultValue={1} onChange={() => setNumOfMenu()}></input>
+                    style={{ width: "60%", borderColor: "black" }} type="number" min="1" defaultValue={1} onChange={() => setNumOfMenu()}></input>
                 <br></br>
 
                 <label>Thời gian bắt đầu</label>
                 <input
                     className="form-control w-60 py-3 ps-4 pe-5"
-                    style={{ width: "60%", borderColor:"black" }}
+                    style={{ width: "60%", borderColor: "black" }}
                     id="startTime"
                     onChange={() => compareTime()}
                     // min="" value="" 
@@ -308,7 +314,7 @@ const PreviewOrder = () => {
                 <label>Thời gian kết thúc</label>
                 <input
                     className="form-control w-60 py-3 ps-4 pe-5"
-                    style={{ width: "60%", borderColor:"black" }}
+                    style={{ width: "60%", borderColor: "black" }}
 
                     id="endTime"
                     onChange={() => compareTime()}
@@ -318,11 +324,11 @@ const PreviewOrder = () => {
 
                 <table className='table'>
                     <thead>
-                        <th style={{ backgroundColor: '#EAA636'}} className='col-lg-2'><h5>Loại</h5></th>
-                        <th style={{ backgroundColor: '#EAA636'}} className='col-lg-5'><h5>Tên</h5></th>
-                        <th style={{ backgroundColor: '#EAA636'}} className='col-lg-1'><h5>Số Lượng</h5></th>
-                        <th style={{ backgroundColor: '#EAA636'}} className='text-center col-lg-2'><h5>Đơn Giá</h5></th>
-                        <th style={{ backgroundColor: '#EAA636'}} className='text-center col-lg-2'><h5>Thành Tiền</h5></th>
+                        <th style={{ backgroundColor: '#EAA636' }} className='col-lg-2'><h5>Loại</h5></th>
+                        <th style={{ backgroundColor: '#EAA636' }} className='col-lg-5'><h5>Tên</h5></th>
+                        <th style={{ backgroundColor: '#EAA636' }} className='col-lg-1'><h5>Số Lượng</h5></th>
+                        <th style={{ backgroundColor: '#EAA636' }} className='text-center col-lg-2'><h5>Đơn Giá</h5></th>
+                        <th style={{ backgroundColor: '#EAA636' }} className='text-center col-lg-2'><h5>Thành Tiền</h5></th>
                     </thead>
                     <tbody>
                         <tr>
@@ -331,7 +337,7 @@ const PreviewOrder = () => {
                         </tr>
                         <tr>
                             <td></td>
-                            <td>{room[0].name}</td>
+                            <td>{room[0].name} - {room[0].roomType == null ? <></> : room[0].roomType.name}</td>
                             <td>1</td>
                             <td className='text-right'>{parseToVND(room[0].price)} </td>
                             <td className='text-right'>{parseToVND(room[0].price)} </td>
@@ -341,38 +347,66 @@ const PreviewOrder = () => {
                             <td className='font-bold'>Trang Trí</td>
 
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td>{decoration[0].name}</td>
-                            <td>1</td>
-                            <td className='text-right'>{parseToVND(decoration[0].price)}</td>
-                            <td className='text-right'>{parseToVND(decoration[0].price)}</td>
-                        </tr>
+                       
+                        {decoration === null ? <></>
+                            : decoration.map((element) => {
+                                return (
+                                    <tr>
+                                        <td></td>
+                                        <td>{element[0].name}</td>
+                                        <td>1</td>
+                                        <td className='text-right'>{parseToVND(element[0].price)}</td>
+                                        <td className='text-right'>{parseToVND(element[0].price)}</td>
 
+                                    </tr>
+
+                                );
+
+                            })
+
+                        }
                         <tr>
                             <td className='font-bold'>Chương Trình</td>
                         </tr>
 
-                        <tr>
-                            <td></td>
-                            <td>{stage[0].name}</td>
-                            <td>1</td>
-                            <td className='text-right'>{parseToVND(stage[0].price)}</td>
-                            <td className='text-right'>{parseToVND(stage[0].price)}</td>
-                        </tr>
+                        {stage === null ? <></>
+                            : stage.map((element) => {
+                                return (
+                                    <tr>
+                                        <td></td>
+                                        <td>{element[0].name}</td>
+                                        <td>1</td>
+                                        <td className='text-right'>{parseToVND(element[0].price)}</td>
+                                        <td className='text-right'>{parseToVND(element[0].price)}</td>
 
+                                    </tr>
+
+                                );
+
+                            })
+
+                        }
 
                         <tr>
                             <td className='font-bold'>Dịch vụ khác</td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td>{music[0].name}</td>
-                            <td>1</td>
-                            <td className='text-right'>{parseToVND(music[0].price)}</td>
-                            <td className='text-right'>{parseToVND(music[0].price)}</td>
-                        </tr>
+                        {music === null ? <></>
+                            : music.map((element) => {
+                                return (
+                                    <tr>
+                                        <td></td>
+                                        <td>{element[0].name}</td>
+                                        <td>1</td>
+                                        <td className='text-right'>{parseToVND(element[0].price)}</td>
+                                        <td className='text-right'>{parseToVND(element[0].price)}</td>
 
+                                    </tr>
+
+                                );
+
+                            })
+
+                        }
                         <tr>
                             <td className='font-bold'>Thực Đơn</td>
                         </tr>
@@ -381,7 +415,7 @@ const PreviewOrder = () => {
                                 return (
                                     <tr>
                                         <td></td>
-                                        <td>{element[0].name}</td>
+                                        <td>{element[0].name} - {element[0].dishType == null ? <></> : element[0].dishType.name}</td>
                                         <td>{numOfCustomer}</td>
                                         <td className='text-right'>{parseToVND(element[0].price)}</td>
                                         <td className='text-right'>{parseToVND(element[0].price * numOfCustomer)}</td>
@@ -405,9 +439,9 @@ const PreviewOrder = () => {
                 </table>
 
                 <button className="btn btn-primary rounded-pill button-custom ">
-                    
+
                     <Link to="../service">
-                    <h5>Chỉnh sửa</h5>
+                        <h5>Chỉnh sửa</h5>
                     </Link>
 
                 </button>

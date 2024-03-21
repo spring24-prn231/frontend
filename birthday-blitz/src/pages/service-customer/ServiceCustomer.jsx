@@ -28,9 +28,9 @@ const ServiceCustomer = () => {
 
     ];
 
-    const [currentTable, setCurrentTable] = useState(mockData);
+    const [currentTable, setCurrentTable] = useState(null);
     const [previousNavbarId, setPreviousNavbarId] = useState("room-show");
-    const [isMenu, setIsMenu] = useState(false);
+    const [isCheckBox, setIsCheckBox] = useState(false);
     const baseNavbar = {
         "room-show": "Phòng",
         "menu-customer": "Thực Đơn",
@@ -120,7 +120,7 @@ const ServiceCustomer = () => {
         //set default for all case
         currentChoice.forEach(function (checkbox) {
             checkbox.checked = false;
- 
+
         });
         if (previousSelectedItems != null) {
             var listPreviousSelectedItems = JSON.parse(previousSelectedItems);
@@ -137,10 +137,10 @@ const ServiceCustomer = () => {
 
     }
     const changeTable = (currentNavbarId) => {
-        if (currentNavbarId == "menu-customer") {
-            setIsMenu(true);
+        if (currentNavbarId == "menu-customer" || currentNavbarId == "music-show" || currentNavbarId == "stage-cus") {
+            setIsCheckBox(true);
         } else {
-            setIsMenu(false);
+            setIsCheckBox(false);
         }
 
         setSelectedItems();
@@ -169,7 +169,7 @@ const ServiceCustomer = () => {
             notSelectedItems = notSelectedItems.substring(0, notSelectedItems.length - 2) + ".";
             alert(notSelectedItems);
         } else {
-           window.location = "/customer/previeworder";
+            window.location = "/customer/previeworder";
         }
     }
     const parseToVND = (money) => {
@@ -217,7 +217,7 @@ const ServiceCustomer = () => {
                                 <li><button className='btn btn-primary rounded-pill button-custom' onClick={() => changeTable("music-show")} id="music-show">
                                     Dịch Vụ Khác</button>
                                 </li>
-                               
+
                             </ul>
 
                         </nav>
@@ -232,38 +232,45 @@ const ServiceCustomer = () => {
                                     </tr>
                                 </thead>
                                 <tbody className='' >
-                                    {currentTable.map((element) => {
-                                        return (
+                                    {
+                                        currentTable == null ? <></>
+                                            :
 
-                                            <tr className='row-container'>
+                                            currentTable.map((element) => {
+                                                return (
 
-                                                <img src={element.image} className='col-lg-3' style={{ width: '200px', height: '200px' }}>
+                                                    <tr className='row-container'>
 
-                                                </img>
-                                                <div className='col-lg-9 '>
-                                                    <div className='row-content-header'>
-                                                        <h5 className='col-lg-9'>{element.name}</h5>
-                                                        <div className='col-lg-3'>
-                                                            <h5 className=''>Giá: {parseToVND(element.price)}</h5>
-                                                            {isMenu
-                                                                ? <h5 className=''>Chọn:<input id={element.id} className='margin-checkbox' name="elementChoose" type='checkbox'></input> </h5>
+                                                        <img src={element.image} className='col-lg-3' style={{ width: '200px', height: '200px' }}>
 
-                                                                : <h5 className=''>Chọn:<input id={element.id} className='margin-checkbox' name="elementChoose" type='radio' ></input> </h5>
-                                                            }
+                                                        </img>
+                                                        <div className='col-lg-9 '>
+                                                            <div className='row-content-header'>
+                                                                <h5 className='col-lg-9'> {element.name}
+                                                                    {previousNavbarId == "room-show" ? <h5>{element.roomType == null ? <></> : element.roomType.name}</h5> : <></>}
+                                                                    {previousNavbarId == "menu-customer" ? <h5>{element.dishType  == null ? <></> : element.dishType.name }</h5> : <></>}
+                                                                </h5>
+                                                                <div className='col-lg-3'>
+                                                                    <h5 className=''>Giá: {parseToVND(element.price)}</h5>
+                                                                    {isCheckBox
+                                                                        ? <h5 className=''>Chọn:<input id={element.id} className='margin-checkbox' name="elementChoose" type='checkbox'></input> </h5>
+
+                                                                        : <h5 className=''>Chọn:<input id={element.id} className='margin-checkbox' name="elementChoose" type='radio' ></input> </h5>
+                                                                    }
+
+                                                                </div>
+                                                            </div>
+                                                            <div className='row-content-body'>
+                                                                <div>{element.content}</div>
+                                                            </div>
 
                                                         </div>
-                                                    </div>
-                                                    <div className='row-content-body'>
-                                                        <div>{element.content}</div>
-                                                    </div>
 
-                                                </div>
-
-                                            </tr>
+                                                    </tr>
 
 
-                                        )
-                                    })
+                                                )
+                                            })
                                     }
 
                                 </tbody>
