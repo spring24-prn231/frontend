@@ -106,5 +106,19 @@ const deleteOrderDetail = async (id) => {
     return data;
 }
 
+const doneOrder = async (id) => {
+    const url = `orders/done`;
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const request = {
+        'orderId' : id
+    }
+    const data = instance.post(url, request, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
 
-export { getAllOrder, deleteOrder, getOrderById, staffAssign, createOrderDetail, updateOrderDetail, deleteOrderDetail };
+export { doneOrder, getAllOrder, deleteOrder, getOrderById, staffAssign, createOrderDetail, updateOrderDetail, deleteOrderDetail };

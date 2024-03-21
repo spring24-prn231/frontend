@@ -4,7 +4,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SearchIcon from '@mui/icons-material/Search';
 import Select from 'react-select';
 import makeAnimated from 'react-select/animated';
-import { createOrderDetail, deleteOrderDetail, getAllOrder, getOrderById, staffAssign, updateOrderDetail } from '../../../apis/orderService';
+import { createOrderDetail, deleteOrderDetail, doneOrder, getAllOrder, getOrderById, staffAssign, updateOrderDetail } from '../../../apis/orderService';
 import { Link, useParams } from 'react-router-dom';
 import Loading from '../../common/loading/Loading';
 import { getAllStaff } from '../../../apis/staffService';
@@ -174,6 +174,22 @@ const StaffOrderDetail = () => {
         });
     }
 
+    const onDone = () => {
+        doneOrder(orderId).then(res => {
+            toast.success("Kết thúc thành công !!!", {
+                position: "bottom-right",
+                containerId: "status"
+            });
+            setIsReload(!isReload);
+            setUpdatedItem(null);
+        }).catch(err => {
+            toast.error("Kết thúc thất bại, hãy thử lại !!!", {
+                position: "bottom-right",
+                containerId: "status"
+            });
+        });
+    }
+
     return (
         <div className='staff-order-detail-container'>
             {
@@ -190,6 +206,13 @@ const StaffOrderDetail = () => {
                                     />
                                 </div>
                             </div>
+                            {
+                                orders.executionStatus !== null && orders.executionStatus === 4 ?
+                                    '' : <div style={{ marginRight: '20px' }}>
+                                        <button onClick={onDone}>Kết thúc đơn hàng</button>
+                                    </div>
+                            }
+
                             {
                                 orders.executionStatus !== null ? convertStatus(orders.executionStatus)
                                     :
