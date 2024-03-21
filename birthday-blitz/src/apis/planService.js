@@ -65,6 +65,29 @@ const savePlans = async (plans, orderId) => {
     return data;
 }
 
+
+const saveFeedback = async (plans, orderId) => {
+    const url = 'partyplans/list';
+    const instance = await getAxiosInstance();
+    const token = localStorage.getItem('AccessToken');
+    const partyplans = plans.map(plan => {
+        return {
+            'id': plan.id.startsWith('newid') ? null : plan.id,
+            'feedback': plan.feedback,
+        }
+    });
+    const request = {
+        'orderId': orderId,
+        'partyPlans': partyplans
+    }
+    const data = instance.put(url, request, {
+        'headers': {
+            'Authorization': 'Bearer ' + token
+        }
+    }).then(res => res.data);
+    return data;
+}
+
 const approvePlan = async (id) => {
     const url = 'partyplans/approvement';
     const instance = await getAxiosInstance();
@@ -107,4 +130,4 @@ const planAssign = async (planId, staffs) => {
     return data;
 }
 
-export { getAllPlan, deletePlan, getPlanById, savePlans, approvePlan, planAssign };
+export { getAllPlan, deletePlan, getPlanById, savePlans, approvePlan, planAssign, saveFeedback };

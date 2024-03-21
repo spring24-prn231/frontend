@@ -65,7 +65,7 @@ const PlanEdit = () => {
     }
 
     const onClickExpand = (id) => {
-        if (id === isExpandCell) {
+        if (id ===  null || id === isExpandCell) {
             setisExpandCell(null);
             setCurrentStaffs([]);
         }
@@ -82,7 +82,7 @@ const PlanEdit = () => {
     }
 
     const updatePlans = () => {
-        const res = savePlans(data).then(res => {
+        const res = savePlans(data, planId).then(res => {
             setIsReload(!isReload);
             toast.success("Cập nhật thành công !!!", {
                 position: "bottom-right",
@@ -200,8 +200,16 @@ const PlanEdit = () => {
                                                             <input type="datetime-local"
                                                                 disabled
                                                                 className="plan-edit-row-time-input"
-                                                                onChange={(e) => onTimeChange(e, item.id)}
-                                                                value={formatDateTimeString(item.timeStart)} />
+                                                                value={(item.timeStart)} />
+                                                        </div>
+
+                                                        <span style={{ fontWeight: 'bold', fontSize: '20px', margin: '0px 10px' }}>:</span>
+
+                                                        <div className="plan-edit-row-time">
+                                                            <input type="datetime-local"
+                                                                disabled
+                                                                className="plan-edit-row-time-input"
+                                                                value={(item.timeEnd)} />
                                                         </div>
                                                         <span style={{ fontWeight: 'bold', fontSize: '20px', margin: '0px 10px' }}>:</span>
                                                         <div className="plan-edit-row-content">
@@ -240,7 +248,10 @@ const PlanEdit = () => {
                                         <div className="plan-edit-bottom-right-content">
                                             <div className='plan-edit-bottom-right-content-item'>
                                                 <span className='plan-edit-bottom-right-content-label'>Thời gian:</span>
-                                                <span>{data.find(x => x.id === isExpandCell).timeStart}</span>
+                                                <span>{data.find(x => x.id === isExpandCell) 
+                                                 === undefined ? '' : data.find(x => x.id === isExpandCell).timeStart  }</span>
+                                                <span>{data.find(x => x.id === isExpandCell) 
+                                                 === undefined ? '' : data.find(x => x.id === isExpandCell).timeEnd  }</span>
                                             </div>
                                             <div className='plan-edit-bottom-right-content-item'>
                                                 <span className='plan-edit-bottom-right-content-label'>Kế hoạch:</span>
