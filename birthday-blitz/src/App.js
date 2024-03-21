@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from './pages/home/Home';
+import { Navigate } from "react-router-dom";
 // import Navbar from './pages/navbar-customer/NavbarCustomer';
 import Combo from "./pages/combo/Combo"
 import PreviewOrder from "./pages/preview-order/PreviewOrder";
@@ -60,27 +60,25 @@ function App() {
             <ToastContainer containerId="warning" />
             <ToastContainer containerId="status" />
             <Routes>
-                <Route path='/' element={<Customer />} />
-                <Route path='/home' element={<Customer />} />
-
-                <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} />
-                {/* <Route path='/navbar' element={<Navbar />} />
-                <Route path='/landing-page' element={<LandingPage />}/> */}
+                <Route path="/" element={<Navigate to="/customer" replace={true} />} />
                 <Route path='/customer' element={<Customer />}>
                     <Route path='' element={<LandingPage />} />
                     <Route path='aboutus' element={<AboutUs />} />
                     <Route path='service' element={<ServiceCustomer />} />
                     <Route path='contact' element={<ContactCustomer />} />
-        
+
                     <Route path='previeworder' element={<PreviewOrder />} />
                     <Route path='combo' element={<Combo />} />
-                </Route> 
+                </Route>
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+
                 {
                     getRole() !== 'ADMIN' ? '' :
                         <Route path='/manager' element={<Manager />}>
-                            <Route path='' element={<Dashboard />} />
-                            <Route path='dashboard' element={<Dashboard />} />
+                            {/* <Route path='' element={<Dashboard />} />
+                            <Route path='dashboard' element={<Dashboard />} /> */}
+                            <Route path='' element={<Plan />} />
                             <Route path='plan' element={<Plan />} />
                             <Route path='plan/new' element={<PlanNew />} />
                             <Route path="plan/:planId" element={<PlanEdit />} />

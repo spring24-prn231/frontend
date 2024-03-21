@@ -2,9 +2,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import '../common/customer-css/style.css'
 import '../common/customer-css/bootstrap.min.css'
 import carousel1 from '../../assets/landing-page/panel1.jpg'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom';
+import {useNavigate} from "react-router-dom";
+import { logout } from '../../apis/loginService';
+
 const NavbarCustomer = () => {
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -25,7 +29,12 @@ const NavbarCustomer = () => {
         });
 
     }, [location]);
- 
+
+    const onLogout = () => {
+        logout();
+        navigate('/login');
+    }
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
@@ -45,12 +54,19 @@ const NavbarCustomer = () => {
                         <Link id="contact" to="contact" className="nav-item nav-link">Liên hệ</Link>
                     </div>
                     <div className=" d-none d-lg-flex">
-                        <div className="flex-shrink-0 btn-lg-square border border-light rounded-circle">
-                            <i className="fa fa-phone text-primary"></i>
-                        </div>
                         <div className="ps-3">
-                            <small className="text-primary mb-0">Liên hệ với chúng tôi</small>
-                            <p className="text-light fs-5 mb-0">+012 345 6789</p>
+                            {
+                                localStorage.getItem('AccessToken') === null ?
+                                    <button className='btn btn-danger'>
+                                        <Link to="/login">
+                                            Đăng nhập
+                                        </Link>
+                                    </button>
+                                    : <button onClick={onLogout} className='btn btn-danger'>
+                                            Đăng xuất
+                                    </button>
+                            }
+
                         </div>
                     </div>
                 </div>
