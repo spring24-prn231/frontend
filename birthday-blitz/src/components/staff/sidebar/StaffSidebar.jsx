@@ -2,6 +2,7 @@ import "./StaffSidebar.css";
 import { Link, useLocation } from 'react-router-dom';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
 
 const StaffSidebar = () => {
     const { hash, pathname, search } = useLocation();
@@ -17,11 +18,18 @@ const StaffSidebar = () => {
                             <span className="staff-sidebar-item-name">Đơn hàng của bạn</span>
                         </li>
                     </Link>
-                    <Link to={'service'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`staff-sidebar-item ${pathname.includes('service')
+                    <Link to={'menu'} style={{ textDecoration: 'none', color: 'black' }}>
+                        <li className={`staff-sidebar-item ${pathname.includes('menu')
                             ?'staff-sidebar-item-active': ''}`}>
                             <InventoryIcon className="staff-sidebar-icon" />
                             <span className="staff-sidebar-item-name">Gói dịch vụ</span>
+                        </li>
+                    </Link>
+                    <Link to={'plan'} style={{ textDecoration: 'none', color: 'black' }}>
+                        <li className={`staff-sidebar-item ${pathname.includes('plan')
+                            ?'staff-sidebar-item-active': ''}`}>
+                            <WorkHistoryIcon className="staff-sidebar-icon" />
+                            <span className="staff-sidebar-item-name">Kế hoạch</span>
                         </li>
                     </Link>
                 </ul>

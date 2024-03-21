@@ -4,14 +4,14 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
-import './Room.css';
+import './StaffMenu.css';
 import { Link } from 'react-router-dom';
-import SettingsIcon from '@mui/icons-material/Settings';
 import Loading from '../../common/loading/Loading';
 import PopupConfirm from '../../common/popup-confirm/PopupConfirm';
-import { deleteRoom, getAllRoom } from '../../../apis/roomService';
+import { deleteMenu, getAllMenu } from '../../../apis/menuService';
+import { getAllService } from '../../../apis/serviceService';
 
-const Room = () => {
+const StaffMenu = () => {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isDisplayConfirm, setIsDisplayConfirm] = useState(false);
@@ -22,7 +22,7 @@ const Room = () => {
     useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            const res = await getAllRoom(false);
+            const res = await getAllService();
             return res;
         };
 
@@ -32,17 +32,11 @@ const Room = () => {
         })
 
         window.addEventListener('click', function (e) {
-            var element = this.document.getElementsByClassName('room-popup')[0];
+            var element = this.document.getElementsByClassName('staff-menu-popup')[0];
             if (element !== undefined) {
                 if (!element.contains(e.target)) {
                     element.style.display = 'none';
                     setSelectedEditRow('');
-                }
-            }
-            var element1 = this.document.getElementsByClassName('room-setting-popup')[0];
-            if (element1 !== undefined) {
-                if (!element1.contains(e.target)) {
-                    element1.style.display = 'none';
                 }
             }
         });
@@ -53,7 +47,7 @@ const Room = () => {
             setSelectedRows([]);
         }
         else {
-            setSelectedRows(data.map(x => x.id));
+            setSelectedRows(data.map(x => x.Id));
         }
     }
 
@@ -70,21 +64,11 @@ const Room = () => {
         event.stopPropagation();
         var element = event.target;
         var rect = element.getBoundingClientRect();
-        let RoomPopup = document.getElementsByClassName('room-popup');
-        RoomPopup[0].style.display = "block";
-        RoomPopup[0].style.top = `${rect.top - 45}px`;
-        RoomPopup[0].style.left = `${rect.left - 140}px`;
+        let menuPopup = document.getElementsByClassName('staff-menu-popup');
+        menuPopup[0].style.display = "block";
+        menuPopup[0].style.top = `${rect.top - 45}px`;
+        menuPopup[0].style.left = `${rect.left - 140}px`;
         setSelectedEditRow(id);
-    }
-
-    const chooseSetting = (event, id) => {
-        event.stopPropagation();
-        var element = event.target;
-        var rect = element.getBoundingClientRect();
-        let SettingPopup = document.getElementsByClassName('room-setting-popup');
-        SettingPopup[0].style.display = "block";
-        SettingPopup[0].style.top = `${rect.top - 30}px`;
-        SettingPopup[0].style.left = `${rect.left - 160}px`;
     }
 
     const confirmDelete = () => {
@@ -92,49 +76,40 @@ const Room = () => {
     }
 
     const deleteSelectedRows = async () => {
-        setData(data.filter(x => !selectedRows.includes(x.id)));
+        setData(data.filter(x => !selectedRows.includes(x.Id)));
         setSelectedRows([]);
-        await deleteRoom('123', true);
+        await deleteMenu('123', true);
         setIsDisplayConfirm(false);
     }
 
     return (
-        <div className='room-center-container'>
+        <div className='staff-menu-center-container'>
             <PopupConfirm isDisplay={isDisplayConfirm}
-                confirmContent="Bạn có muốn xoá các phòng đã chọn không?"
+                confirmContent="Bạn có muốn xoá những gói dịch vụ đã chọn?"
                 okCallback={deleteSelectedRows}
                 cancelCallback={() => setIsDisplayConfirm(false)}
             />
-            <div className='room-setting-popup'>
-                <Link to="/manager/room-type" style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className="room-setting-popup-option">
-                        <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
-                        <span>Loại phòng</span>
-                    </div>
-                </Link>
-            </div>
-
-            <div className='room-popup'>
+            <div className='staff-menu-popup'>
                 <Link to={`${selectedEditRow}`} style={{ textDecoration: 'none', color: 'black' }}>
-                    <div className="room-popup-option">
+                    <div className="staff-menu-popup-option">
                         <EditIcon fontSize='small' style={{ marginRight: "10px" }} />
                         <span>Chỉnh sửa</span>
                     </div>
                 </Link>
             </div>
 
-            <div className='room-center-top'>
-                <div className="room-search-bar-container">
-                    <Link to={`addnew`} style={{ textDecoration: 'none', color: 'black' }}>
-                        <div className='room-add-new'>
+            <div className='staff-menu-center-top'>
+                <div className="staff-menu-search-bar-container">
+                    <Link to={`${Math.floor(Math.random() * 1000)}`} style={{ textDecoration: 'none', color: 'black' }}>
+                        <div className='staff-menu-add-new'>
                             <AddIcon />
                             <span>Thêm mới</span>
                         </div>
                     </Link>
-                    <div className="room-search-bar">
+                    <div className="staff-menu-search-bar">
                         <SearchIcon htmlColor='grey' />
-                        <input className='room-search-bar-input'
-                            placeholder='Tìm kiếm số phòng'
+                        <input className='staff-menu-search-bar-input'
+                            placeholder='Tìm kiếm theo tên dịch vụ'
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
                         />
@@ -142,32 +117,27 @@ const Room = () => {
                 </div>
                 {
                     selectedRows.length > 0 ?
-                        <div className='room-delete'
+                        <div className='staff-menu-delete'
                             onClick={confirmDelete}
                         >
                             <DeleteIcon htmlColor='white' />
                             <span style={{ color: "white", marginLeft: "5px" }}>Delete {selectedRows.length} item(s)</span>
                         </div> : ""
                 }
-                <div className='room-top-setting' onClick={chooseSetting}
-                >
-                    <SettingsIcon fontSize='large' htmlColor='grey' />
-                </div>
             </div>
-            <div className="room-center-bottom">
-                <table className='room-center-table'>
+            <div className="staff-menu-center-bottom">
+                <table className='staff-menu-center-table'>
                     <thead>
-                        <tr className='room-table-header'>
+                        <tr className='staff-menu-table-header'>
                             <th style={{ width: "60px" }}>
-                                <input className='room-table-checkbox' type='checkbox'
+                                <input className='staff-menu-table-checkbox' type='checkbox'
                                     checked={selectedRows.length !== 0 && selectedRows.length >= data.length}
                                     onChange={selectAll}
                                 />
                             </th>
-                            <th></th>
-                            <th>Số phòng</th>
-                            <th>Sức chứa</th>
+                            <th>Gói Dịch vụ</th>
                             <th>Loại phòng</th>
+                            <th>Mô tả</th>
                             <th style={{ width: "20px" }}></th>
                         </tr>
                     </thead>
@@ -175,20 +145,17 @@ const Room = () => {
                         {
                             isLoading ? <></> :
                                 data.map((item, index) =>
-                                    !toString(item.roomNo).includes(searchValue) ? '' :
-                                        <tr key={index} className={`room-table-row ${selectedRows.includes(item.id) ? 'room-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
+                                    !item.name.includes(searchValue) ? '' :
+                                        <tr key={index} className={`staff-menu-table-row ${selectedRows.includes(item.id) ? 'staff-menu-table-row-active' : ''}`} onClick={() => selectCell(item.id, !(selectedRows.find(x => x === item.id) !== undefined))}>
                                             <td>
-                                                <input type='checkbox' className='room-table-checkbox'
+                                                <input type='checkbox' className='staff-menu-table-checkbox'
                                                     onChange={() => { }}
                                                     checked={selectedRows.find(x => x === item.id) !== undefined}
                                                 />
                                             </td>
-                                            <td>
-                                                <img width="150px" src={item.image} />
-                                            </td>
-                                            <td>{item.roomNo}</td>
-                                            <td>{item.capacity}</td>
+                                            <td>{item.name}</td>
                                             <td>{item.roomType.name}</td>
+                                            <td>{item.description}</td>
                                             <td><MoreVertIcon className='plan-option' onClick={(e) => chooseOption(e, item.id)} /></td>
                                         </tr>
                                 )
@@ -203,4 +170,4 @@ const Room = () => {
     )
 }
 
-export default Room;
+export default StaffMenu;
