@@ -2,7 +2,7 @@ import { getAxiosInstance } from './axiosInstance';
 import Menus from '../data/menu';
 
 const getAllService = async (isMock = false) => {
-    const url = 'services';
+    const url = 'services?pageSize=100';
     const instance = await getAxiosInstance();
     const token = localStorage.getItem('AccessToken');
     if (isMock) {
