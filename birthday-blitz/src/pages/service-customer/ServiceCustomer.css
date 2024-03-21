@@ -28,6 +28,7 @@
 .row-container{
   display: flex;
   justify-content: center;
+  border: 1px solid black;
 }
 
 .row-content-header{
@@ -45,3 +46,15 @@
   margin: 10px; 
   transform: scale(1.5);
 }
+
+.right-side-button {
+  float: right;
+}
+
+.margin-container-custom {
+  margin-bottom: 20px;
+}
+.margin-table-custom {
+  margin-bottom: 30px;
+}
+

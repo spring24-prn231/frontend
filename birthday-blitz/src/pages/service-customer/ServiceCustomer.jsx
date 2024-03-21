@@ -28,75 +28,48 @@ const ServiceCustomer = () => {
 
     ];
 
-    var mockData2 = [
-        {
-            "name": "CCCCCC",
-            "price": "5000",
-            "content": "Đoàn quân Việt Nam  <br></br> đi chung lòng cứu </br>quốc, bước chân dồn vang trên đường <br/>gập ghềnh xa, cờ in máu chiến thắng mang hồn nước, súng ngoài xa chen khúc quân hành ca, đường vinh quang xây xác quân thù, thắng gian lao cùng nhau lập chiến khu, vì nhân dân chiến đấu không ngừng, tiến mau ra sa trường. Tiến lên, cùng tiến lên, nước non Việt Nam ta vững bền.",
-            "image": "https://cdn.tgdd.vn/2020/08/content/cach-chen-nhac-va-loi-bai-hat-lyric-vao-anh-tren-dien-thoaia-13-490x1020.jpg"
-        },
-        {
-            "name": "AAAAAAAAAAAAAA",
-            "price": "232323",
-            "content": "Đi dọc Việt Nam theo bánh con tàu quay \
-            Qua đèo Hải Vân mây bay đỉnh núi\
-            Nhớ khi xưa qua đèo qua suối\
-            Mà lòng ta mơ, tàu qua núi cao\
-            Ngày hôm nay thênh thang con đường lớn\
-            Tàu anh đi trong yêu thương chào đón\
-            Xao xuyến bao niềm vui, tha thiết con tàu đi\
-            Là thương nhau, em bắt cầu cho tàu anh tới\
-            Là yêu nhau, mấy suối em cũng lội\
-            Là yêu nhau, mấy núi em cũng trèo ",
-            "image": "https://dichthuatproling.com/images/2017/10/dich-thuat-loi-bai-hat-sang-tieng-viet-va-ra-tieng-nuoc-ngoai-2.jpg"
-        },
-        {
-            "name": "DDDDDDDDDDDDDDDD",
-            "price": "98765432",
-            "content": "Love in your eyes <br></br>\
-            Sitting silent by my side </br>\
-            Going on Holding hand\
-            Walking through the nights\
-            Hold me up Hold me tight\
-            Lift me up to touch the sky\
-            Teaching me to love with heart\
-            Helping me open my mind",
-            "image": "https://product.hstatic.net/1000217401/product/beautypro_cat1_1_c1b6e3c712a645efbabc19c802fa8cfa.png"
-        }
-
-    ];
     const [currentTable, setCurrentTable] = useState(mockData);
     const [previousNavbarId, setPreviousNavbarId] = useState("room-show");
     const [isMenu, setIsMenu] = useState(false);
-
+    const baseNavbar = {
+        "room-show": "Phòng",
+        "menu-customer": "Thực Đơn",
+        "decoration-show": "Trang Trí",
+        "stage-cus": "Chương Trình",
+        "music-show": "Dịch Vụ Khác"
+    }
     useEffect(() => {
         getData();
-
     }, [previousNavbarId])
+
+    useEffect(() => {
+        getPreviousChooseItems(previousNavbarId);
+    }, [currentTable])
+
     const getData = async () => {
         var res;
         if (previousNavbarId == "room-show") {
             res = await getRooms(false);
-            changeToGeneralType(res, "id", "price", "roomNo", "roomTypeId")
+            changeToGeneralType(res, "name", "price", "description", "image")
 
         } else if (previousNavbarId == "menu-customer") {
             res = await getDishes(false);
-            changeToGeneralType(res, "id", "price", "description", "image")
+            changeToGeneralType(res, "name", "price", "description", "image")
 
         } else if (previousNavbarId == "decoration-show") {
             res = await getDecorationShow(false);
             res = getServiceElements(res);
-            changeToGeneralType(res,"name", "price", "description", "image")
+            changeToGeneralType(res, "name", "price", "description", "image")
 
         } else if (previousNavbarId == "stage-cus") {
             res = await getStageCus(false);
             res = getServiceElements(res);
-            changeToGeneralType(res,"name", "price", "description", "image")
+            changeToGeneralType(res, "name", "price", "description", "image")
 
         } else if (previousNavbarId == "music-show") {
             res = await getMusicShow(false);
             res = getServiceElements(res);
-            changeToGeneralType(res,"name", "price", "description", "image")
+            changeToGeneralType(res, "name", "price", "description", "image")
         }
         setCurrentTable(res);
 
@@ -115,31 +88,54 @@ const ServiceCustomer = () => {
 
     const setTableTile = (currentNavbarId) => {
         var titleObject = document.getElementById("title-table");
-        if (currentNavbarId == "room-show") {
-            titleObject.innerHTML = "Phòng";
+        titleObject.innerHTML = baseNavbar[currentNavbarId];
 
+    }
+    const getSelectedIds = (arrayObj) => {
 
-        } else if (currentNavbarId == "decoration-show") {
-            titleObject.innerHTML = "Trang Trí";
-
-
-
-        } else if (currentNavbarId == "stage-cus") {
-            titleObject.innerHTML = "Chương Trình";
-
-
-
-        } else if (currentNavbarId == "music-show") {
-            titleObject.innerHTML = "Âm Thanh";
-
-
-
-        } else if (currentNavbarId == "menu-customer") {
-            titleObject.innerHTML = "Thực Đơn";
+        // Find select item
+        var selectedIds = [];
+        for (var i = 0; i < arrayObj.length; i++) {
+            if (arrayObj[i].checked) {
+                selectedIds.push(arrayObj[i].id);
+            }
         }
+
+        return selectedIds;
+    }
+    const setSelectedItems = () => {
+        //Get selected Items
+        var selectedIds = getSelectedIds(document.getElementsByName("elementChoose"));
+
+        //Set selected items to localStorage
+        localStorage.setItem(previousNavbarId, JSON.stringify(selectedIds));
 
     }
 
+    const getPreviousChooseItems = (currentNavbarId) => {
+
+        var previousSelectedItems = localStorage.getItem(currentNavbarId);
+        var currentChoice = document.getElementsByName("elementChoose");
+
+        //set default for all case
+        currentChoice.forEach(function (checkbox) {
+            checkbox.checked = false;
+ 
+        });
+        if (previousSelectedItems != null) {
+            var listPreviousSelectedItems = JSON.parse(previousSelectedItems);
+
+            currentChoice.forEach(function (checkbox) {
+                for (var i = 0; i < listPreviousSelectedItems.length; i++) {
+                    if (checkbox.id == listPreviousSelectedItems[i]) {
+                        checkbox.checked = true;
+                    }
+                }
+
+            });
+        }
+
+    }
     const changeTable = (currentNavbarId) => {
         if (currentNavbarId == "menu-customer") {
             setIsMenu(true);
@@ -147,16 +143,46 @@ const ServiceCustomer = () => {
             setIsMenu(false);
         }
 
+        setSelectedItems();
         setTableTile(currentNavbarId);
         changeNavbar(currentNavbarId);
     };
 
+    const RedirectToNextStage = () => {
+
+        setSelectedItems("music-show")
+        var isNotSelected = false;
+        var notSelectedItems = "Vui lòng chọn ";
+        for (var key in baseNavbar) {
+            var item = localStorage.getItem(key)
+            if (item == null) {
+                isNotSelected = true;
+                notSelectedItems += baseNavbar[key] + ", ";
+            } else if (item.length == 2) { //Not parse to JSON --> [] is 2 characters
+                isNotSelected = true;
+                notSelectedItems += baseNavbar[key] + ", ";
+            }
+        }
+
+        if (isNotSelected) {
+            //Change last comma(,) to dot(.) 
+            notSelectedItems = notSelectedItems.substring(0, notSelectedItems.length - 2) + ".";
+            alert(notSelectedItems);
+        } else {
+           window.location = "/customer/previeworder";
+        }
+    }
+    const parseToVND = (money) => {
+        var config = { style: 'currency', currency: 'VND', maximumFractionDigits: 9 }
+        var formated = new Intl.NumberFormat('vi-VN', config).format(money);
+        return formated;
+    }
 
     return (
         <div className="menu-customer">
 
 
-            <div className="container-xxl py-6">
+            <div className="container-xxl py-6 margin-container-custom">
                 <div className="container">
                     <h1 className="display-6 mb-4 center-title">DỊCH VỤ</h1>
                     <p className='mb-0 font-menu'>- Dịch vụ tổ chức tiệc sinh nhật của chúng tôi không chỉ là việc tổ chức một buổi tiệc, mà còn là việc tạo ra một trải nghiệm đầy ý nghĩa và đáng nhớ cho bạn. </p>
@@ -185,18 +211,19 @@ const ServiceCustomer = () => {
                                 <li><button className='btn btn-primary rounded-pill button-custom' onClick={() => changeTable("stage-cus")} id="stage-cus">
                                     Chương Trình</button>
                                 </li>
-                                <li><button className='btn btn-primary rounded-pill button-custom' onClick={() => changeTable("music-show")} id="music-show">
-                                    Âm Thanh</button>
-                                </li>
                                 <li><button className='btn btn-primary rounded-pill button-custom' onClick={() => changeTable("menu-customer")} id="menu-customer">
                                     Thực Đơn</button>
                                 </li>
+                                <li><button className='btn btn-primary rounded-pill button-custom' onClick={() => changeTable("music-show")} id="music-show">
+                                    Dịch Vụ Khác</button>
+                                </li>
+                               
                             </ul>
 
                         </nav>
 
 
-                        <div id="content" className="col-lg-10 scrollable-table-wrapper">
+                        <div id="content" className="col-lg-10 scrollable-table-wrapper margin-table-custom">
 
                             <table className="table">
                                 <thead>
@@ -207,7 +234,9 @@ const ServiceCustomer = () => {
                                 <tbody className='' >
                                     {currentTable.map((element) => {
                                         return (
+
                                             <tr className='row-container'>
+
                                                 <img src={element.image} className='col-lg-3' style={{ width: '200px', height: '200px' }}>
 
                                                 </img>
@@ -215,11 +244,11 @@ const ServiceCustomer = () => {
                                                     <div className='row-content-header'>
                                                         <h5 className='col-lg-9'>{element.name}</h5>
                                                         <div className='col-lg-3'>
-                                                            <h5 className=''>Giá: {element.price} vnđ</h5>
+                                                            <h5 className=''>Giá: {parseToVND(element.price)}</h5>
                                                             {isMenu
-                                                                ? <h5 className=''>Chọn:<input className='margin-checkbox' name="elementChoose" type='checkbox'></input> </h5>
+                                                                ? <h5 className=''>Chọn:<input id={element.id} className='margin-checkbox' name="elementChoose" type='checkbox'></input> </h5>
 
-                                                                : <h5 className=''>Chọn:<input className='margin-checkbox' name="elementChoose" type='radio'></input> </h5>
+                                                                : <h5 className=''>Chọn:<input id={element.id} className='margin-checkbox' name="elementChoose" type='radio' ></input> </h5>
                                                             }
 
                                                         </div>
@@ -231,20 +260,29 @@ const ServiceCustomer = () => {
                                                 </div>
 
                                             </tr>
+
+
                                         )
                                     })
                                     }
 
                                 </tbody>
                             </table>
+
                         </div>
 
                     </div>
 
-
                 </div>
+                {previousNavbarId == "music-show"
+                    ? <button className='btn btn-primary rounded-pill button-custom right-side-button'
+                        style={{ fontSize: "x-large" }}
+                        onClick={() => RedirectToNextStage()}> Đặt Tiệc</button>
+                    : <></>}
             </div>
+
         </div>
+
     );
 
 };

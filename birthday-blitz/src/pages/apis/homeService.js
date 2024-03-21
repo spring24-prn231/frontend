@@ -21,7 +21,7 @@ const getCountOrders = async (isMock = false) => {
 }
 
 const getCountRooms = async (isMock = false) => {
-    const url = '/rooms?pagesize=10000&isEager=false';
+    const url = '/rooms/anonymous?pagesize=10000&isEager=false';
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {
@@ -37,7 +37,7 @@ const getCountRooms = async (isMock = false) => {
 }
 
 const getCountCapacities = async (isMock = false) => {
-    const url = '/rooms?pagesize=1000&sortBy=1&sort=Capacity&isEager=false';
+    const url = '/rooms/anonymous?pagesize=1000&sortBy=1&sort=Capacity&isEager=false';
     const instance = await getAxiosInstance();
     if (isMock) {
         return new Promise(resolve => {

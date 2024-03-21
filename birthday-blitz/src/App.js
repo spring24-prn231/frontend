@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages/home/Home';
 // import Navbar from './pages/navbar-customer/NavbarCustomer';
+import PreviewOrder from "./pages/preview-order/PreviewOrder";
 import ServiceCustomer from "./pages/service-customer/ServiceCustomer";
 import ContactCustomer from "./pages/contact-customer/ContactCustomer";
 import AboutUs from "./pages/about-us-customer/AboutUsCustomer";
@@ -64,6 +65,7 @@ function App() {
                     <Route path='aboutus' element={<AboutUs />} />
                     <Route path='service' element={<ServiceCustomer />} />
                     <Route path='contact' element={<ContactCustomer />} />
+                    <Route path='previeworder' element={<PreviewOrder />} />
                 </Route> 
                 
                 {
