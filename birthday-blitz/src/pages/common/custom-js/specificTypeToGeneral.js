@@ -22,7 +22,7 @@ function changeToGeneralType(arrayOfObjects, typeName, typePrice, typeContent, t
 }
 
 function getServiceElements(arrayOfObjects) {
-    console.log(arrayOfObjects[0].serviceElements);
+    //console.log(arrayOfObjects[0].serviceElements);
     return arrayOfObjects[0].serviceElements;
 }
 export { changeToGeneralType, getServiceElements };
