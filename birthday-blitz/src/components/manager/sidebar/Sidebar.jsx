@@ -18,22 +18,16 @@ const Sidebar = () => {
         <div className="sidebar-container">
             <div className="sidebar-center">
                 <ul>
-                    <Link to={'dashboard'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('dashboard')
-                            || pathname.split('/').length === 2
-                            ?'sidebar-item-active': ''}`}>
-                            <DashboardIcon className="sidebar-icon" />
-                            <span className="sidebar-item-name">Bảng báo cáo</span>
-                        </li>
-                    </Link>
                     <Link to={'plan'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('plan')?'sidebar-item-active': ''}`}>
+                        <li className={`sidebar-item ${pathname.includes('plan')
+                            || pathname.split('/').length === 2
+                            ? 'sidebar-item-active' : ''}`}>
                             <EventNoteIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Kế hoạch</span>
                         </li>
                     </Link>
                     <Link to={'user'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('user')?'sidebar-item-active': ''}`}>
+                        <li className={`sidebar-item ${pathname.includes('user') ? 'sidebar-item-active' : ''}`}>
                             <PeopleAltIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Khách hàng</span>
                         </li>
@@ -45,25 +39,25 @@ const Sidebar = () => {
                         </li>
                     </Link> */}
                     <Link to={'feedback'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('feedback')?'sidebar-item-active': ''}`}>
+                        <li className={`sidebar-item ${pathname.includes('feedback') ? 'sidebar-item-active' : ''}`}>
                             <FeedbackIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Phản hồi</span>
                         </li>
                     </Link>
                     <Link to={'room'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('room')?'sidebar-item-active': ''}`}>
+                        <li className={`sidebar-item ${pathname.includes('room') ? 'sidebar-item-active' : ''}`}>
                             <MeetingRoomIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Phòng</span>
                         </li>
                     </Link>
                     <Link to={'food'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('food')?'sidebar-item-active': ''}`}>
+                        <li className={`sidebar-item ${pathname.includes('food') ? 'sidebar-item-active' : ''}`}>
                             <LocalDiningIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Món ăn</span>
                         </li>
                     </Link>
                     <Link to={'order'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('order')?'sidebar-item-active': ''}`}>
+                        <li className={`sidebar-item ${pathname.includes('order') ? 'sidebar-item-active' : ''}`}>
                             <AttachMoneyIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Đơn hàng</span>
                         </li>
@@ -75,14 +69,14 @@ const Sidebar = () => {
                         </li>
                     </Link> */}
                     <Link to={'staff'} style={{ textDecoration: 'none', color: 'black' }}>
-                        <li className={`sidebar-item ${pathname.includes('staff')?'sidebar-item-active': ''}`}>
+                        <li className={`sidebar-item ${pathname.includes('staff') ? 'sidebar-item-active' : ''}`}>
                             <SupervisedUserCircleIcon className="sidebar-icon" />
                             <span className="sidebar-item-name">Nhân viên</span>
                         </li>
                     </Link>
                 </ul>
             </div>
-            <div style={{ height: '50px',  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+            <div style={{ height: '50px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <span className="sidebar-item-name">@loc12345</span>
             </div>
             {/* <div className="bottom">
